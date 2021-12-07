@@ -1,5 +1,5 @@
 extern crate pkg_config;
-extern crate gcc;
+extern crate cc;
 
 use std::fs::{self,File};
 use std::path::Path;
@@ -7,7 +7,7 @@ use std::path::Path;
 use std::io::prelude::*;
 
 fn main() {
-    let libraw = pkg_config::Config::new().atleast_version("0.15.0").find("libraw_r").unwrap();
+    let libraw = pkg_config::Config::new().atleast_version("0.20.0").find("libraw_r").unwrap();
 
     // libraw_iparams_t members
 
@@ -32,10 +32,6 @@ fn main() {
     }
 
     // libraw_output_params_t members
-
-    if check_member(&libraw, "libraw_output_params_t", "sony_arw2_hack") {
-        println!("cargo:rustc-cfg=have_output_params_sony_arw2_hack");
-    }
 
     if check_member(&libraw, "libraw_output_params_t", "afd_noise_att") {
         println!("cargo:rustc-cfg=have_output_params_afd_noise_att");
@@ -168,17 +164,17 @@ fn main() {
     }
 
     // compile test helper functions
-    let mut gcc = gcc::Config::new();
+    let mut cc = cc::Build::new();
 
     for path in libraw.include_paths {
-        gcc.include(path.to_str().unwrap());
+        cc.include(path.to_str().unwrap());
     }
 
     for define in defines {
-        gcc.define(define, None);
+        cc.define(define, None);
     }
 
-    gcc.file("tests/sizes.c").compile("libsizes.a");
+    cc.file("tests/sizes.c").compile("libsizes.a");
 }
 
 fn check_type(library: &pkg_config::Library, type_name: &str) -> bool {
@@ -199,13 +195,13 @@ fn check_type(library: &pkg_config::Library, type_name: &str) -> bool {
         writeln!(&mut test_file, "}}").unwrap();
     }
 
-    let mut gcc = gcc::Config::new();
+    let mut cc = cc::Build::new();
 
     for path in &library.include_paths {
-        gcc.include(path);
+        cc.include(path);
     }
 
-    let mut command = gcc.get_compiler().to_command();
+    let mut command = cc.get_compiler().to_command();
 
     let output = command.arg("-c").arg(test_file_name).
         arg("-o").arg("target/build/conftest.o").
@@ -233,13 +229,13 @@ fn check_member(library: &pkg_config::Library, type_name: &str, member_name: &st
         writeln!(&mut test_file, "}}").unwrap();
     }
 
-    let mut gcc = gcc::Config::new();
+    let mut cc = cc::Build::new();
 
     for path in &library.include_paths {
-        gcc.include(path);
+        cc.include(path);
     }
 
-    let mut command = gcc.get_compiler().to_command();
+    let mut command = cc.get_compiler().to_command();
 
     let output = command.arg("-c").arg(test_file_name).
         arg("-o").arg("target/build/conftest.o").
