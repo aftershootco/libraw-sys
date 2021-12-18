@@ -1,7 +1,7 @@
 [package]
 name = "libraw-sys"
-version = "0.2.1"
-authors = ["Soham Sen <soham@aftershoot.com>", "David Cuddeback <david.cuddeback@gmail.com>"]
+version = "0.3.0"
+authors = ["Soham Sen <soham@aftershoot.com>"]
 description = "FFI bindings to libraw"
 homepage = "https://github.com/aftershootco/libraw-sys"
 repository = "https://github.com/aftershootco/libraw-sys"
@@ -10,11 +10,6 @@ readme = "README.md"
 keywords = ["libraw", "raw", "camera"]
 
 build = "build.rs"
-links = "raw"
 
-[dependencies]
-libc = "0.2"
-
-[build-dependencies]
-pkg-config = "0.3"
-cc = { version = "1.0", features = ["parallel"] }
+# [dependencies]
+# libc = "0.2"
