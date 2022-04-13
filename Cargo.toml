@@ -10,3 +10,6 @@ readme = "README.md"
 keywords = ["libraw", "raw", "camera"]
 
 build = "build.rs"
+
+[dependencies]
+libc = "0.2.123"
