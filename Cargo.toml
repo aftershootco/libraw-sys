@@ -1,6 +1,8 @@
 [package]
 name = "libraw-sys"
 version = "0.4.0"
+edition = "2021"
+
 authors = ["Soham Sen <soham@aftershoot.com>"]
 description = "FFI bindings to libraw"
 homepage = "https://github.com/aftershootco/libraw-sys"
