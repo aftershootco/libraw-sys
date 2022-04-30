@@ -141,6 +141,7 @@ fn bindings(out_dir: &Path) {
         .blocklist_item("FP_ZERO")
         .blocklist_item("FP_SUBNORMAL")
         .blocklist_item("FP_NORMAL")
+        .blocklist_item("__mingw_ldbl_type_t")
         // Rust doesn't support long double, and bindgen can't skip it
         // https://github.com/rust-lang/rust-bindgen/issues/1549
         .blocklist_function("acoshl")
