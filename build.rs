@@ -230,9 +230,6 @@ fn bindings(out_dir: &Path) {
     bindings
         .write_to_file(out_dir.join("bindings.rs"))
         .expect("Couldn't write bindings!");
-
-    #[cfg(windows)]
-    std::io::copy()
 }
 
 // fn check_openmp(out_dir: &Path) -> bool {
