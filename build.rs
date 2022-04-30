@@ -15,7 +15,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 #[cfg(feature = "build")]
-fn build(out_dir: &Path) -> _ {
+fn build(out_dir: &Path) {
     let mut libraw = cc::Build::new();
     libraw.cpp(true);
     libraw.include("libraw/");
