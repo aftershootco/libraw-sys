@@ -1,9 +1,19 @@
-use std::env;
-use std::path::Path;
+#[cfg(feature = "clone")]
+use std::process::{Command, Stdio};
+
+#[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
+use std::{env, path::Path};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let out_dir_ = env::var_os("OUT_DIR").unwrap();
-    let out_dir = Path::new(&out_dir_);
+    __check();
+
+    #[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
+    let out_dir_ = &env::var_os("OUT_DIR").unwrap();
+    #[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
+    let out_dir = Path::new(out_dir_);
+
+    #[cfg(feature = "clone")]
+    clone(out_dir);
 
     #[cfg(feature = "bindgen")]
     bindings(out_dir);
@@ -16,8 +26,29 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 #[cfg(feature = "build")]
 fn build(out_dir: &Path) {
+    std::env::set_current_dir(out_dir).expect("Unable to set current dir");
+
+    pkg_config::Config::new()
+        .atleast_version("8")
+        .statik(true)
+        .probe("libjpeg")
+        .unwrap();
+
+    pkg_config::Config::new()
+        .atleast_version("3.0.3")
+        .statik(true)
+        .probe("jasper")
+        .unwrap();
+
+    pkg_config::Config::new()
+        .atleast_version("1.2")
+        .statik(true)
+        .probe("zlib")
+        .unwrap();
+
     let mut libraw = cc::Build::new();
     libraw.cpp(true);
+
     libraw.include("libraw/");
 
     libraw.file("libraw/src/decoders/canon_600.cpp");
@@ -108,10 +139,14 @@ fn build(out_dir: &Path) {
     libraw.flag_if_supported("-Wno-format-overflow");
     libraw.flag_if_supported("-fopenmp");
     // thread safety
+
     libraw.flag("-pthread");
-    // if check_openmp(out_dir) {
-    //     libraw.flag("-fopenmp");
-    // }
+    libraw.flag("-DUSE_JPEG8");
+    libraw.flag("-DUSE_ZLIB");
+    // FIXME: This doesn't compile for some reason even with pkg_config enabled
+    // - Maybe a macos / homebrew issue ?
+    // libraw.flag("-DUSE_JASPER");
+
     libraw.static_flag(true);
     libraw.compile("raw_r");
 
@@ -235,19 +270,26 @@ fn bindings(out_dir: &Path) {
         .expect("Couldn't write bindings!");
 }
 
-// fn check_openmp(out_dir: &Path) -> bool {
-//     let code = r#"#include <omp.h>
-// #include <stdio.h>
-// #include <stdlib.h>
+#[cfg(feature = "clone")]
+fn clone(our_dir: &Path) {
+    eprintln!("\x1b[31mCloning libraw");
+    let libraw_repo_url = std::env::var("LIBRAW_REPO")
+        .unwrap_or_else(|_| String::from("https://github.com/libraw/libraw"));
 
-// int main(int argc, char* argv[]) {
-//     #pragma omp parallel
-//     {printf("thread_num = %d\n", omp_get_thread_num());}
-// }"#;
-//     std::fs::create_dir_all(out_dir.join("test")).unwrap();
-//     std::fs::write(out_dir.join("test").join("test.c"), code).unwrap();
-//     let mut openmp_test = cc::Build::new();
-//     openmp_test.file(out_dir.join("test").join("test.c"));
-//     openmp_test.flag("-fopenmp");
-//     openmp_test.try_compile("test").is_ok()
-// }
+    let _git_out = Command::new("git")
+        .arg("clone")
+        .arg("--depth")
+        .arg("1")
+        .arg(&libraw_repo_url)
+        .arg(our_dir.join("libraw"))
+        .stdout(Stdio::inherit())
+        .output()
+        .unwrap_or_else(|_| panic!("Failed to clone libraw from {}", libraw_repo_url));
+}
+
+fn __check() {
+    #[cfg(all(feature = "build", not(any(feature = "clone", feature = "tarball"))))]
+    compile_error!("You need to have clone or tarball enabled to use build");
+    #[cfg(all(feature = "clone", feature = "tarball"))]
+    compile_error!("Cannot have both clone and tarball enabled");
+}

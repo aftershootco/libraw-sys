@@ -11,8 +11,10 @@ libc = "0.2.123"
 
 [build-dependencies]
 bindgen = { version = "0.59.2", optional = true }
+pkg-config = "0.3.25"
 cc = { version = "1.0.73", optional = true }
 
 [features]
-bindgen = ["dep:bindgen"]
-build = ["dep:cc"]
+clone = []
+bindgen = ["dep:bindgen", "clone"]
+build = ["dep:cc", "clone"]
