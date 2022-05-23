@@ -159,6 +159,8 @@ fn build(out_dir: &Path) {
 
 #[cfg(feature = "bindgen")]
 fn bindings(out_dir: &Path) {
+    std::env::set_current_dir(out_dir).expect("Unable to set current dir");
+
     let bindings = bindgen::Builder::default()
         .header("libraw/libraw/libraw.h")
         // .use_core()
