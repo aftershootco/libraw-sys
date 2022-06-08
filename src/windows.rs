@@ -107,7 +107,7 @@ pub const _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_MEMORY: u32 = 0;
 pub const __USE_CRTIMP: u32 = 1;
 pub const USE___UUIDOF: u32 = 0;
 pub const __CRT__NO_INLINE: u32 = 1;
-pub const __MSVCRT_VERSION__: u32 = 3584;
+pub const __MSVCRT_VERSION__: u32 = 1792;
 pub const _WIN32_WINNT: u32 = 1537;
 pub const MINGW_HAS_SECURE_API: u32 = 1;
 pub const __STDC_SECURE_LIB__: u32 = 200411;
@@ -116,7 +116,7 @@ pub const MINGW_HAS_DDK_H: u32 = 1;
 pub const _CRT_PACKING: u32 = 8;
 pub const _SECURECRT_FILL_BUFFER_PATTERN: u32 = 253;
 pub const _ARGMAX: u32 = 100;
-pub const __USE_MINGW_ANSI_STDIO: u32 = 0;
+pub const __USE_MINGW_ANSI_STDIO: u32 = 1;
 pub const PATH_MAX: u32 = 260;
 pub const CHAR_BIT: u32 = 8;
 pub const SCHAR_MIN: i32 = -128;
@@ -183,6 +183,13 @@ pub const TMP_MAX: u32 = 32767;
 pub const _IOFBF: u32 = 0;
 pub const _IOLBF: u32 = 64;
 pub const _IONBF: u32 = 4;
+pub const _IOREAD: u32 = 1;
+pub const _IOWRT: u32 = 2;
+pub const _IOMYBUF: u32 = 8;
+pub const _IOEOF: u32 = 16;
+pub const _IOERR: u32 = 32;
+pub const _IOSTRG: u32 = 64;
+pub const _IORW: u32 = 128;
 pub const _TWO_DIGIT_EXPONENT: u32 = 1;
 pub const P_tmpdir: &[u8; 2usize] = b"\\\0";
 pub const SYS_OPEN: u32 = 20;
@@ -195,6 +202,7 @@ pub const _P_OVERLAY: u32 = 2;
 pub const _WAIT_CHILD: u32 = 0;
 pub const _WAIT_GRANDCHILD: u32 = 1;
 pub const TMP_MAX_S: u32 = 32767;
+pub const __USE_MINGW_STRTOX: u32 = 1;
 pub const EXIT_SUCCESS: u32 = 0;
 pub const EXIT_FAILURE: u32 = 1;
 pub const RAND_MAX: u32 = 32767;
@@ -412,6 +420,7 @@ pub const LIBRAW_MAX_THUMBNAIL_MB: u32 = 512;
 pub const LIBRAW_MAX_METADATA_BLOCKS: u32 = 1024;
 pub const LIBRAW_CBLACK_SIZE: u32 = 4104;
 pub const LIBRAW_IFD_MAXCOUNT: u32 = 10;
+pub const LIBRAW_THUMBNAIL_MAXCOUNT: u32 = 8;
 pub const LIBRAW_CRXTRACKS_MAXCOUNT: u32 = 16;
 pub const LIBRAW_AFDATA_MAXCOUNT: u32 = 4;
 pub const LIBRAW_AHD_TILE: u32 = 512;
@@ -457,17 +466,17 @@ pub struct localeinfo_struct {
 #[test]
 fn bindgen_test_layout_localeinfo_struct() {
     assert_eq!(
-        ::std::mem::size_of::<localeinfo_struct>(),
+        ::core::mem::size_of::<localeinfo_struct>(),
         16usize,
         concat!("Size of: ", stringify!(localeinfo_struct))
     );
     assert_eq!(
-        ::std::mem::align_of::<localeinfo_struct>(),
+        ::core::mem::align_of::<localeinfo_struct>(),
         8usize,
         concat!("Alignment of ", stringify!(localeinfo_struct))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<localeinfo_struct>())).locinfo as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<localeinfo_struct>())).locinfo as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -477,7 +486,7 @@ fn bindgen_test_layout_localeinfo_struct() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<localeinfo_struct>())).mbcinfo as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<localeinfo_struct>())).mbcinfo as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -499,17 +508,17 @@ pub struct tagLC_ID {
 #[test]
 fn bindgen_test_layout_tagLC_ID() {
     assert_eq!(
-        ::std::mem::size_of::<tagLC_ID>(),
+        ::core::mem::size_of::<tagLC_ID>(),
         6usize,
         concat!("Size of: ", stringify!(tagLC_ID))
     );
     assert_eq!(
-        ::std::mem::align_of::<tagLC_ID>(),
+        ::core::mem::align_of::<tagLC_ID>(),
         2usize,
         concat!("Alignment of ", stringify!(tagLC_ID))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tagLC_ID>())).wLanguage as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tagLC_ID>())).wLanguage as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -519,7 +528,7 @@ fn bindgen_test_layout_tagLC_ID() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tagLC_ID>())).wCountry as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tagLC_ID>())).wCountry as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -529,7 +538,7 @@ fn bindgen_test_layout_tagLC_ID() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tagLC_ID>())).wCodePage as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tagLC_ID>())).wCodePage as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -544,58 +553,321 @@ pub type LPLC_ID = *mut tagLC_ID;
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct threadlocaleinfostruct {
-    pub _locale_pctype: *const libc::c_ushort,
-    pub _locale_mb_cur_max: libc::c_int,
-    pub _locale_lc_codepage: libc::c_uint,
+    pub refcount: libc::c_int,
+    pub lc_codepage: libc::c_uint,
+    pub lc_collate_cp: libc::c_uint,
+    pub lc_handle: [libc::c_ulong; 6usize],
+    pub lc_id: [LC_ID; 6usize],
+    pub lc_category: [threadlocaleinfostruct__bindgen_ty_1; 6usize],
+    pub lc_clike: libc::c_int,
+    pub mb_cur_max: libc::c_int,
+    pub lconv_intl_refcount: *mut libc::c_int,
+    pub lconv_num_refcount: *mut libc::c_int,
+    pub lconv_mon_refcount: *mut libc::c_int,
+    pub lconv: *mut lconv,
+    pub ctype1_refcount: *mut libc::c_int,
+    pub ctype1: *mut libc::c_ushort,
+    pub pctype: *const libc::c_ushort,
+    pub pclmap: *const libc::c_uchar,
+    pub pcumap: *const libc::c_uchar,
+    pub lc_time_curr: *mut __lc_time_data,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub struct threadlocaleinfostruct__bindgen_ty_1 {
+    pub locale: *mut libc::c_char,
+    pub wlocale: *mut wchar_t,
+    pub refcount: *mut libc::c_int,
+    pub wrefcount: *mut libc::c_int,
+}
+#[test]
+fn bindgen_test_layout_threadlocaleinfostruct__bindgen_ty_1() {
+    assert_eq!(
+        ::core::mem::size_of::<threadlocaleinfostruct__bindgen_ty_1>(),
+        32usize,
+        concat!(
+            "Size of: ",
+            stringify!(threadlocaleinfostruct__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::core::mem::align_of::<threadlocaleinfostruct__bindgen_ty_1>(),
+        8usize,
+        concat!(
+            "Alignment of ",
+            stringify!(threadlocaleinfostruct__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct__bindgen_ty_1>())).locale as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct__bindgen_ty_1),
+            "::",
+            stringify!(locale)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct__bindgen_ty_1>())).wlocale as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct__bindgen_ty_1),
+            "::",
+            stringify!(wlocale)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct__bindgen_ty_1>())).refcount as *const _
+                as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct__bindgen_ty_1),
+            "::",
+            stringify!(refcount)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct__bindgen_ty_1>())).wrefcount as *const _
+                as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct__bindgen_ty_1),
+            "::",
+            stringify!(wrefcount)
+        )
+    );
 }
 #[test]
 fn bindgen_test_layout_threadlocaleinfostruct() {
     assert_eq!(
-        ::std::mem::size_of::<threadlocaleinfostruct>(),
-        16usize,
+        ::core::mem::size_of::<threadlocaleinfostruct>(),
+        352usize,
         concat!("Size of: ", stringify!(threadlocaleinfostruct))
     );
     assert_eq!(
-        ::std::mem::align_of::<threadlocaleinfostruct>(),
+        ::core::mem::align_of::<threadlocaleinfostruct>(),
         8usize,
         concat!("Alignment of ", stringify!(threadlocaleinfostruct))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<threadlocaleinfostruct>()))._locale_pctype as *const _ as usize
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).refcount as *const _ as usize
         },
         0usize,
         concat!(
             "Offset of field: ",
             stringify!(threadlocaleinfostruct),
             "::",
-            stringify!(_locale_pctype)
+            stringify!(refcount)
         )
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<threadlocaleinfostruct>()))._locale_mb_cur_max as *const _
-                as usize
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).lc_codepage as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(lc_codepage)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).lc_collate_cp as *const _ as usize
         },
         8usize,
         concat!(
             "Offset of field: ",
             stringify!(threadlocaleinfostruct),
             "::",
-            stringify!(_locale_mb_cur_max)
+            stringify!(lc_collate_cp)
         )
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<threadlocaleinfostruct>()))._locale_lc_codepage as *const _
-                as usize
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).lc_handle as *const _ as usize
         },
         12usize,
         concat!(
             "Offset of field: ",
             stringify!(threadlocaleinfostruct),
             "::",
-            stringify!(_locale_lc_codepage)
+            stringify!(lc_handle)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<threadlocaleinfostruct>())).lc_id as *const _ as usize },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(lc_id)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).lc_category as *const _ as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(lc_category)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).lc_clike as *const _ as usize
+        },
+        264usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(lc_clike)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).mb_cur_max as *const _ as usize
+        },
+        268usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(mb_cur_max)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).lconv_intl_refcount as *const _
+                as usize
+        },
+        272usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(lconv_intl_refcount)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).lconv_num_refcount as *const _
+                as usize
+        },
+        280usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(lconv_num_refcount)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).lconv_mon_refcount as *const _
+                as usize
+        },
+        288usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(lconv_mon_refcount)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<threadlocaleinfostruct>())).lconv as *const _ as usize },
+        296usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(lconv)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).ctype1_refcount as *const _ as usize
+        },
+        304usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(ctype1_refcount)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<threadlocaleinfostruct>())).ctype1 as *const _ as usize },
+        312usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(ctype1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<threadlocaleinfostruct>())).pctype as *const _ as usize },
+        320usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(pctype)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<threadlocaleinfostruct>())).pclmap as *const _ as usize },
+        328usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(pclmap)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<threadlocaleinfostruct>())).pcumap as *const _ as usize },
+        336usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(pcumap)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<threadlocaleinfostruct>())).lc_time_curr as *const _ as usize
+        },
+        344usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(threadlocaleinfostruct),
+            "::",
+            stringify!(lc_time_curr)
         )
     );
 }
@@ -661,28 +933,105 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct _iobuf {
-    pub _Placeholder: *mut libc::c_void,
+    pub _ptr: *mut libc::c_char,
+    pub _cnt: libc::c_int,
+    pub _base: *mut libc::c_char,
+    pub _flag: libc::c_int,
+    pub _file: libc::c_int,
+    pub _charbuf: libc::c_int,
+    pub _bufsiz: libc::c_int,
+    pub _tmpfname: *mut libc::c_char,
 }
 #[test]
 fn bindgen_test_layout__iobuf() {
     assert_eq!(
-        ::std::mem::size_of::<_iobuf>(),
-        8usize,
+        ::core::mem::size_of::<_iobuf>(),
+        48usize,
         concat!("Size of: ", stringify!(_iobuf))
     );
     assert_eq!(
-        ::std::mem::align_of::<_iobuf>(),
+        ::core::mem::align_of::<_iobuf>(),
         8usize,
         concat!("Alignment of ", stringify!(_iobuf))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_iobuf>()))._Placeholder as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_iobuf>()))._ptr as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
             stringify!(_iobuf),
             "::",
-            stringify!(_Placeholder)
+            stringify!(_ptr)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<_iobuf>()))._cnt as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_iobuf),
+            "::",
+            stringify!(_cnt)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<_iobuf>()))._base as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_iobuf),
+            "::",
+            stringify!(_base)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<_iobuf>()))._flag as *const _ as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_iobuf),
+            "::",
+            stringify!(_flag)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<_iobuf>()))._file as *const _ as usize },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_iobuf),
+            "::",
+            stringify!(_file)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<_iobuf>()))._charbuf as *const _ as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_iobuf),
+            "::",
+            stringify!(_charbuf)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<_iobuf>()))._bufsiz as *const _ as usize },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_iobuf),
+            "::",
+            stringify!(_bufsiz)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<_iobuf>()))._tmpfname as *const _ as usize },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_iobuf),
+            "::",
+            stringify!(_tmpfname)
         )
     );
 }
@@ -693,58 +1042,6 @@ pub type _off64_t = libc::c_longlong;
 pub type off64_t = libc::c_longlong;
 pub type off_t = off32_t;
 pub type fpos_t = libc::c_longlong;
-extern "C" {
-    pub fn fprintf(_File: *mut FILE, _Format: *const libc::c_char, ...) -> libc::c_int;
-}
-extern "C" {
-    pub fn printf(_Format: *const libc::c_char, ...) -> libc::c_int;
-}
-extern "C" {
-    pub fn sprintf(_Dest: *mut libc::c_char, _Format: *const libc::c_char, ...) -> libc::c_int;
-}
-extern "C" {
-    pub fn vfprintf(
-        _File: *mut FILE,
-        _Format: *const libc::c_char,
-        _ArgList: __builtin_va_list,
-    ) -> libc::c_int;
-}
-extern "C" {
-    pub fn vprintf(_Format: *const libc::c_char, _ArgList: __builtin_va_list) -> libc::c_int;
-}
-extern "C" {
-    pub fn vsprintf(
-        _Dest: *mut libc::c_char,
-        _Format: *const libc::c_char,
-        _Args: __builtin_va_list,
-    ) -> libc::c_int;
-}
-extern "C" {
-    pub fn fscanf(_File: *mut FILE, _Format: *const libc::c_char, ...) -> libc::c_int;
-}
-extern "C" {
-    pub fn scanf(_Format: *const libc::c_char, ...) -> libc::c_int;
-}
-extern "C" {
-    pub fn sscanf(_Src: *const libc::c_char, _Format: *const libc::c_char, ...) -> libc::c_int;
-}
-extern "C" {
-    pub fn vfscanf(
-        __stream: *mut FILE,
-        __format: *const libc::c_char,
-        __local_argv: __builtin_va_list,
-    ) -> libc::c_int;
-}
-extern "C" {
-    pub fn vsscanf(
-        __source: *const libc::c_char,
-        __format: *const libc::c_char,
-        __local_argv: __builtin_va_list,
-    ) -> libc::c_int;
-}
-extern "C" {
-    pub fn vscanf(__format: *const libc::c_char, __local_argv: __builtin_va_list) -> libc::c_int;
-}
 extern "C" {
     pub fn clearerr(_File: *mut FILE);
 }
@@ -816,6 +1113,18 @@ extern "C" {
     pub fn ftell(_File: *mut FILE) -> libc::c_long;
 }
 extern "C" {
+    pub fn fseeko64(stream: *mut FILE, offset: _off64_t, whence: libc::c_int) -> libc::c_int;
+}
+extern "C" {
+    pub fn fseeko(stream: *mut FILE, offset: _off_t, whence: libc::c_int) -> libc::c_int;
+}
+extern "C" {
+    pub fn ftello(stream: *mut FILE) -> _off_t;
+}
+extern "C" {
+    pub fn ftello64(stream: *mut FILE) -> _off64_t;
+}
+extern "C" {
     pub fn fwrite(
         _Str: *const libc::c_void,
         _Size: libc::c_ulonglong,
@@ -878,22 +1187,6 @@ extern "C" {
 }
 extern "C" {
     pub fn ungetc(_Ch: libc::c_int, _File: *mut FILE) -> libc::c_int;
-}
-extern "C" {
-    pub fn vsnprintf(
-        __stream: *mut libc::c_char,
-        __n: libc::c_ulonglong,
-        __format: *const libc::c_char,
-        __local_argv: __builtin_va_list,
-    ) -> libc::c_int;
-}
-extern "C" {
-    pub fn snprintf(
-        __stream: *mut libc::c_char,
-        __n: libc::c_ulonglong,
-        __format: *const libc::c_char,
-        ...
-    ) -> libc::c_int;
 }
 extern "C" {
     pub fn fgetwc(_File: *mut FILE) -> wint_t;
@@ -968,6 +1261,56 @@ extern "C" {
     ) -> usize;
 }
 extern "C" {
+    pub fn fprintf_s(_File: *mut FILE, _Format: *const libc::c_char, ...) -> libc::c_int;
+}
+extern "C" {
+    pub fn fscanf_s(_File: *mut FILE, _Format: *const libc::c_char, ...) -> libc::c_int;
+}
+extern "C" {
+    pub fn printf_s(_Format: *const libc::c_char, ...) -> libc::c_int;
+}
+extern "C" {
+    pub fn scanf_s(_Format: *const libc::c_char, ...) -> libc::c_int;
+}
+extern "C" {
+    pub fn sscanf_s(_Src: *const libc::c_char, _Format: *const libc::c_char, ...) -> libc::c_int;
+}
+extern "C" {
+    pub fn vfprintf_s(
+        _File: *mut FILE,
+        _Format: *const libc::c_char,
+        _ArgList: va_list,
+    ) -> libc::c_int;
+}
+extern "C" {
+    pub fn vprintf_s(_Format: *const libc::c_char, _ArgList: va_list) -> libc::c_int;
+}
+extern "C" {
+    pub fn vsnprintf_s(
+        _DstBuf: *mut libc::c_char,
+        _DstSize: usize,
+        _MaxCount: usize,
+        _Format: *const libc::c_char,
+        _ArgList: va_list,
+    ) -> libc::c_int;
+}
+extern "C" {
+    pub fn vsprintf_s(
+        _DstBuf: *mut libc::c_char,
+        _Size: usize,
+        _Format: *const libc::c_char,
+        _ArgList: va_list,
+    ) -> libc::c_int;
+}
+extern "C" {
+    pub fn sprintf_s(
+        _DstBuf: *mut libc::c_char,
+        _DstSize: usize,
+        _Format: *const libc::c_char,
+        ...
+    ) -> libc::c_int;
+}
+extern "C" {
     pub fn fopen_s(
         _File: *mut *mut FILE,
         _Filename: *const libc::c_char,
@@ -988,7 +1331,45 @@ extern "C" {
 extern "C" {
     pub fn tmpnam_s(arg1: *mut libc::c_char, arg2: rsize_t) -> errno_t;
 }
-pub type _onexit_t = ::std::option::Option<unsafe extern "C" fn() -> libc::c_int>;
+extern "C" {
+    pub fn fwprintf_s(_File: *mut FILE, _Format: *const wchar_t, ...) -> libc::c_int;
+}
+extern "C" {
+    pub fn wprintf_s(_Format: *const wchar_t, ...) -> libc::c_int;
+}
+extern "C" {
+    pub fn vfwprintf_s(_File: *mut FILE, _Format: *const wchar_t, _ArgList: va_list)
+        -> libc::c_int;
+}
+extern "C" {
+    pub fn vwprintf_s(_Format: *const wchar_t, _ArgList: va_list) -> libc::c_int;
+}
+extern "C" {
+    pub fn vswprintf_s(
+        _Dst: *mut wchar_t,
+        _SizeInWords: usize,
+        _Format: *const wchar_t,
+        _ArgList: va_list,
+    ) -> libc::c_int;
+}
+extern "C" {
+    pub fn swprintf_s(
+        _Dst: *mut wchar_t,
+        _SizeInWords: usize,
+        _Format: *const wchar_t,
+        ...
+    ) -> libc::c_int;
+}
+extern "C" {
+    pub fn fwscanf_s(_File: *mut FILE, _Format: *const wchar_t, ...) -> libc::c_int;
+}
+extern "C" {
+    pub fn swscanf_s(_Src: *const wchar_t, _Format: *const wchar_t, ...) -> libc::c_int;
+}
+extern "C" {
+    pub fn wscanf_s(_Format: *const wchar_t, ...) -> libc::c_int;
+}
+pub type _onexit_t = ::core::option::Option<unsafe extern "C" fn() -> libc::c_int>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct _div_t {
@@ -998,17 +1379,17 @@ pub struct _div_t {
 #[test]
 fn bindgen_test_layout__div_t() {
     assert_eq!(
-        ::std::mem::size_of::<_div_t>(),
+        ::core::mem::size_of::<_div_t>(),
         8usize,
         concat!("Size of: ", stringify!(_div_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<_div_t>(),
+        ::core::mem::align_of::<_div_t>(),
         4usize,
         concat!("Alignment of ", stringify!(_div_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_div_t>())).quot as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_div_t>())).quot as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1018,7 +1399,7 @@ fn bindgen_test_layout__div_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_div_t>())).rem as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_div_t>())).rem as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -1038,17 +1419,17 @@ pub struct _ldiv_t {
 #[test]
 fn bindgen_test_layout__ldiv_t() {
     assert_eq!(
-        ::std::mem::size_of::<_ldiv_t>(),
+        ::core::mem::size_of::<_ldiv_t>(),
         8usize,
         concat!("Size of: ", stringify!(_ldiv_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<_ldiv_t>(),
+        ::core::mem::align_of::<_ldiv_t>(),
         4usize,
         concat!("Alignment of ", stringify!(_ldiv_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_ldiv_t>())).quot as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_ldiv_t>())).quot as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1058,7 +1439,7 @@ fn bindgen_test_layout__ldiv_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_ldiv_t>())).rem as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_ldiv_t>())).rem as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -1077,17 +1458,17 @@ pub struct _LDOUBLE {
 #[test]
 fn bindgen_test_layout__LDOUBLE() {
     assert_eq!(
-        ::std::mem::size_of::<_LDOUBLE>(),
+        ::core::mem::size_of::<_LDOUBLE>(),
         10usize,
         concat!("Size of: ", stringify!(_LDOUBLE))
     );
     assert_eq!(
-        ::std::mem::align_of::<_LDOUBLE>(),
+        ::core::mem::align_of::<_LDOUBLE>(),
         1usize,
         concat!("Alignment of ", stringify!(_LDOUBLE))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_LDOUBLE>())).ld as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_LDOUBLE>())).ld as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1105,17 +1486,17 @@ pub struct _CRT_DOUBLE {
 #[test]
 fn bindgen_test_layout__CRT_DOUBLE() {
     assert_eq!(
-        ::std::mem::size_of::<_CRT_DOUBLE>(),
+        ::core::mem::size_of::<_CRT_DOUBLE>(),
         8usize,
         concat!("Size of: ", stringify!(_CRT_DOUBLE))
     );
     assert_eq!(
-        ::std::mem::align_of::<_CRT_DOUBLE>(),
+        ::core::mem::align_of::<_CRT_DOUBLE>(),
         8usize,
         concat!("Alignment of ", stringify!(_CRT_DOUBLE))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_CRT_DOUBLE>())).x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_CRT_DOUBLE>())).x as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1133,17 +1514,17 @@ pub struct _CRT_FLOAT {
 #[test]
 fn bindgen_test_layout__CRT_FLOAT() {
     assert_eq!(
-        ::std::mem::size_of::<_CRT_FLOAT>(),
+        ::core::mem::size_of::<_CRT_FLOAT>(),
         4usize,
         concat!("Size of: ", stringify!(_CRT_FLOAT))
     );
     assert_eq!(
-        ::std::mem::align_of::<_CRT_FLOAT>(),
+        ::core::mem::align_of::<_CRT_FLOAT>(),
         4usize,
         concat!("Alignment of ", stringify!(_CRT_FLOAT))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_CRT_FLOAT>())).f as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_CRT_FLOAT>())).f as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1162,17 +1543,17 @@ pub struct _LONGDOUBLE {
 #[test]
 fn bindgen_test_layout__LONGDOUBLE() {
     assert_eq!(
-        ::std::mem::size_of::<_LONGDOUBLE>(),
+        ::core::mem::size_of::<_LONGDOUBLE>(),
         16usize,
         concat!("Size of: ", stringify!(_LONGDOUBLE))
     );
     assert_eq!(
-        ::std::mem::align_of::<_LONGDOUBLE>(),
+        ::core::mem::align_of::<_LONGDOUBLE>(),
         16usize,
         concat!("Alignment of ", stringify!(_LONGDOUBLE))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_LONGDOUBLE>())).x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_LONGDOUBLE>())).x as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1190,17 +1571,17 @@ pub struct _LDBL12 {
 #[test]
 fn bindgen_test_layout__LDBL12() {
     assert_eq!(
-        ::std::mem::size_of::<_LDBL12>(),
+        ::core::mem::size_of::<_LDBL12>(),
         12usize,
         concat!("Size of: ", stringify!(_LDBL12))
     );
     assert_eq!(
-        ::std::mem::align_of::<_LDBL12>(),
+        ::core::mem::align_of::<_LDBL12>(),
         1usize,
         concat!("Alignment of ", stringify!(_LDBL12))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_LDBL12>())).ld12 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_LDBL12>())).ld12 as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1210,8 +1591,11 @@ fn bindgen_test_layout__LDBL12() {
         )
     );
 }
-pub type _purecall_handler = ::std::option::Option<unsafe extern "C" fn()>;
-pub type _invalid_parameter_handler = ::std::option::Option<
+extern "C" {
+    pub static mut __imp___mb_cur_max: *mut libc::c_int;
+}
+pub type _purecall_handler = ::core::option::Option<unsafe extern "C" fn()>;
+pub type _invalid_parameter_handler = ::core::option::Option<
     unsafe extern "C" fn(
         arg1: *const wchar_t,
         arg2: *const wchar_t,
@@ -1221,10 +1605,49 @@ pub type _invalid_parameter_handler = ::std::option::Option<
     ),
 >;
 extern "C" {
-    pub fn exit(_Code: libc::c_int);
+    pub static mut _sys_errlist: [*mut libc::c_char; 1usize];
 }
 extern "C" {
-    pub fn quick_exit(_Code: libc::c_int);
+    pub static mut _sys_nerr: libc::c_int;
+}
+extern "C" {
+    pub static mut __imp___argc: *mut libc::c_int;
+}
+extern "C" {
+    pub static mut __imp___argv: *mut *mut *mut libc::c_char;
+}
+extern "C" {
+    pub static mut __imp___wargv: *mut *mut *mut wchar_t;
+}
+extern "C" {
+    pub static mut __imp__environ: *mut *mut *mut libc::c_char;
+}
+extern "C" {
+    pub static mut __imp__wenviron: *mut *mut *mut wchar_t;
+}
+extern "C" {
+    pub static mut __imp__pgmptr: *mut *mut libc::c_char;
+}
+extern "C" {
+    pub static mut __imp__wpgmptr: *mut *mut wchar_t;
+}
+extern "C" {
+    pub static mut __imp__osplatform: *mut libc::c_uint;
+}
+extern "C" {
+    pub static mut __imp__osver: *mut libc::c_uint;
+}
+extern "C" {
+    pub static mut __imp__winver: *mut libc::c_uint;
+}
+extern "C" {
+    pub static mut __imp__winmajor: *mut libc::c_uint;
+}
+extern "C" {
+    pub static mut __imp__winminor: *mut libc::c_uint;
+}
+extern "C" {
+    pub fn exit(_Code: libc::c_int);
 }
 extern "C" {
     pub fn abort();
@@ -1236,10 +1659,7 @@ extern "C" {
     pub fn labs(_X: libc::c_long) -> libc::c_long;
 }
 extern "C" {
-    pub fn atexit(arg1: ::std::option::Option<unsafe extern "C" fn()>) -> libc::c_int;
-}
-extern "C" {
-    pub fn at_quick_exit(arg1: ::std::option::Option<unsafe extern "C" fn()>) -> libc::c_int;
+    pub fn atexit(arg1: ::core::option::Option<unsafe extern "C" fn()>) -> libc::c_int;
 }
 extern "C" {
     pub fn atof(_String: *const libc::c_char) -> f64;
@@ -1256,7 +1676,7 @@ extern "C" {
         _Base: *const libc::c_void,
         _NumOfElements: usize,
         _SizeOfElements: usize,
-        _PtFuncCompare: ::std::option::Option<
+        _PtFuncCompare: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *const libc::c_void,
                 arg2: *const libc::c_void,
@@ -1269,7 +1689,7 @@ extern "C" {
         _Base: *mut libc::c_void,
         _NumOfElements: usize,
         _SizeOfElements: usize,
-        _PtFuncCompare: ::std::option::Option<
+        _PtFuncCompare: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *const libc::c_void,
                 arg2: *const libc::c_void,
@@ -1309,12 +1729,6 @@ extern "C" {
     pub fn srand(_Seed: libc::c_uint);
 }
 extern "C" {
-    pub fn strtod(_Str: *const libc::c_char, _EndPtr: *mut *mut libc::c_char) -> f64;
-}
-extern "C" {
-    pub fn strtof(nptr: *const libc::c_char, endptr: *mut *mut libc::c_char) -> f32;
-}
-extern "C" {
     pub fn strtol(
         _Str: *const libc::c_char,
         _EndPtr: *mut *mut libc::c_char,
@@ -1351,12 +1765,6 @@ extern "C" {
 }
 extern "C" {
     pub fn realloc(_Memory: *mut libc::c_void, _NewSize: libc::c_ulonglong) -> *mut libc::c_void;
-}
-extern "C" {
-    pub fn wcstod(_Str: *const wchar_t, _EndPtr: *mut *mut wchar_t) -> f64;
-}
-extern "C" {
-    pub fn wcstof(nptr: *const wchar_t, endptr: *mut *mut wchar_t) -> f32;
 }
 extern "C" {
     pub fn wcstol(
@@ -1434,17 +1842,17 @@ pub struct lldiv_t {
 #[test]
 fn bindgen_test_layout_lldiv_t() {
     assert_eq!(
-        ::std::mem::size_of::<lldiv_t>(),
+        ::core::mem::size_of::<lldiv_t>(),
         16usize,
         concat!("Size of: ", stringify!(lldiv_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<lldiv_t>(),
+        ::core::mem::align_of::<lldiv_t>(),
         8usize,
         concat!("Alignment of ", stringify!(lldiv_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<lldiv_t>())).quot as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<lldiv_t>())).quot as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1454,7 +1862,7 @@ fn bindgen_test_layout_lldiv_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<lldiv_t>())).rem as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<lldiv_t>())).rem as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -1516,7 +1924,7 @@ extern "C" {
         _Base: *const libc::c_void,
         _NumOfElements: rsize_t,
         _SizeOfElements: rsize_t,
-        _PtFuncCompare: ::std::option::Option<
+        _PtFuncCompare: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut libc::c_void,
                 arg2: *const libc::c_void,
@@ -1565,7 +1973,7 @@ extern "C" {
         _Base: *mut libc::c_void,
         _NumOfElements: usize,
         _SizeOfElements: usize,
-        _PtFuncCompare: ::std::option::Option<
+        _PtFuncCompare: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut libc::c_void,
                 arg2: *const libc::c_void,
@@ -1585,17 +1993,17 @@ pub struct _heapinfo {
 #[test]
 fn bindgen_test_layout__heapinfo() {
     assert_eq!(
-        ::std::mem::size_of::<_heapinfo>(),
+        ::core::mem::size_of::<_heapinfo>(),
         24usize,
         concat!("Size of: ", stringify!(_heapinfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_heapinfo>(),
+        ::core::mem::align_of::<_heapinfo>(),
         8usize,
         concat!("Alignment of ", stringify!(_heapinfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_heapinfo>()))._pentry as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_heapinfo>()))._pentry as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1605,7 +2013,7 @@ fn bindgen_test_layout__heapinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_heapinfo>()))._size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_heapinfo>()))._size as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -1615,7 +2023,7 @@ fn bindgen_test_layout__heapinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_heapinfo>()))._useflag as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_heapinfo>()))._useflag as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -1645,12 +2053,12 @@ pub struct __mingw_dbl_type_t__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout___mingw_dbl_type_t__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<__mingw_dbl_type_t__bindgen_ty_1>(),
+        ::core::mem::size_of::<__mingw_dbl_type_t__bindgen_ty_1>(),
         8usize,
         concat!("Size of: ", stringify!(__mingw_dbl_type_t__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<__mingw_dbl_type_t__bindgen_ty_1>(),
+        ::core::mem::align_of::<__mingw_dbl_type_t__bindgen_ty_1>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -1659,7 +2067,7 @@ fn bindgen_test_layout___mingw_dbl_type_t__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__mingw_dbl_type_t__bindgen_ty_1>())).low as *const _ as usize
+            &(*(::core::ptr::null::<__mingw_dbl_type_t__bindgen_ty_1>())).low as *const _ as usize
         },
         0usize,
         concat!(
@@ -1671,7 +2079,7 @@ fn bindgen_test_layout___mingw_dbl_type_t__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__mingw_dbl_type_t__bindgen_ty_1>())).high as *const _ as usize
+            &(*(::core::ptr::null::<__mingw_dbl_type_t__bindgen_ty_1>())).high as *const _ as usize
         },
         4usize,
         concat!(
@@ -1685,17 +2093,17 @@ fn bindgen_test_layout___mingw_dbl_type_t__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout___mingw_dbl_type_t() {
     assert_eq!(
-        ::std::mem::size_of::<__mingw_dbl_type_t>(),
+        ::core::mem::size_of::<__mingw_dbl_type_t>(),
         8usize,
         concat!("Size of: ", stringify!(__mingw_dbl_type_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<__mingw_dbl_type_t>(),
+        ::core::mem::align_of::<__mingw_dbl_type_t>(),
         8usize,
         concat!("Alignment of ", stringify!(__mingw_dbl_type_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__mingw_dbl_type_t>())).x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__mingw_dbl_type_t>())).x as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1705,7 +2113,7 @@ fn bindgen_test_layout___mingw_dbl_type_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__mingw_dbl_type_t>())).val as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__mingw_dbl_type_t>())).val as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1715,7 +2123,7 @@ fn bindgen_test_layout___mingw_dbl_type_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__mingw_dbl_type_t>())).lh as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__mingw_dbl_type_t>())).lh as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1734,17 +2142,17 @@ pub union __mingw_flt_type_t {
 #[test]
 fn bindgen_test_layout___mingw_flt_type_t() {
     assert_eq!(
-        ::std::mem::size_of::<__mingw_flt_type_t>(),
+        ::core::mem::size_of::<__mingw_flt_type_t>(),
         4usize,
         concat!("Size of: ", stringify!(__mingw_flt_type_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<__mingw_flt_type_t>(),
+        ::core::mem::align_of::<__mingw_flt_type_t>(),
         4usize,
         concat!("Alignment of ", stringify!(__mingw_flt_type_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__mingw_flt_type_t>())).x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__mingw_flt_type_t>())).x as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1754,7 +2162,7 @@ fn bindgen_test_layout___mingw_flt_type_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__mingw_flt_type_t>())).val as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__mingw_flt_type_t>())).val as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1775,12 +2183,12 @@ pub struct __mingw_ldbl_type_t__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout___mingw_ldbl_type_t__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<__mingw_ldbl_type_t__bindgen_ty_1>(),
+        ::core::mem::size_of::<__mingw_ldbl_type_t__bindgen_ty_1>(),
         16usize,
         concat!("Size of: ", stringify!(__mingw_ldbl_type_t__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<__mingw_ldbl_type_t__bindgen_ty_1>(),
+        ::core::mem::align_of::<__mingw_ldbl_type_t__bindgen_ty_1>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -1789,7 +2197,7 @@ fn bindgen_test_layout___mingw_ldbl_type_t__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__mingw_ldbl_type_t__bindgen_ty_1>())).low as *const _ as usize
+            &(*(::core::ptr::null::<__mingw_ldbl_type_t__bindgen_ty_1>())).low as *const _ as usize
         },
         0usize,
         concat!(
@@ -1801,7 +2209,7 @@ fn bindgen_test_layout___mingw_ldbl_type_t__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__mingw_ldbl_type_t__bindgen_ty_1>())).high as *const _ as usize
+            &(*(::core::ptr::null::<__mingw_ldbl_type_t__bindgen_ty_1>())).high as *const _ as usize
         },
         4usize,
         concat!(
@@ -1815,34 +2223,34 @@ fn bindgen_test_layout___mingw_ldbl_type_t__bindgen_ty_1() {
 impl __mingw_ldbl_type_t__bindgen_ty_1 {
     #[inline]
     pub fn sign_exponent(&self) -> libc::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 16u8) as u32) }
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 16u8) as u32) }
     }
     #[inline]
     pub fn set_sign_exponent(&mut self, val: libc::c_int) {
         unsafe {
-            let val: u32 = ::std::mem::transmute(val);
+            let val: u32 = ::core::mem::transmute(val);
             self._bitfield_1.set(0usize, 16u8, val as u64)
         }
     }
     #[inline]
     pub fn res1(&self) -> libc::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(16usize, 16u8) as u32) }
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(16usize, 16u8) as u32) }
     }
     #[inline]
     pub fn set_res1(&mut self, val: libc::c_int) {
         unsafe {
-            let val: u32 = ::std::mem::transmute(val);
+            let val: u32 = ::core::mem::transmute(val);
             self._bitfield_1.set(16usize, 16u8, val as u64)
         }
     }
     #[inline]
     pub fn res0(&self) -> libc::c_int {
-        unsafe { ::std::mem::transmute(self._bitfield_1.get(32usize, 32u8) as u32) }
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(32usize, 32u8) as u32) }
     }
     #[inline]
     pub fn set_res0(&mut self, val: libc::c_int) {
         unsafe {
-            let val: u32 = ::std::mem::transmute(val);
+            let val: u32 = ::core::mem::transmute(val);
             self._bitfield_1.set(32usize, 32u8, val as u64)
         }
     }
@@ -1854,22 +2262,22 @@ impl __mingw_ldbl_type_t__bindgen_ty_1 {
     ) -> __BindgenBitfieldUnit<[u8; 8usize]> {
         let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 8usize]> = Default::default();
         __bindgen_bitfield_unit.set(0usize, 16u8, {
-            let sign_exponent: u32 = unsafe { ::std::mem::transmute(sign_exponent) };
+            let sign_exponent: u32 = unsafe { ::core::mem::transmute(sign_exponent) };
             sign_exponent as u64
         });
         __bindgen_bitfield_unit.set(16usize, 16u8, {
-            let res1: u32 = unsafe { ::std::mem::transmute(res1) };
+            let res1: u32 = unsafe { ::core::mem::transmute(res1) };
             res1 as u64
         });
         __bindgen_bitfield_unit.set(32usize, 32u8, {
-            let res0: u32 = unsafe { ::std::mem::transmute(res0) };
+            let res0: u32 = unsafe { ::core::mem::transmute(res0) };
             res0 as u64
         });
         __bindgen_bitfield_unit
     }
 }
 extern "C" {
-    pub static _HUGE: f64;
+    pub static mut __imp__HUGE: *mut f64;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -1883,17 +2291,17 @@ pub struct _exception {
 #[test]
 fn bindgen_test_layout__exception() {
     assert_eq!(
-        ::std::mem::size_of::<_exception>(),
+        ::core::mem::size_of::<_exception>(),
         40usize,
         concat!("Size of: ", stringify!(_exception))
     );
     assert_eq!(
-        ::std::mem::align_of::<_exception>(),
+        ::core::mem::align_of::<_exception>(),
         8usize,
         concat!("Alignment of ", stringify!(_exception))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_exception>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_exception>())).type_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1903,7 +2311,7 @@ fn bindgen_test_layout__exception() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_exception>())).name as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_exception>())).name as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -1913,7 +2321,7 @@ fn bindgen_test_layout__exception() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_exception>())).arg1 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_exception>())).arg1 as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -1923,7 +2331,7 @@ fn bindgen_test_layout__exception() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_exception>())).arg2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_exception>())).arg2 as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -1933,7 +2341,7 @@ fn bindgen_test_layout__exception() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_exception>())).retval as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_exception>())).retval as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -2027,17 +2435,17 @@ pub struct _complex {
 #[test]
 fn bindgen_test_layout__complex() {
     assert_eq!(
-        ::std::mem::size_of::<_complex>(),
+        ::core::mem::size_of::<_complex>(),
         16usize,
         concat!("Size of: ", stringify!(_complex))
     );
     assert_eq!(
-        ::std::mem::align_of::<_complex>(),
+        ::core::mem::align_of::<_complex>(),
         8usize,
         concat!("Alignment of ", stringify!(_complex))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_complex>())).x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_complex>())).x as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2047,7 +2455,7 @@ fn bindgen_test_layout__complex() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_complex>())).y as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_complex>())).y as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2374,17 +2782,17 @@ pub struct timespec {
 #[test]
 fn bindgen_test_layout_timespec() {
     assert_eq!(
-        ::std::mem::size_of::<timespec>(),
+        ::core::mem::size_of::<timespec>(),
         16usize,
         concat!("Size of: ", stringify!(timespec))
     );
     assert_eq!(
-        ::std::mem::align_of::<timespec>(),
+        ::core::mem::align_of::<timespec>(),
         8usize,
         concat!("Alignment of ", stringify!(timespec))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<timespec>())).tv_sec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<timespec>())).tv_sec as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2394,7 +2802,7 @@ fn bindgen_test_layout_timespec() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<timespec>())).tv_nsec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<timespec>())).tv_nsec as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2413,17 +2821,17 @@ pub struct itimerspec {
 #[test]
 fn bindgen_test_layout_itimerspec() {
     assert_eq!(
-        ::std::mem::size_of::<itimerspec>(),
+        ::core::mem::size_of::<itimerspec>(),
         32usize,
         concat!("Size of: ", stringify!(itimerspec))
     );
     assert_eq!(
-        ::std::mem::align_of::<itimerspec>(),
+        ::core::mem::align_of::<itimerspec>(),
         8usize,
         concat!("Alignment of ", stringify!(itimerspec))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<itimerspec>())).it_interval as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<itimerspec>())).it_interval as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2433,7 +2841,7 @@ fn bindgen_test_layout_itimerspec() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<itimerspec>())).it_value as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<itimerspec>())).it_value as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -2778,6 +3186,8 @@ pub const LibRaw_dngfields_marks_LIBRAW_DNGFM_ASSHOTNEUTRAL: LibRaw_dngfields_ma
 pub const LibRaw_dngfields_marks_LIBRAW_DNGFM_BASELINEEXPOSURE: LibRaw_dngfields_marks = 8192;
 pub const LibRaw_dngfields_marks_LIBRAW_DNGFM_LINEARRESPONSELIMIT: LibRaw_dngfields_marks = 16384;
 pub const LibRaw_dngfields_marks_LIBRAW_DNGFM_USERCROP: LibRaw_dngfields_marks = 32768;
+pub const LibRaw_dngfields_marks_LIBRAW_DNGFM_OPCODE1: LibRaw_dngfields_marks = 65536;
+pub const LibRaw_dngfields_marks_LIBRAW_DNGFM_OPCODE3: LibRaw_dngfields_marks = 131072;
 pub type LibRaw_dngfields_marks = libc::c_uint;
 pub const LibRaw_As_Shot_WB_Applied_codes_LIBRAW_ASWB_APPLIED: LibRaw_As_Shot_WB_Applied_codes = 1;
 pub const LibRaw_As_Shot_WB_Applied_codes_LIBRAW_ASWB_CANON: LibRaw_As_Shot_WB_Applied_codes = 2;
@@ -2881,6 +3291,8 @@ pub const LibRaw_runtime_capabilities_LIBRAW_CAPS_X3FTOOLS: LibRaw_runtime_capab
 pub const LibRaw_runtime_capabilities_LIBRAW_CAPS_RPI6BY9: LibRaw_runtime_capabilities = 32;
 pub const LibRaw_runtime_capabilities_LIBRAW_CAPS_ZLIB: LibRaw_runtime_capabilities = 64;
 pub const LibRaw_runtime_capabilities_LIBRAW_CAPS_JPEG: LibRaw_runtime_capabilities = 128;
+pub const LibRaw_runtime_capabilities_LIBRAW_CAPS_RAWSPEED3: LibRaw_runtime_capabilities = 256;
+pub const LibRaw_runtime_capabilities_LIBRAW_CAPS_RAWSPEED_BITS: LibRaw_runtime_capabilities = 512;
 pub type LibRaw_runtime_capabilities = libc::c_uint;
 pub const LibRaw_colorspace_LIBRAW_COLORSPACE_NotFound: LibRaw_colorspace = 0;
 pub const LibRaw_colorspace_LIBRAW_COLORSPACE_sRGB: LibRaw_colorspace = 1;
@@ -3168,6 +3580,13 @@ pub const LibRaw_rawspecial_t_LIBRAW_RAWSPECIAL_NODP2Q_INTERPOLATEAF: LibRaw_raw
 pub const LibRaw_rawspecial_t_LIBRAW_RAWSPECIAL_SRAW_NO_RGB: LibRaw_rawspecial_t = 64;
 pub const LibRaw_rawspecial_t_LIBRAW_RAWSPECIAL_SRAW_NO_INTERPOLATE: LibRaw_rawspecial_t = 128;
 pub type LibRaw_rawspecial_t = libc::c_uint;
+pub const LibRaw_rawspeed_bits_t_LIBRAW_RAWSPEEDV1_USE: LibRaw_rawspeed_bits_t = 1;
+pub const LibRaw_rawspeed_bits_t_LIBRAW_RAWSPEEDV1_FAILONUNKNOWN: LibRaw_rawspeed_bits_t = 2;
+pub const LibRaw_rawspeed_bits_t_LIBRAW_RAWSPEEDV1_IGNOREERRORS: LibRaw_rawspeed_bits_t = 4;
+pub const LibRaw_rawspeed_bits_t_LIBRAW_RAWSPEEDV3_USE: LibRaw_rawspeed_bits_t = 256;
+pub const LibRaw_rawspeed_bits_t_LIBRAW_RAWSPEEDV3_FAILONUNKNOWN: LibRaw_rawspeed_bits_t = 512;
+pub const LibRaw_rawspeed_bits_t_LIBRAW_RAWSPEEDV3_IGNOREERRORS: LibRaw_rawspeed_bits_t = 1024;
+pub type LibRaw_rawspeed_bits_t = libc::c_uint;
 pub const LibRaw_processing_options_LIBRAW_RAWOPTIONS_PENTAX_PS_ALLFRAMES:
     LibRaw_processing_options = 1;
 pub const LibRaw_processing_options_LIBRAW_RAWOPTIONS_CONVERTFLOAT_TO_INT:
@@ -3204,6 +3623,14 @@ pub const LibRaw_processing_options_LIBRAW_RAWOPTIONS_CHECK_THUMBNAILS_KNOWN_VEN
     LibRaw_processing_options = 262144;
 pub const LibRaw_processing_options_LIBRAW_RAWOPTIONS_CHECK_THUMBNAILS_ALL_VENDORS:
     LibRaw_processing_options = 524288;
+pub const LibRaw_processing_options_LIBRAW_RAWOPTIONS_DNG_STAGE2_IFPRESENT:
+    LibRaw_processing_options = 1048576;
+pub const LibRaw_processing_options_LIBRAW_RAWOPTIONS_DNG_STAGE3_IFPRESENT:
+    LibRaw_processing_options = 2097152;
+pub const LibRaw_processing_options_LIBRAW_RAWOPTIONS_DNG_ADD_MASKS: LibRaw_processing_options =
+    4194304;
+pub const LibRaw_processing_options_LIBRAW_RAWOPTIONS_CANON_IGNORE_MAKERNOTES_ROTATION:
+    LibRaw_processing_options = 8388608;
 pub type LibRaw_processing_options = libc::c_uint;
 pub const LibRaw_decoder_flags_LIBRAW_DECODER_HASCURVE: LibRaw_decoder_flags = 16;
 pub const LibRaw_decoder_flags_LIBRAW_DECODER_SONYARW2: LibRaw_decoder_flags = 32;
@@ -3216,12 +3643,12 @@ pub const LibRaw_decoder_flags_LIBRAW_DECODER_3CHANNEL: LibRaw_decoder_flags = 2
 pub const LibRaw_decoder_flags_LIBRAW_DECODER_SINAR4SHOT: LibRaw_decoder_flags = 2048;
 pub const LibRaw_decoder_flags_LIBRAW_DECODER_FLATDATA: LibRaw_decoder_flags = 4096;
 pub const LibRaw_decoder_flags_LIBRAW_DECODER_FLAT_BG2_SWAPPED: LibRaw_decoder_flags = 8192;
+pub const LibRaw_decoder_flags_LIBRAW_DECODER_UNSUPPORTED_FORMAT: LibRaw_decoder_flags = 16384;
 pub const LibRaw_decoder_flags_LIBRAW_DECODER_NOTSET: LibRaw_decoder_flags = 32768;
+pub const LibRaw_decoder_flags_LIBRAW_DECODER_TRYRAWSPEED3: LibRaw_decoder_flags = 65536;
 pub type LibRaw_decoder_flags = libc::c_uint;
 pub const LibRaw_constructor_flags_LIBRAW_OPTIONS_NONE: LibRaw_constructor_flags = 0;
-pub const LibRaw_constructor_flags_LIBRAW_OPTIONS_NO_MEMERR_CALLBACK: LibRaw_constructor_flags = 1;
 pub const LibRaw_constructor_flags_LIBRAW_OPTIONS_NO_DATAERR_CALLBACK: LibRaw_constructor_flags = 2;
-pub const LibRaw_constructor_flags_LIBRAW_OPIONS_NO_MEMERR_CALLBACK: LibRaw_constructor_flags = 1;
 pub const LibRaw_constructor_flags_LIBRAW_OPIONS_NO_DATAERR_CALLBACK: LibRaw_constructor_flags = 2;
 pub type LibRaw_constructor_flags = libc::c_uint;
 pub const LibRaw_warnings_LIBRAW_WARN_NONE: LibRaw_warnings = 0;
@@ -3243,6 +3670,10 @@ pub const LibRaw_warnings_LIBRAW_WARN_DNGSDK_PROCESSED: LibRaw_warnings = 131072
 pub const LibRaw_warnings_LIBRAW_WARN_DNG_IMAGES_REORDERED: LibRaw_warnings = 262144;
 pub const LibRaw_warnings_LIBRAW_WARN_DNG_STAGE2_APPLIED: LibRaw_warnings = 524288;
 pub const LibRaw_warnings_LIBRAW_WARN_DNG_STAGE3_APPLIED: LibRaw_warnings = 1048576;
+pub const LibRaw_warnings_LIBRAW_WARN_RAWSPEED3_PROBLEM: LibRaw_warnings = 2097152;
+pub const LibRaw_warnings_LIBRAW_WARN_RAWSPEED3_UNSUPPORTED: LibRaw_warnings = 4194304;
+pub const LibRaw_warnings_LIBRAW_WARN_RAWSPEED3_PROCESSED: LibRaw_warnings = 8388608;
+pub const LibRaw_warnings_LIBRAW_WARN_RAWSPEED3_NOTLISTED: LibRaw_warnings = 16777216;
 pub type LibRaw_warnings = libc::c_uint;
 pub const LibRaw_exceptions_LIBRAW_EXCEPTION_NONE: LibRaw_exceptions = 0;
 pub const LibRaw_exceptions_LIBRAW_EXCEPTION_ALLOC: LibRaw_exceptions = 1;
@@ -3256,6 +3687,7 @@ pub const LibRaw_exceptions_LIBRAW_EXCEPTION_IO_BADFILE: LibRaw_exceptions = 8;
 pub const LibRaw_exceptions_LIBRAW_EXCEPTION_DECODE_JPEG2000: LibRaw_exceptions = 9;
 pub const LibRaw_exceptions_LIBRAW_EXCEPTION_TOOBIG: LibRaw_exceptions = 10;
 pub const LibRaw_exceptions_LIBRAW_EXCEPTION_MEMPOOL: LibRaw_exceptions = 11;
+pub const LibRaw_exceptions_LIBRAW_EXCEPTION_UNSUPPORTED_FORMAT: LibRaw_exceptions = 12;
 pub type LibRaw_exceptions = libc::c_uint;
 pub const LibRaw_progress_LIBRAW_PROGRESS_START: LibRaw_progress = 0;
 pub const LibRaw_progress_LIBRAW_PROGRESS_OPEN: LibRaw_progress = 1;
@@ -3299,6 +3731,7 @@ pub const LibRaw_errors_LIBRAW_NO_THUMBNAIL: LibRaw_errors = -5;
 pub const LibRaw_errors_LIBRAW_UNSUPPORTED_THUMBNAIL: LibRaw_errors = -6;
 pub const LibRaw_errors_LIBRAW_INPUT_CLOSED: LibRaw_errors = -7;
 pub const LibRaw_errors_LIBRAW_NOT_IMPLEMENTED: LibRaw_errors = -8;
+pub const LibRaw_errors_LIBRAW_REQUEST_FOR_NONEXISTENT_THUMBNAIL: LibRaw_errors = -9;
 pub const LibRaw_errors_LIBRAW_UNSUFFICIENT_MEMORY: LibRaw_errors = -100007;
 pub const LibRaw_errors_LIBRAW_DATA_ERROR: LibRaw_errors = -100008;
 pub const LibRaw_errors_LIBRAW_IO_ERROR: LibRaw_errors = -100009;
@@ -3307,6 +3740,27 @@ pub const LibRaw_errors_LIBRAW_BAD_CROP: LibRaw_errors = -100011;
 pub const LibRaw_errors_LIBRAW_TOO_BIG: LibRaw_errors = -100012;
 pub const LibRaw_errors_LIBRAW_MEMPOOL_OVERFLOW: LibRaw_errors = -100013;
 pub type LibRaw_errors = libc::c_int;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_UNKNOWN:
+    LibRaw_internal_thumbnail_formats = 0;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_KODAK_THUMB:
+    LibRaw_internal_thumbnail_formats = 1;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_KODAK_YCBCR:
+    LibRaw_internal_thumbnail_formats = 2;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_KODAK_RGB:
+    LibRaw_internal_thumbnail_formats = 3;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_JPEG:
+    LibRaw_internal_thumbnail_formats = 4;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_LAYER:
+    LibRaw_internal_thumbnail_formats = 5;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_ROLLEI:
+    LibRaw_internal_thumbnail_formats = 6;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_PPM:
+    LibRaw_internal_thumbnail_formats = 7;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_PPM16:
+    LibRaw_internal_thumbnail_formats = 8;
+pub const LibRaw_internal_thumbnail_formats_LIBRAW_INTERNAL_THUMBNAIL_X3F:
+    LibRaw_internal_thumbnail_formats = 9;
+pub type LibRaw_internal_thumbnail_formats = libc::c_uint;
 pub const LibRaw_thumbnail_formats_LIBRAW_THUMBNAIL_UNKNOWN: LibRaw_thumbnail_formats = 0;
 pub const LibRaw_thumbnail_formats_LIBRAW_THUMBNAIL_JPEG: LibRaw_thumbnail_formats = 1;
 pub const LibRaw_thumbnail_formats_LIBRAW_THUMBNAIL_BITMAP: LibRaw_thumbnail_formats = 2;
@@ -3331,18 +3785,18 @@ pub struct libraw_decoder_info_t {
 #[test]
 fn bindgen_test_layout_libraw_decoder_info_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_decoder_info_t>(),
+        ::core::mem::size_of::<libraw_decoder_info_t>(),
         16usize,
         concat!("Size of: ", stringify!(libraw_decoder_info_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_decoder_info_t>(),
+        ::core::mem::align_of::<libraw_decoder_info_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_decoder_info_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_decoder_info_t>())).decoder_name as *const _ as usize
+            &(*(::core::ptr::null::<libraw_decoder_info_t>())).decoder_name as *const _ as usize
         },
         0usize,
         concat!(
@@ -3354,7 +3808,7 @@ fn bindgen_test_layout_libraw_decoder_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_decoder_info_t>())).decoder_flags as *const _ as usize
+            &(*(::core::ptr::null::<libraw_decoder_info_t>())).decoder_flags as *const _ as usize
         },
         8usize,
         concat!(
@@ -3377,18 +3831,18 @@ pub struct libraw_internal_output_params_t {
 #[test]
 fn bindgen_test_layout_libraw_internal_output_params_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_internal_output_params_t>(),
+        ::core::mem::size_of::<libraw_internal_output_params_t>(),
         16usize,
         concat!("Size of: ", stringify!(libraw_internal_output_params_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_internal_output_params_t>(),
+        ::core::mem::align_of::<libraw_internal_output_params_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_internal_output_params_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_output_params_t>())).mix_green as *const _
+            &(*(::core::ptr::null::<libraw_internal_output_params_t>())).mix_green as *const _
                 as usize
         },
         0usize,
@@ -3401,7 +3855,7 @@ fn bindgen_test_layout_libraw_internal_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_output_params_t>())).raw_color as *const _
+            &(*(::core::ptr::null::<libraw_internal_output_params_t>())).raw_color as *const _
                 as usize
         },
         4usize,
@@ -3414,7 +3868,7 @@ fn bindgen_test_layout_libraw_internal_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_output_params_t>())).zero_is_bad as *const _
+            &(*(::core::ptr::null::<libraw_internal_output_params_t>())).zero_is_bad as *const _
                 as usize
         },
         8usize,
@@ -3427,7 +3881,7 @@ fn bindgen_test_layout_libraw_internal_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_output_params_t>())).shrink as *const _ as usize
+            &(*(::core::ptr::null::<libraw_internal_output_params_t>())).shrink as *const _ as usize
         },
         12usize,
         concat!(
@@ -3439,7 +3893,7 @@ fn bindgen_test_layout_libraw_internal_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_output_params_t>())).fuji_width as *const _
+            &(*(::core::ptr::null::<libraw_internal_output_params_t>())).fuji_width as *const _
                 as usize
         },
         14usize,
@@ -3451,14 +3905,14 @@ fn bindgen_test_layout_libraw_internal_output_params_t() {
         )
     );
 }
-pub type memory_callback = ::std::option::Option<
+pub type memory_callback = ::core::option::Option<
     unsafe extern "C" fn(
         data: *mut libc::c_void,
         file: *const libc::c_char,
         where_: *const libc::c_char,
     ),
 >;
-pub type exif_parser_callback = ::std::option::Option<
+pub type exif_parser_callback = ::core::option::Option<
     unsafe extern "C" fn(
         context: *mut libc::c_void,
         tag: libc::c_int,
@@ -3469,14 +3923,7 @@ pub type exif_parser_callback = ::std::option::Option<
         base: INT64,
     ),
 >;
-extern "C" {
-    pub fn default_memory_callback(
-        data: *mut libc::c_void,
-        file: *const libc::c_char,
-        where_: *const libc::c_char,
-    );
-}
-pub type data_callback = ::std::option::Option<
+pub type data_callback = ::core::option::Option<
     unsafe extern "C" fn(data: *mut libc::c_void, file: *const libc::c_char, offset: libc::c_int),
 >;
 extern "C" {
@@ -3486,7 +3933,7 @@ extern "C" {
         offset: libc::c_int,
     );
 }
-pub type progress_callback = ::std::option::Option<
+pub type progress_callback = ::core::option::Option<
     unsafe extern "C" fn(
         data: *mut libc::c_void,
         stage: LibRaw_progress,
@@ -3495,16 +3942,14 @@ pub type progress_callback = ::std::option::Option<
     ) -> libc::c_int,
 >;
 pub type pre_identify_callback =
-    ::std::option::Option<unsafe extern "C" fn(ctx: *mut libc::c_void) -> libc::c_int>;
+    ::core::option::Option<unsafe extern "C" fn(ctx: *mut libc::c_void) -> libc::c_int>;
 pub type post_identify_callback =
-    ::std::option::Option<unsafe extern "C" fn(ctx: *mut libc::c_void)>;
+    ::core::option::Option<unsafe extern "C" fn(ctx: *mut libc::c_void)>;
 pub type process_step_callback =
-    ::std::option::Option<unsafe extern "C" fn(ctx: *mut libc::c_void)>;
+    ::core::option::Option<unsafe extern "C" fn(ctx: *mut libc::c_void)>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct libraw_callbacks_t {
-    pub mem_cb: memory_callback,
-    pub memcb_data: *mut libc::c_void,
     pub data_cb: data_callback,
     pub datacb_data: *mut libc::c_void,
     pub progress_cb: progress_callback,
@@ -3526,38 +3971,18 @@ pub struct libraw_callbacks_t {
 #[test]
 fn bindgen_test_layout_libraw_callbacks_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_callbacks_t>(),
-        152usize,
+        ::core::mem::size_of::<libraw_callbacks_t>(),
+        136usize,
         concat!("Size of: ", stringify!(libraw_callbacks_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_callbacks_t>(),
+        ::core::mem::align_of::<libraw_callbacks_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_callbacks_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_callbacks_t>())).mem_cb as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_callbacks_t>())).data_cb as *const _ as usize },
         0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(libraw_callbacks_t),
-            "::",
-            stringify!(mem_cb)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_callbacks_t>())).memcb_data as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(libraw_callbacks_t),
-            "::",
-            stringify!(memcb_data)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_callbacks_t>())).data_cb as *const _ as usize },
-        16usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3566,8 +3991,8 @@ fn bindgen_test_layout_libraw_callbacks_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_callbacks_t>())).datacb_data as *const _ as usize },
-        24usize,
+        unsafe { &(*(::core::ptr::null::<libraw_callbacks_t>())).datacb_data as *const _ as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3576,8 +4001,8 @@ fn bindgen_test_layout_libraw_callbacks_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_callbacks_t>())).progress_cb as *const _ as usize },
-        32usize,
+        unsafe { &(*(::core::ptr::null::<libraw_callbacks_t>())).progress_cb as *const _ as usize },
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3587,9 +4012,9 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).progresscb_data as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).progresscb_data as *const _ as usize
         },
-        40usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3598,8 +4023,8 @@ fn bindgen_test_layout_libraw_callbacks_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_callbacks_t>())).exif_cb as *const _ as usize },
-        48usize,
+        unsafe { &(*(::core::ptr::null::<libraw_callbacks_t>())).exif_cb as *const _ as usize },
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3609,9 +4034,9 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).exifparser_data as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).exifparser_data as *const _ as usize
         },
-        56usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3621,9 +4046,9 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).pre_identify_cb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).pre_identify_cb as *const _ as usize
         },
-        64usize,
+        48usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3633,9 +4058,9 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).post_identify_cb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).post_identify_cb as *const _ as usize
         },
-        72usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3645,9 +4070,10 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).pre_subtractblack_cb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).pre_subtractblack_cb as *const _
+                as usize
         },
-        80usize,
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3657,9 +4083,9 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).pre_scalecolors_cb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).pre_scalecolors_cb as *const _ as usize
         },
-        88usize,
+        72usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3669,10 +4095,10 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).pre_preinterpolate_cb as *const _
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).pre_preinterpolate_cb as *const _
                 as usize
         },
-        96usize,
+        80usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3682,9 +4108,9 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).pre_interpolate_cb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).pre_interpolate_cb as *const _ as usize
         },
-        104usize,
+        88usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3694,9 +4120,10 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).interpolate_bayer_cb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).interpolate_bayer_cb as *const _
+                as usize
         },
-        112usize,
+        96usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3706,10 +4133,10 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).interpolate_xtrans_cb as *const _
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).interpolate_xtrans_cb as *const _
                 as usize
         },
-        120usize,
+        104usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3719,9 +4146,9 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).post_interpolate_cb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).post_interpolate_cb as *const _ as usize
         },
-        128usize,
+        112usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3731,9 +4158,9 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).pre_converttorgb_cb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).pre_converttorgb_cb as *const _ as usize
         },
-        136usize,
+        120usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3743,9 +4170,10 @@ fn bindgen_test_layout_libraw_callbacks_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_callbacks_t>())).post_converttorgb_cb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_callbacks_t>())).post_converttorgb_cb as *const _
+                as usize
         },
-        144usize,
+        128usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_callbacks_t),
@@ -3768,17 +4196,17 @@ pub struct libraw_processed_image_t {
 #[test]
 fn bindgen_test_layout_libraw_processed_image_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_processed_image_t>(),
+        ::core::mem::size_of::<libraw_processed_image_t>(),
         20usize,
         concat!("Size of: ", stringify!(libraw_processed_image_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_processed_image_t>(),
+        ::core::mem::align_of::<libraw_processed_image_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_processed_image_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_processed_image_t>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_processed_image_t>())).type_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3788,7 +4216,9 @@ fn bindgen_test_layout_libraw_processed_image_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_processed_image_t>())).height as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_processed_image_t>())).height as *const _ as usize
+        },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3798,7 +4228,7 @@ fn bindgen_test_layout_libraw_processed_image_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_processed_image_t>())).width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_processed_image_t>())).width as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -3808,7 +4238,9 @@ fn bindgen_test_layout_libraw_processed_image_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_processed_image_t>())).colors as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_processed_image_t>())).colors as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3818,7 +4250,7 @@ fn bindgen_test_layout_libraw_processed_image_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_processed_image_t>())).bits as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_processed_image_t>())).bits as *const _ as usize },
         10usize,
         concat!(
             "Offset of field: ",
@@ -3829,7 +4261,7 @@ fn bindgen_test_layout_libraw_processed_image_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_processed_image_t>())).data_size as *const _ as usize
+            &(*(::core::ptr::null::<libraw_processed_image_t>())).data_size as *const _ as usize
         },
         12usize,
         concat!(
@@ -3840,7 +4272,7 @@ fn bindgen_test_layout_libraw_processed_image_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_processed_image_t>())).data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_processed_image_t>())).data as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3874,17 +4306,17 @@ pub struct libraw_iparams_t {
 #[test]
 fn bindgen_test_layout_libraw_iparams_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_iparams_t>(),
+        ::core::mem::size_of::<libraw_iparams_t>(),
         440usize,
         concat!("Size of: ", stringify!(libraw_iparams_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_iparams_t>(),
+        ::core::mem::align_of::<libraw_iparams_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_iparams_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).guard as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).guard as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3894,7 +4326,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).make as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).make as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3904,7 +4336,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).model as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).model as *const _ as usize },
         68usize,
         concat!(
             "Offset of field: ",
@@ -3914,7 +4346,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).software as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).software as *const _ as usize },
         132usize,
         concat!(
             "Offset of field: ",
@@ -3925,7 +4357,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_iparams_t>())).normalized_make as *const _ as usize
+            &(*(::core::ptr::null::<libraw_iparams_t>())).normalized_make as *const _ as usize
         },
         196usize,
         concat!(
@@ -3937,7 +4369,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_iparams_t>())).normalized_model as *const _ as usize
+            &(*(::core::ptr::null::<libraw_iparams_t>())).normalized_model as *const _ as usize
         },
         260usize,
         concat!(
@@ -3948,7 +4380,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).maker_index as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).maker_index as *const _ as usize },
         324usize,
         concat!(
             "Offset of field: ",
@@ -3958,7 +4390,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).raw_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).raw_count as *const _ as usize },
         328usize,
         concat!(
             "Offset of field: ",
@@ -3968,7 +4400,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).dng_version as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).dng_version as *const _ as usize },
         332usize,
         concat!(
             "Offset of field: ",
@@ -3978,7 +4410,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).is_foveon as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).is_foveon as *const _ as usize },
         336usize,
         concat!(
             "Offset of field: ",
@@ -3988,7 +4420,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).colors as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).colors as *const _ as usize },
         340usize,
         concat!(
             "Offset of field: ",
@@ -3998,7 +4430,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).filters as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).filters as *const _ as usize },
         344usize,
         concat!(
             "Offset of field: ",
@@ -4008,7 +4440,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).xtrans as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).xtrans as *const _ as usize },
         348usize,
         concat!(
             "Offset of field: ",
@@ -4018,7 +4450,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).xtrans_abs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).xtrans_abs as *const _ as usize },
         384usize,
         concat!(
             "Offset of field: ",
@@ -4028,7 +4460,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).cdesc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).cdesc as *const _ as usize },
         420usize,
         concat!(
             "Offset of field: ",
@@ -4038,7 +4470,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).xmplen as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).xmplen as *const _ as usize },
         428usize,
         concat!(
             "Offset of field: ",
@@ -4048,7 +4480,7 @@ fn bindgen_test_layout_libraw_iparams_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_iparams_t>())).xmpdata as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_iparams_t>())).xmpdata as *const _ as usize },
         432usize,
         concat!(
             "Offset of field: ",
@@ -4069,17 +4501,17 @@ pub struct libraw_raw_inset_crop_t {
 #[test]
 fn bindgen_test_layout_libraw_raw_inset_crop_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_raw_inset_crop_t>(),
+        ::core::mem::size_of::<libraw_raw_inset_crop_t>(),
         8usize,
         concat!("Size of: ", stringify!(libraw_raw_inset_crop_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_raw_inset_crop_t>(),
+        ::core::mem::align_of::<libraw_raw_inset_crop_t>(),
         2usize,
         concat!("Alignment of ", stringify!(libraw_raw_inset_crop_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_raw_inset_crop_t>())).cleft as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_raw_inset_crop_t>())).cleft as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4089,7 +4521,7 @@ fn bindgen_test_layout_libraw_raw_inset_crop_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_raw_inset_crop_t>())).ctop as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_raw_inset_crop_t>())).ctop as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -4099,7 +4531,7 @@ fn bindgen_test_layout_libraw_raw_inset_crop_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_raw_inset_crop_t>())).cwidth as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_raw_inset_crop_t>())).cwidth as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4109,7 +4541,9 @@ fn bindgen_test_layout_libraw_raw_inset_crop_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_raw_inset_crop_t>())).cheight as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_raw_inset_crop_t>())).cheight as *const _ as usize
+        },
         6usize,
         concat!(
             "Offset of field: ",
@@ -4140,17 +4574,19 @@ pub struct libraw_image_sizes_t {
 #[test]
 fn bindgen_test_layout_libraw_image_sizes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_image_sizes_t>(),
+        ::core::mem::size_of::<libraw_image_sizes_t>(),
         184usize,
         concat!("Size of: ", stringify!(libraw_image_sizes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_image_sizes_t>(),
+        ::core::mem::align_of::<libraw_image_sizes_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_image_sizes_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).raw_height as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_image_sizes_t>())).raw_height as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4160,7 +4596,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).raw_width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_image_sizes_t>())).raw_width as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -4170,7 +4606,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_image_sizes_t>())).height as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4180,7 +4616,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_image_sizes_t>())).width as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -4190,7 +4626,9 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).top_margin as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_image_sizes_t>())).top_margin as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4201,7 +4639,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_image_sizes_t>())).left_margin as *const _ as usize
+            &(*(::core::ptr::null::<libraw_image_sizes_t>())).left_margin as *const _ as usize
         },
         10usize,
         concat!(
@@ -4212,7 +4650,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).iheight as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_image_sizes_t>())).iheight as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -4222,7 +4660,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).iwidth as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_image_sizes_t>())).iwidth as *const _ as usize },
         14usize,
         concat!(
             "Offset of field: ",
@@ -4232,7 +4670,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).raw_pitch as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_image_sizes_t>())).raw_pitch as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -4243,7 +4681,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_image_sizes_t>())).pixel_aspect as *const _ as usize
+            &(*(::core::ptr::null::<libraw_image_sizes_t>())).pixel_aspect as *const _ as usize
         },
         24usize,
         concat!(
@@ -4254,7 +4692,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).flip as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_image_sizes_t>())).flip as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -4264,7 +4702,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).mask as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_image_sizes_t>())).mask as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -4274,7 +4712,9 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_image_sizes_t>())).raw_aspect as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_image_sizes_t>())).raw_aspect as *const _ as usize
+        },
         164usize,
         concat!(
             "Offset of field: ",
@@ -4285,7 +4725,7 @@ fn bindgen_test_layout_libraw_image_sizes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_image_sizes_t>())).raw_inset_crops as *const _ as usize
+            &(*(::core::ptr::null::<libraw_image_sizes_t>())).raw_inset_crops as *const _ as usize
         },
         166usize,
         concat!(
@@ -4307,17 +4747,17 @@ pub struct libraw_area_t {
 #[test]
 fn bindgen_test_layout_libraw_area_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_area_t>(),
+        ::core::mem::size_of::<libraw_area_t>(),
         8usize,
         concat!("Size of: ", stringify!(libraw_area_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_area_t>(),
+        ::core::mem::align_of::<libraw_area_t>(),
         2usize,
         concat!("Alignment of ", stringify!(libraw_area_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_area_t>())).t as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_area_t>())).t as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4327,7 +4767,7 @@ fn bindgen_test_layout_libraw_area_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_area_t>())).l as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_area_t>())).l as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -4337,7 +4777,7 @@ fn bindgen_test_layout_libraw_area_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_area_t>())).b as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_area_t>())).b as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4347,7 +4787,7 @@ fn bindgen_test_layout_libraw_area_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_area_t>())).r as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_area_t>())).r as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -4373,17 +4813,17 @@ pub struct ph1_t {
 #[test]
 fn bindgen_test_layout_ph1_t() {
     assert_eq!(
-        ::std::mem::size_of::<ph1_t>(),
+        ::core::mem::size_of::<ph1_t>(),
         36usize,
         concat!("Size of: ", stringify!(ph1_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<ph1_t>(),
+        ::core::mem::align_of::<ph1_t>(),
         4usize,
         concat!("Alignment of ", stringify!(ph1_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ph1_t>())).format as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<ph1_t>())).format as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4393,7 +4833,7 @@ fn bindgen_test_layout_ph1_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ph1_t>())).key_off as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<ph1_t>())).key_off as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4403,7 +4843,7 @@ fn bindgen_test_layout_ph1_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ph1_t>())).tag_21a as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<ph1_t>())).tag_21a as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4413,7 +4853,7 @@ fn bindgen_test_layout_ph1_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ph1_t>())).t_black as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<ph1_t>())).t_black as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -4423,7 +4863,7 @@ fn bindgen_test_layout_ph1_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ph1_t>())).split_col as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<ph1_t>())).split_col as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -4433,7 +4873,7 @@ fn bindgen_test_layout_ph1_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ph1_t>())).black_col as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<ph1_t>())).black_col as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -4443,7 +4883,7 @@ fn bindgen_test_layout_ph1_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ph1_t>())).split_row as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<ph1_t>())).split_row as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -4453,7 +4893,7 @@ fn bindgen_test_layout_ph1_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ph1_t>())).black_row as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<ph1_t>())).black_row as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -4463,7 +4903,7 @@ fn bindgen_test_layout_ph1_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ph1_t>())).tag_210 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<ph1_t>())).tag_210 as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -4485,17 +4925,19 @@ pub struct libraw_dng_color_t {
 #[test]
 fn bindgen_test_layout_libraw_dng_color_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_dng_color_t>(),
+        ::core::mem::size_of::<libraw_dng_color_t>(),
         168usize,
         concat!("Size of: ", stringify!(libraw_dng_color_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_dng_color_t>(),
+        ::core::mem::align_of::<libraw_dng_color_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_dng_color_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dng_color_t>())).parsedfields as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_dng_color_t>())).parsedfields as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4505,7 +4947,7 @@ fn bindgen_test_layout_libraw_dng_color_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dng_color_t>())).illuminant as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_dng_color_t>())).illuminant as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4515,7 +4957,7 @@ fn bindgen_test_layout_libraw_dng_color_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dng_color_t>())).calibration as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_dng_color_t>())).calibration as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4525,7 +4967,7 @@ fn bindgen_test_layout_libraw_dng_color_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dng_color_t>())).colormatrix as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_dng_color_t>())).colormatrix as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -4536,7 +4978,7 @@ fn bindgen_test_layout_libraw_dng_color_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_dng_color_t>())).forwardmatrix as *const _ as usize
+            &(*(::core::ptr::null::<libraw_dng_color_t>())).forwardmatrix as *const _ as usize
         },
         120usize,
         concat!(
@@ -4567,18 +5009,18 @@ pub struct libraw_dng_levels_t {
 #[test]
 fn bindgen_test_layout_libraw_dng_levels_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_dng_levels_t>(),
+        ::core::mem::size_of::<libraw_dng_levels_t>(),
         32928usize,
         concat!("Size of: ", stringify!(libraw_dng_levels_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_dng_levels_t>(),
+        ::core::mem::align_of::<libraw_dng_levels_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_dng_levels_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_dng_levels_t>())).parsedfields as *const _ as usize
+            &(*(::core::ptr::null::<libraw_dng_levels_t>())).parsedfields as *const _ as usize
         },
         0usize,
         concat!(
@@ -4589,7 +5031,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dng_levels_t>())).dng_cblack as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_dng_levels_t>())).dng_cblack as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4599,7 +5041,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dng_levels_t>())).dng_black as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_dng_levels_t>())).dng_black as *const _ as usize },
         16420usize,
         concat!(
             "Offset of field: ",
@@ -4609,7 +5051,9 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dng_levels_t>())).dng_fcblack as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_dng_levels_t>())).dng_fcblack as *const _ as usize
+        },
         16424usize,
         concat!(
             "Offset of field: ",
@@ -4619,7 +5063,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dng_levels_t>())).dng_fblack as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_dng_levels_t>())).dng_fblack as *const _ as usize },
         32840usize,
         concat!(
             "Offset of field: ",
@@ -4630,7 +5074,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_dng_levels_t>())).dng_whitelevel as *const _ as usize
+            &(*(::core::ptr::null::<libraw_dng_levels_t>())).dng_whitelevel as *const _ as usize
         },
         32844usize,
         concat!(
@@ -4642,7 +5086,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_dng_levels_t>())).default_crop as *const _ as usize
+            &(*(::core::ptr::null::<libraw_dng_levels_t>())).default_crop as *const _ as usize
         },
         32860usize,
         concat!(
@@ -4653,7 +5097,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dng_levels_t>())).user_crop as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_dng_levels_t>())).user_crop as *const _ as usize },
         32868usize,
         concat!(
             "Offset of field: ",
@@ -4664,7 +5108,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_dng_levels_t>())).preview_colorspace as *const _ as usize
+            &(*(::core::ptr::null::<libraw_dng_levels_t>())).preview_colorspace as *const _ as usize
         },
         32884usize,
         concat!(
@@ -4676,7 +5120,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_dng_levels_t>())).analogbalance as *const _ as usize
+            &(*(::core::ptr::null::<libraw_dng_levels_t>())).analogbalance as *const _ as usize
         },
         32888usize,
         concat!(
@@ -4688,7 +5132,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_dng_levels_t>())).asshotneutral as *const _ as usize
+            &(*(::core::ptr::null::<libraw_dng_levels_t>())).asshotneutral as *const _ as usize
         },
         32904usize,
         concat!(
@@ -4700,7 +5144,7 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_dng_levels_t>())).baseline_exposure as *const _ as usize
+            &(*(::core::ptr::null::<libraw_dng_levels_t>())).baseline_exposure as *const _ as usize
         },
         32920usize,
         concat!(
@@ -4712,7 +5156,8 @@ fn bindgen_test_layout_libraw_dng_levels_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_dng_levels_t>())).LinearResponseLimit as *const _ as usize
+            &(*(::core::ptr::null::<libraw_dng_levels_t>())).LinearResponseLimit as *const _
+                as usize
         },
         32924usize,
         concat!(
@@ -4731,17 +5176,17 @@ pub struct libraw_P1_color_t {
 #[test]
 fn bindgen_test_layout_libraw_P1_color_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_P1_color_t>(),
+        ::core::mem::size_of::<libraw_P1_color_t>(),
         36usize,
         concat!("Size of: ", stringify!(libraw_P1_color_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_P1_color_t>(),
+        ::core::mem::align_of::<libraw_P1_color_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_P1_color_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_P1_color_t>())).romm_cam as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_P1_color_t>())).romm_cam as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4798,18 +5243,18 @@ pub struct libraw_canon_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_canon_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_canon_makernotes_t>(),
+        ::core::mem::size_of::<libraw_canon_makernotes_t>(),
         168usize,
         concat!("Size of: ", stringify!(libraw_canon_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_canon_makernotes_t>(),
+        ::core::mem::align_of::<libraw_canon_makernotes_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_canon_makernotes_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).ColorDataVer as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).ColorDataVer as *const _ as usize
         },
         0usize,
         concat!(
@@ -4821,7 +5266,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).ColorDataSubVer as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).ColorDataSubVer as *const _
                 as usize
         },
         4usize,
@@ -4834,7 +5279,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).SpecularWhiteLevel as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).SpecularWhiteLevel as *const _
                 as usize
         },
         8usize,
@@ -4847,7 +5292,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).NormalWhiteLevel as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).NormalWhiteLevel as *const _
                 as usize
         },
         12usize,
@@ -4860,7 +5305,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).ChannelBlackLevel as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).ChannelBlackLevel as *const _
                 as usize
         },
         16usize,
@@ -4873,7 +5318,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).AverageBlackLevel as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).AverageBlackLevel as *const _
                 as usize
         },
         32usize,
@@ -4886,7 +5331,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).multishot as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).multishot as *const _ as usize
         },
         36usize,
         concat!(
@@ -4898,7 +5343,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).MeteringMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).MeteringMode as *const _ as usize
         },
         52usize,
         concat!(
@@ -4910,7 +5355,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).SpotMeteringMode as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).SpotMeteringMode as *const _
                 as usize
         },
         54usize,
@@ -4923,7 +5368,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).FlashMeteringMode as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).FlashMeteringMode as *const _
                 as usize
         },
         56usize,
@@ -4936,7 +5381,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).FlashExposureLock as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).FlashExposureLock as *const _
                 as usize
         },
         58usize,
@@ -4949,7 +5394,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).ExposureMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).ExposureMode as *const _ as usize
         },
         60usize,
         concat!(
@@ -4961,7 +5406,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).AESetting as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).AESetting as *const _ as usize
         },
         62usize,
         concat!(
@@ -4973,7 +5418,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).ImageStabilization as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).ImageStabilization as *const _
                 as usize
         },
         64usize,
@@ -4986,7 +5431,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).FlashMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).FlashMode as *const _ as usize
         },
         66usize,
         concat!(
@@ -4998,7 +5443,8 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).FlashActivity as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).FlashActivity as *const _
+                as usize
         },
         68usize,
         concat!(
@@ -5010,7 +5456,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).FlashBits as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).FlashBits as *const _ as usize
         },
         70usize,
         concat!(
@@ -5022,7 +5468,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).ManualFlashOutput as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).ManualFlashOutput as *const _
                 as usize
         },
         72usize,
@@ -5035,7 +5481,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).FlashOutput as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).FlashOutput as *const _ as usize
         },
         74usize,
         concat!(
@@ -5047,7 +5493,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).FlashGuideNumber as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).FlashGuideNumber as *const _
                 as usize
         },
         76usize,
@@ -5060,7 +5506,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).ContinuousDrive as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).ContinuousDrive as *const _
                 as usize
         },
         78usize,
@@ -5073,7 +5519,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).SensorWidth as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).SensorWidth as *const _ as usize
         },
         80usize,
         concat!(
@@ -5085,7 +5531,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).SensorHeight as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).SensorHeight as *const _ as usize
         },
         82usize,
         concat!(
@@ -5097,7 +5543,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).AFMicroAdjMode as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).AFMicroAdjMode as *const _
                 as usize
         },
         84usize,
@@ -5110,7 +5556,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).AFMicroAdjValue as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).AFMicroAdjValue as *const _
                 as usize
         },
         88usize,
@@ -5123,7 +5569,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).MakernotesFlip as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).MakernotesFlip as *const _
                 as usize
         },
         92usize,
@@ -5136,7 +5582,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).RecordMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).RecordMode as *const _ as usize
         },
         94usize,
         concat!(
@@ -5148,7 +5594,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).SRAWQuality as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).SRAWQuality as *const _ as usize
         },
         96usize,
         concat!(
@@ -5159,7 +5605,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).wbi as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).wbi as *const _ as usize },
         100usize,
         concat!(
             "Offset of field: ",
@@ -5170,7 +5616,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).RF_lensID as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).RF_lensID as *const _ as usize
         },
         104usize,
         concat!(
@@ -5182,7 +5628,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).AutoLightingOptimizer as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).AutoLightingOptimizer as *const _
                 as usize
         },
         108usize,
@@ -5195,7 +5641,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).HighlightTonePriority as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).HighlightTonePriority as *const _
                 as usize
         },
         112usize,
@@ -5208,7 +5654,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).Quality as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).Quality as *const _ as usize
         },
         116usize,
         concat!(
@@ -5220,7 +5666,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).CanonLog as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).CanonLog as *const _ as usize
         },
         120usize,
         concat!(
@@ -5232,7 +5678,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).DefaultCropAbsolute as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).DefaultCropAbsolute as *const _
                 as usize
         },
         124usize,
@@ -5245,7 +5691,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).RecommendedImageArea as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).RecommendedImageArea as *const _
                 as usize
         },
         132usize,
@@ -5258,7 +5704,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).LeftOpticalBlack as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).LeftOpticalBlack as *const _
                 as usize
         },
         140usize,
@@ -5271,7 +5717,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).UpperOpticalBlack as *const _
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).UpperOpticalBlack as *const _
                 as usize
         },
         148usize,
@@ -5284,7 +5730,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).ActiveArea as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).ActiveArea as *const _ as usize
         },
         156usize,
         concat!(
@@ -5296,7 +5742,7 @@ fn bindgen_test_layout_libraw_canon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_canon_makernotes_t>())).ISOgain as *const _ as usize
+            &(*(::core::ptr::null::<libraw_canon_makernotes_t>())).ISOgain as *const _ as usize
         },
         164usize,
         concat!(
@@ -5329,18 +5775,18 @@ pub struct libraw_hasselblad_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_hasselblad_makernotes_t>(),
+        ::core::mem::size_of::<libraw_hasselblad_makernotes_t>(),
         384usize,
         concat!("Size of: ", stringify!(libraw_hasselblad_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_hasselblad_makernotes_t>(),
+        ::core::mem::align_of::<libraw_hasselblad_makernotes_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_hasselblad_makernotes_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).BaseISO as *const _ as usize
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).BaseISO as *const _ as usize
         },
         0usize,
         concat!(
@@ -5352,7 +5798,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).Gain as *const _ as usize
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).Gain as *const _ as usize
         },
         8usize,
         concat!(
@@ -5364,7 +5810,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).Sensor as *const _ as usize
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).Sensor as *const _ as usize
         },
         16usize,
         concat!(
@@ -5376,7 +5822,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).SensorUnit as *const _
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).SensorUnit as *const _
                 as usize
         },
         24usize,
@@ -5389,7 +5835,8 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).HostBody as *const _ as usize
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).HostBody as *const _
+                as usize
         },
         88usize,
         concat!(
@@ -5401,7 +5848,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).SensorCode as *const _
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).SensorCode as *const _
                 as usize
         },
         152usize,
@@ -5414,7 +5861,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).SensorSubCode as *const _
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).SensorSubCode as *const _
                 as usize
         },
         156usize,
@@ -5427,7 +5874,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).CoatingCode as *const _
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).CoatingCode as *const _
                 as usize
         },
         160usize,
@@ -5440,7 +5887,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).uncropped as *const _
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).uncropped as *const _
                 as usize
         },
         164usize,
@@ -5453,7 +5900,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).CaptureSequenceInitiator
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).CaptureSequenceInitiator
                 as *const _ as usize
         },
         168usize,
@@ -5466,7 +5913,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).SensorUnitConnector
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).SensorUnitConnector
                 as *const _ as usize
         },
         200usize,
@@ -5479,7 +5926,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).format as *const _ as usize
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).format as *const _ as usize
         },
         264usize,
         concat!(
@@ -5491,7 +5938,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).nIFD_CM as *const _ as usize
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).nIFD_CM as *const _ as usize
         },
         268usize,
         concat!(
@@ -5503,7 +5950,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).RecommendedCrop as *const _
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).RecommendedCrop as *const _
                 as usize
         },
         276usize,
@@ -5516,7 +5963,7 @@ fn bindgen_test_layout_libraw_hasselblad_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_hasselblad_makernotes_t>())).mnColorMatrix as *const _
+            &(*(::core::ptr::null::<libraw_hasselblad_makernotes_t>())).mnColorMatrix as *const _
                 as usize
         },
         288usize,
@@ -5574,18 +6021,18 @@ pub struct libraw_fuji_info_t {
 #[test]
 fn bindgen_test_layout_libraw_fuji_info_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_fuji_info_t>(),
+        ::core::mem::size_of::<libraw_fuji_info_t>(),
         280usize,
         concat!("Size of: ", stringify!(libraw_fuji_info_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_fuji_info_t>(),
+        ::core::mem::align_of::<libraw_fuji_info_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_fuji_info_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).ExpoMidPointShift as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).ExpoMidPointShift as *const _ as usize
         },
         0usize,
         concat!(
@@ -5596,7 +6043,9 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).DynamicRange as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).DynamicRange as *const _ as usize
+        },
         4usize,
         concat!(
             "Offset of field: ",
@@ -5606,7 +6055,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).FilmMode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).FilmMode as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -5617,7 +6066,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).DynamicRangeSetting as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).DynamicRangeSetting as *const _ as usize
         },
         8usize,
         concat!(
@@ -5629,7 +6078,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).DevelopmentDynamicRange as *const _
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).DevelopmentDynamicRange as *const _
                 as usize
         },
         10usize,
@@ -5642,7 +6091,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).AutoDynamicRange as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).AutoDynamicRange as *const _ as usize
         },
         12usize,
         concat!(
@@ -5654,7 +6103,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).DRangePriority as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).DRangePriority as *const _ as usize
         },
         14usize,
         concat!(
@@ -5666,7 +6115,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).DRangePriorityAuto as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).DRangePriorityAuto as *const _ as usize
         },
         16usize,
         concat!(
@@ -5678,7 +6127,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).DRangePriorityFixed as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).DRangePriorityFixed as *const _ as usize
         },
         18usize,
         concat!(
@@ -5690,7 +6139,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).BrightnessCompensation as *const _
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).BrightnessCompensation as *const _
                 as usize
         },
         20usize,
@@ -5702,7 +6151,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).FocusMode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).FocusMode as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -5712,7 +6161,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).AFMode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).AFMode as *const _ as usize },
         26usize,
         concat!(
             "Offset of field: ",
@@ -5722,7 +6171,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).FocusPixel as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).FocusPixel as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -5733,7 +6182,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).PrioritySettings as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).PrioritySettings as *const _ as usize
         },
         32usize,
         concat!(
@@ -5745,7 +6194,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).FocusSettings as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).FocusSettings as *const _ as usize
         },
         36usize,
         concat!(
@@ -5757,7 +6206,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).AF_C_Settings as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).AF_C_Settings as *const _ as usize
         },
         40usize,
         concat!(
@@ -5768,7 +6217,9 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).FocusWarning as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).FocusWarning as *const _ as usize
+        },
         44usize,
         concat!(
             "Offset of field: ",
@@ -5779,7 +6230,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).ImageStabilization as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).ImageStabilization as *const _ as usize
         },
         46usize,
         concat!(
@@ -5790,7 +6241,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).FlashMode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).FlashMode as *const _ as usize },
         52usize,
         concat!(
             "Offset of field: ",
@@ -5800,7 +6251,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).WB_Preset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).WB_Preset as *const _ as usize },
         54usize,
         concat!(
             "Offset of field: ",
@@ -5810,7 +6261,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).ShutterType as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).ShutterType as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -5820,7 +6271,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).ExrMode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).ExrMode as *const _ as usize },
         58usize,
         concat!(
             "Offset of field: ",
@@ -5830,7 +6281,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).Macro as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).Macro as *const _ as usize },
         60usize,
         concat!(
             "Offset of field: ",
@@ -5840,7 +6291,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).Rating as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).Rating as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -5850,7 +6301,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).CropMode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).CropMode as *const _ as usize },
         68usize,
         concat!(
             "Offset of field: ",
@@ -5861,7 +6312,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).SerialSignature as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).SerialSignature as *const _ as usize
         },
         70usize,
         concat!(
@@ -5872,7 +6323,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).SensorID as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).SensorID as *const _ as usize },
         83usize,
         concat!(
             "Offset of field: ",
@@ -5882,7 +6333,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).RAFVersion as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).RAFVersion as *const _ as usize },
         88usize,
         concat!(
             "Offset of field: ",
@@ -5893,7 +6344,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).RAFDataGeneration as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).RAFDataGeneration as *const _ as usize
         },
         96usize,
         concat!(
@@ -5905,7 +6356,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).RAFDataVersion as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).RAFDataVersion as *const _ as usize
         },
         100usize,
         concat!(
@@ -5916,7 +6367,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).isTSNERDTS as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).isTSNERDTS as *const _ as usize },
         104usize,
         concat!(
             "Offset of field: ",
@@ -5926,7 +6377,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).DriveMode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).DriveMode as *const _ as usize },
         108usize,
         concat!(
             "Offset of field: ",
@@ -5936,7 +6387,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).BlackLevel as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).BlackLevel as *const _ as usize },
         110usize,
         concat!(
             "Offset of field: ",
@@ -5947,7 +6398,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).RAFData_ImageSizeTable as *const _
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).RAFData_ImageSizeTable as *const _
                 as usize
         },
         128usize,
@@ -5960,7 +6411,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).AutoBracketing as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).AutoBracketing as *const _ as usize
         },
         256usize,
         concat!(
@@ -5972,7 +6423,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).SequenceNumber as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).SequenceNumber as *const _ as usize
         },
         260usize,
         concat!(
@@ -5983,7 +6434,9 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).SeriesLength as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).SeriesLength as *const _ as usize
+        },
         264usize,
         concat!(
             "Offset of field: ",
@@ -5994,7 +6447,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_fuji_info_t>())).PixelShiftOffset as *const _ as usize
+            &(*(::core::ptr::null::<libraw_fuji_info_t>())).PixelShiftOffset as *const _ as usize
         },
         268usize,
         concat!(
@@ -6005,7 +6458,7 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_fuji_info_t>())).ImageCount as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_fuji_info_t>())).ImageCount as *const _ as usize },
         276usize,
         concat!(
             "Offset of field: ",
@@ -6026,18 +6479,18 @@ pub struct libraw_sensor_highspeed_crop_t {
 #[test]
 fn bindgen_test_layout_libraw_sensor_highspeed_crop_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_sensor_highspeed_crop_t>(),
+        ::core::mem::size_of::<libraw_sensor_highspeed_crop_t>(),
         8usize,
         concat!("Size of: ", stringify!(libraw_sensor_highspeed_crop_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_sensor_highspeed_crop_t>(),
+        ::core::mem::align_of::<libraw_sensor_highspeed_crop_t>(),
         2usize,
         concat!("Alignment of ", stringify!(libraw_sensor_highspeed_crop_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sensor_highspeed_crop_t>())).cleft as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sensor_highspeed_crop_t>())).cleft as *const _ as usize
         },
         0usize,
         concat!(
@@ -6049,7 +6502,7 @@ fn bindgen_test_layout_libraw_sensor_highspeed_crop_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sensor_highspeed_crop_t>())).ctop as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sensor_highspeed_crop_t>())).ctop as *const _ as usize
         },
         2usize,
         concat!(
@@ -6061,7 +6514,7 @@ fn bindgen_test_layout_libraw_sensor_highspeed_crop_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sensor_highspeed_crop_t>())).cwidth as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sensor_highspeed_crop_t>())).cwidth as *const _ as usize
         },
         4usize,
         concat!(
@@ -6073,7 +6526,7 @@ fn bindgen_test_layout_libraw_sensor_highspeed_crop_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sensor_highspeed_crop_t>())).cheight as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sensor_highspeed_crop_t>())).cheight as *const _ as usize
         },
         6usize,
         concat!(
@@ -6140,18 +6593,18 @@ pub struct libraw_nikon_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_nikon_makernotes_t>(),
+        ::core::mem::size_of::<libraw_nikon_makernotes_t>(),
         224usize,
         concat!("Size of: ", stringify!(libraw_nikon_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_nikon_makernotes_t>(),
+        ::core::mem::align_of::<libraw_nikon_makernotes_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_nikon_makernotes_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ExposureBracketValue as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ExposureBracketValue as *const _
                 as usize
         },
         0usize,
@@ -6164,7 +6617,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ActiveDLighting as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ActiveDLighting as *const _
                 as usize
         },
         8usize,
@@ -6177,7 +6630,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ShootingMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ShootingMode as *const _ as usize
         },
         10usize,
         concat!(
@@ -6189,7 +6642,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ImageStabilization as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ImageStabilization as *const _
                 as usize
         },
         12usize,
@@ -6202,7 +6655,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).VibrationReduction as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).VibrationReduction as *const _
                 as usize
         },
         19usize,
@@ -6215,7 +6668,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).VRMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).VRMode as *const _ as usize
         },
         20usize,
         concat!(
@@ -6227,7 +6680,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashSetting as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashSetting as *const _ as usize
         },
         21usize,
         concat!(
@@ -6239,7 +6692,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashType as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashType as *const _ as usize
         },
         34usize,
         concat!(
@@ -6251,7 +6704,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureCompensation
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureCompensation
                 as *const _ as usize
         },
         54usize,
@@ -6264,7 +6717,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ExternalFlashExposureComp
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ExternalFlashExposureComp
                 as *const _ as usize
         },
         58usize,
@@ -6277,7 +6730,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureBracketValue
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureBracketValue
                 as *const _ as usize
         },
         62usize,
@@ -6290,7 +6743,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashMode as *const _ as usize
         },
         66usize,
         concat!(
@@ -6302,7 +6755,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureCompensation2
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureCompensation2
                 as *const _ as usize
         },
         67usize,
@@ -6315,7 +6768,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureCompensation3
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureCompensation3
                 as *const _ as usize
         },
         68usize,
@@ -6328,7 +6781,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureCompensation4
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashExposureCompensation4
                 as *const _ as usize
         },
         69usize,
@@ -6341,7 +6794,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashSource as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashSource as *const _ as usize
         },
         70usize,
         concat!(
@@ -6353,7 +6806,8 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashFirmware as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashFirmware as *const _
+                as usize
         },
         71usize,
         concat!(
@@ -6365,7 +6819,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ExternalFlashFlags as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ExternalFlashFlags as *const _
                 as usize
         },
         73usize,
@@ -6378,7 +6832,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashControlCommanderMode
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashControlCommanderMode
                 as *const _ as usize
         },
         74usize,
@@ -6391,7 +6845,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashOutputAndCompensation
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashOutputAndCompensation
                 as *const _ as usize
         },
         75usize,
@@ -6404,7 +6858,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashFocalLength as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashFocalLength as *const _
                 as usize
         },
         76usize,
@@ -6417,7 +6871,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashGNDistance as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashGNDistance as *const _
                 as usize
         },
         77usize,
@@ -6430,7 +6884,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashGroupControlMode as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashGroupControlMode as *const _
                 as usize
         },
         78usize,
@@ -6443,7 +6897,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashGroupOutputAndCompensation
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashGroupOutputAndCompensation
                 as *const _ as usize
         },
         82usize,
@@ -6456,7 +6910,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashColorFilter as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashColorFilter as *const _
                 as usize
         },
         86usize,
@@ -6469,7 +6923,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).NEFCompression as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).NEFCompression as *const _
                 as usize
         },
         88usize,
@@ -6482,7 +6936,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ExposureMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ExposureMode as *const _ as usize
         },
         92usize,
         concat!(
@@ -6494,7 +6948,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ExposureProgram as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ExposureProgram as *const _
                 as usize
         },
         96usize,
@@ -6507,7 +6961,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).nMEshots as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).nMEshots as *const _ as usize
         },
         100usize,
         concat!(
@@ -6519,7 +6973,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).MEgainOn as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).MEgainOn as *const _ as usize
         },
         104usize,
         concat!(
@@ -6530,7 +6984,9 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ME_WB as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ME_WB as *const _ as usize
+        },
         112usize,
         concat!(
             "Offset of field: ",
@@ -6541,7 +6997,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).AFFineTune as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).AFFineTune as *const _ as usize
         },
         144usize,
         concat!(
@@ -6553,7 +7009,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).AFFineTuneIndex as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).AFFineTuneIndex as *const _
                 as usize
         },
         145usize,
@@ -6566,7 +7022,8 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).AFFineTuneAdj as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).AFFineTuneAdj as *const _
+                as usize
         },
         146usize,
         concat!(
@@ -6578,7 +7035,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).LensDataVersion as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).LensDataVersion as *const _
                 as usize
         },
         148usize,
@@ -6591,7 +7048,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).FlashInfoVersion as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).FlashInfoVersion as *const _
                 as usize
         },
         152usize,
@@ -6604,7 +7061,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ColorBalanceVersion as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ColorBalanceVersion as *const _
                 as usize
         },
         156usize,
@@ -6616,7 +7073,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).key as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).key as *const _ as usize },
         160usize,
         concat!(
             "Offset of field: ",
@@ -6627,7 +7084,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).NEFBitDepth as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).NEFBitDepth as *const _ as usize
         },
         162usize,
         concat!(
@@ -6639,7 +7096,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).HighSpeedCropFormat as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).HighSpeedCropFormat as *const _
                 as usize
         },
         170usize,
@@ -6652,7 +7109,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).SensorHighSpeedCrop as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).SensorHighSpeedCrop as *const _
                 as usize
         },
         172usize,
@@ -6665,7 +7122,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).SensorWidth as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).SensorWidth as *const _ as usize
         },
         180usize,
         concat!(
@@ -6677,7 +7134,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).SensorHeight as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).SensorHeight as *const _ as usize
         },
         182usize,
         concat!(
@@ -6689,7 +7146,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).Active_D_Lighting as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).Active_D_Lighting as *const _
                 as usize
         },
         184usize,
@@ -6702,7 +7159,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).ShotInfoVersion as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).ShotInfoVersion as *const _
                 as usize
         },
         188usize,
@@ -6715,7 +7172,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).MakernotesFlip as *const _
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).MakernotesFlip as *const _
                 as usize
         },
         192usize,
@@ -6728,7 +7185,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).RollAngle as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).RollAngle as *const _ as usize
         },
         200usize,
         concat!(
@@ -6740,7 +7197,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).PitchAngle as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).PitchAngle as *const _ as usize
         },
         208usize,
         concat!(
@@ -6752,7 +7209,7 @@ fn bindgen_test_layout_libraw_nikon_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikon_makernotes_t>())).YawAngle as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikon_makernotes_t>())).YawAngle as *const _ as usize
         },
         216usize,
         concat!(
@@ -6795,18 +7252,19 @@ pub struct libraw_olympus_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_olympus_makernotes_t>(),
+        ::core::mem::size_of::<libraw_olympus_makernotes_t>(),
         408usize,
         concat!("Size of: ", stringify!(libraw_olympus_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_olympus_makernotes_t>(),
+        ::core::mem::align_of::<libraw_olympus_makernotes_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_olympus_makernotes_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).CameraType2 as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).CameraType2 as *const _
+                as usize
         },
         0usize,
         concat!(
@@ -6818,7 +7276,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).ValidBits as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).ValidBits as *const _ as usize
         },
         6usize,
         concat!(
@@ -6830,7 +7288,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).SensorCalibration as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).SensorCalibration as *const _
                 as usize
         },
         8usize,
@@ -6843,7 +7301,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).DriveMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).DriveMode as *const _ as usize
         },
         16usize,
         concat!(
@@ -6855,7 +7313,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).ColorSpace as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).ColorSpace as *const _ as usize
         },
         26usize,
         concat!(
@@ -6867,7 +7325,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).FocusMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).FocusMode as *const _ as usize
         },
         28usize,
         concat!(
@@ -6879,7 +7337,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).AutoFocus as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).AutoFocus as *const _ as usize
         },
         32usize,
         concat!(
@@ -6891,7 +7349,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).AFPoint as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).AFPoint as *const _ as usize
         },
         34usize,
         concat!(
@@ -6903,7 +7361,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).AFAreas as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).AFAreas as *const _ as usize
         },
         36usize,
         concat!(
@@ -6915,7 +7373,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).AFPointSelected as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).AFPointSelected as *const _
                 as usize
         },
         296usize,
@@ -6928,7 +7386,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).AFResult as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).AFResult as *const _ as usize
         },
         336usize,
         concat!(
@@ -6940,7 +7398,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).AFFineTune as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).AFFineTune as *const _ as usize
         },
         338usize,
         concat!(
@@ -6952,7 +7410,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).AFFineTuneAdj as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).AFFineTuneAdj as *const _
                 as usize
         },
         340usize,
@@ -6965,7 +7423,8 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).SpecialMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).SpecialMode as *const _
+                as usize
         },
         348usize,
         concat!(
@@ -6977,7 +7436,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).ZoomStepCount as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).ZoomStepCount as *const _
                 as usize
         },
         360usize,
@@ -6990,7 +7449,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).FocusStepCount as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).FocusStepCount as *const _
                 as usize
         },
         362usize,
@@ -7003,7 +7462,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).FocusStepInfinity as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).FocusStepInfinity as *const _
                 as usize
         },
         364usize,
@@ -7016,7 +7475,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).FocusStepNear as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).FocusStepNear as *const _
                 as usize
         },
         366usize,
@@ -7029,7 +7488,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).FocusDistance as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).FocusDistance as *const _
                 as usize
         },
         368usize,
@@ -7042,7 +7501,8 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).AspectFrame as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).AspectFrame as *const _
+                as usize
         },
         376usize,
         concat!(
@@ -7054,7 +7514,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).StackedImage as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).StackedImage as *const _
                 as usize
         },
         384usize,
@@ -7067,7 +7527,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).isLiveND as *const _ as usize
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).isLiveND as *const _ as usize
         },
         392usize,
         concat!(
@@ -7079,7 +7539,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).LiveNDfactor as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).LiveNDfactor as *const _
                 as usize
         },
         396usize,
@@ -7092,7 +7552,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).Panorama_mode as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).Panorama_mode as *const _
                 as usize
         },
         400usize,
@@ -7105,7 +7565,7 @@ fn bindgen_test_layout_libraw_olympus_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_olympus_makernotes_t>())).Panorama_frameNum as *const _
+            &(*(::core::ptr::null::<libraw_olympus_makernotes_t>())).Panorama_frameNum as *const _
                 as usize
         },
         402usize,
@@ -7134,18 +7594,18 @@ pub struct libraw_panasonic_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_panasonic_makernotes_t>(),
+        ::core::mem::size_of::<libraw_panasonic_makernotes_t>(),
         68usize,
         concat!("Size of: ", stringify!(libraw_panasonic_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_panasonic_makernotes_t>(),
+        ::core::mem::align_of::<libraw_panasonic_makernotes_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_panasonic_makernotes_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).Compression as *const _
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).Compression as *const _
                 as usize
         },
         0usize,
@@ -7158,7 +7618,7 @@ fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).BlackLevelDim as *const _
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).BlackLevelDim as *const _
                 as usize
         },
         2usize,
@@ -7171,7 +7631,7 @@ fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).BlackLevel as *const _
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).BlackLevel as *const _
                 as usize
         },
         4usize,
@@ -7184,7 +7644,8 @@ fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).Multishot as *const _ as usize
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).Multishot as *const _
+                as usize
         },
         36usize,
         concat!(
@@ -7196,7 +7657,7 @@ fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).gamma as *const _ as usize
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).gamma as *const _ as usize
         },
         40usize,
         concat!(
@@ -7208,7 +7669,7 @@ fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).HighISOMultiplier as *const _
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).HighISOMultiplier as *const _
                 as usize
         },
         44usize,
@@ -7221,7 +7682,7 @@ fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).FocusStepNear as *const _
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).FocusStepNear as *const _
                 as usize
         },
         56usize,
@@ -7234,7 +7695,7 @@ fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).FocusStepCount as *const _
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).FocusStepCount as *const _
                 as usize
         },
         58usize,
@@ -7247,7 +7708,7 @@ fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).ZoomPosition as *const _
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).ZoomPosition as *const _
                 as usize
         },
         60usize,
@@ -7260,7 +7721,7 @@ fn bindgen_test_layout_libraw_panasonic_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_panasonic_makernotes_t>())).LensManufacturer as *const _
+            &(*(::core::ptr::null::<libraw_panasonic_makernotes_t>())).LensManufacturer as *const _
                 as usize
         },
         64usize,
@@ -7290,18 +7751,18 @@ pub struct libraw_pentax_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_pentax_makernotes_t>(),
+        ::core::mem::size_of::<libraw_pentax_makernotes_t>(),
         32usize,
         concat!("Size of: ", stringify!(libraw_pentax_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_pentax_makernotes_t>(),
+        ::core::mem::align_of::<libraw_pentax_makernotes_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_pentax_makernotes_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).DriveMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).DriveMode as *const _ as usize
         },
         0usize,
         concat!(
@@ -7313,7 +7774,7 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).FocusMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).FocusMode as *const _ as usize
         },
         4usize,
         concat!(
@@ -7325,7 +7786,7 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).AFPointSelected as *const _
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).AFPointSelected as *const _
                 as usize
         },
         8usize,
@@ -7338,7 +7799,7 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).AFPointSelected_Area as *const _
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).AFPointSelected_Area as *const _
                 as usize
         },
         12usize,
@@ -7351,7 +7812,7 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).AFPointsInFocus_version
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).AFPointsInFocus_version
                 as *const _ as usize
         },
         16usize,
@@ -7364,7 +7825,7 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).AFPointsInFocus as *const _
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).AFPointsInFocus as *const _
                 as usize
         },
         20usize,
@@ -7377,7 +7838,7 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).FocusPosition as *const _
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).FocusPosition as *const _
                 as usize
         },
         24usize,
@@ -7390,7 +7851,8 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).AFAdjustment as *const _ as usize
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).AFAdjustment as *const _
+                as usize
         },
         26usize,
         concat!(
@@ -7402,7 +7864,7 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).AFPointMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).AFPointMode as *const _ as usize
         },
         28usize,
         concat!(
@@ -7414,7 +7876,7 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).MultiExposure as *const _
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).MultiExposure as *const _
                 as usize
         },
         29usize,
@@ -7427,7 +7889,7 @@ fn bindgen_test_layout_libraw_pentax_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_pentax_makernotes_t>())).Quality as *const _ as usize
+            &(*(::core::ptr::null::<libraw_pentax_makernotes_t>())).Quality as *const _ as usize
         },
         30usize,
         concat!(
@@ -7461,18 +7923,18 @@ pub struct libraw_ricoh_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_ricoh_makernotes_t>(),
+        ::core::mem::size_of::<libraw_ricoh_makernotes_t>(),
         72usize,
         concat!("Size of: ", stringify!(libraw_ricoh_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_ricoh_makernotes_t>(),
+        ::core::mem::align_of::<libraw_ricoh_makernotes_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_ricoh_makernotes_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).AFStatus as *const _ as usize
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).AFStatus as *const _ as usize
         },
         0usize,
         concat!(
@@ -7484,7 +7946,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).AFAreaXPosition as *const _
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).AFAreaXPosition as *const _
                 as usize
         },
         4usize,
@@ -7497,7 +7959,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).AFAreaYPosition as *const _
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).AFAreaYPosition as *const _
                 as usize
         },
         12usize,
@@ -7510,7 +7972,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).AFAreaMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).AFAreaMode as *const _ as usize
         },
         20usize,
         concat!(
@@ -7522,7 +7984,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).SensorWidth as *const _ as usize
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).SensorWidth as *const _ as usize
         },
         24usize,
         concat!(
@@ -7534,7 +7996,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).SensorHeight as *const _ as usize
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).SensorHeight as *const _ as usize
         },
         28usize,
         concat!(
@@ -7546,7 +8008,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).CroppedImageWidth as *const _
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).CroppedImageWidth as *const _
                 as usize
         },
         32usize,
@@ -7559,7 +8021,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).CroppedImageHeight as *const _
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).CroppedImageHeight as *const _
                 as usize
         },
         36usize,
@@ -7572,7 +8034,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).WideAdapter as *const _ as usize
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).WideAdapter as *const _ as usize
         },
         40usize,
         concat!(
@@ -7584,7 +8046,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).CropMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).CropMode as *const _ as usize
         },
         42usize,
         concat!(
@@ -7596,7 +8058,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).NDFilter as *const _ as usize
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).NDFilter as *const _ as usize
         },
         44usize,
         concat!(
@@ -7608,7 +8070,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).AutoBracketing as *const _
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).AutoBracketing as *const _
                 as usize
         },
         46usize,
@@ -7621,7 +8083,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).MacroMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).MacroMode as *const _ as usize
         },
         48usize,
         concat!(
@@ -7633,7 +8095,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).FlashMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).FlashMode as *const _ as usize
         },
         50usize,
         concat!(
@@ -7645,7 +8107,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).FlashExposureComp as *const _
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).FlashExposureComp as *const _
                 as usize
         },
         56usize,
@@ -7658,7 +8120,7 @@ fn bindgen_test_layout_libraw_ricoh_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_ricoh_makernotes_t>())).ManualFlashOutput as *const _
+            &(*(::core::ptr::null::<libraw_ricoh_makernotes_t>())).ManualFlashOutput as *const _
                 as usize
         },
         64usize,
@@ -7684,18 +8146,18 @@ pub struct libraw_samsung_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_samsung_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_samsung_makernotes_t>(),
+        ::core::mem::size_of::<libraw_samsung_makernotes_t>(),
         136usize,
         concat!("Size of: ", stringify!(libraw_samsung_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_samsung_makernotes_t>(),
+        ::core::mem::align_of::<libraw_samsung_makernotes_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_samsung_makernotes_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_samsung_makernotes_t>())).ImageSizeFull as *const _
+            &(*(::core::ptr::null::<libraw_samsung_makernotes_t>())).ImageSizeFull as *const _
                 as usize
         },
         0usize,
@@ -7708,7 +8170,7 @@ fn bindgen_test_layout_libraw_samsung_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_samsung_makernotes_t>())).ImageSizeCrop as *const _
+            &(*(::core::ptr::null::<libraw_samsung_makernotes_t>())).ImageSizeCrop as *const _
                 as usize
         },
         16usize,
@@ -7721,7 +8183,7 @@ fn bindgen_test_layout_libraw_samsung_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_samsung_makernotes_t>())).ColorSpace as *const _ as usize
+            &(*(::core::ptr::null::<libraw_samsung_makernotes_t>())).ColorSpace as *const _ as usize
         },
         32usize,
         concat!(
@@ -7732,7 +8194,9 @@ fn bindgen_test_layout_libraw_samsung_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_samsung_makernotes_t>())).key as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_samsung_makernotes_t>())).key as *const _ as usize
+        },
         40usize,
         concat!(
             "Offset of field: ",
@@ -7743,7 +8207,8 @@ fn bindgen_test_layout_libraw_samsung_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_samsung_makernotes_t>())).DigitalGain as *const _ as usize
+            &(*(::core::ptr::null::<libraw_samsung_makernotes_t>())).DigitalGain as *const _
+                as usize
         },
         88usize,
         concat!(
@@ -7755,7 +8220,7 @@ fn bindgen_test_layout_libraw_samsung_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_samsung_makernotes_t>())).DeviceType as *const _ as usize
+            &(*(::core::ptr::null::<libraw_samsung_makernotes_t>())).DeviceType as *const _ as usize
         },
         96usize,
         concat!(
@@ -7767,7 +8232,7 @@ fn bindgen_test_layout_libraw_samsung_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_samsung_makernotes_t>())).LensFirmware as *const _
+            &(*(::core::ptr::null::<libraw_samsung_makernotes_t>())).LensFirmware as *const _
                 as usize
         },
         100usize,
@@ -7804,18 +8269,19 @@ pub struct libraw_kodak_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_kodak_makernotes_t>(),
+        ::core::mem::size_of::<libraw_kodak_makernotes_t>(),
         244usize,
         concat!("Size of: ", stringify!(libraw_kodak_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_kodak_makernotes_t>(),
+        ::core::mem::align_of::<libraw_kodak_makernotes_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_kodak_makernotes_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).BlackLevelTop as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).BlackLevelTop as *const _
+                as usize
         },
         0usize,
         concat!(
@@ -7827,7 +8293,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).BlackLevelBottom as *const _
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).BlackLevelBottom as *const _
                 as usize
         },
         2usize,
@@ -7840,7 +8306,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).offset_left as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).offset_left as *const _ as usize
         },
         4usize,
         concat!(
@@ -7852,7 +8318,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).offset_top as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).offset_top as *const _ as usize
         },
         6usize,
         concat!(
@@ -7864,7 +8330,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).clipBlack as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).clipBlack as *const _ as usize
         },
         8usize,
         concat!(
@@ -7876,7 +8342,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).clipWhite as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).clipWhite as *const _ as usize
         },
         10usize,
         concat!(
@@ -7888,7 +8354,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).romm_camDaylight as *const _
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).romm_camDaylight as *const _
                 as usize
         },
         12usize,
@@ -7901,7 +8367,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).romm_camTungsten as *const _
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).romm_camTungsten as *const _
                 as usize
         },
         48usize,
@@ -7914,7 +8380,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).romm_camFluorescent as *const _
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).romm_camFluorescent as *const _
                 as usize
         },
         84usize,
@@ -7927,7 +8393,8 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).romm_camFlash as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).romm_camFlash as *const _
+                as usize
         },
         120usize,
         concat!(
@@ -7939,7 +8406,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).romm_camCustom as *const _
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).romm_camCustom as *const _
                 as usize
         },
         156usize,
@@ -7952,7 +8419,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).romm_camAuto as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).romm_camAuto as *const _ as usize
         },
         192usize,
         concat!(
@@ -7964,7 +8431,8 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).val018percent as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).val018percent as *const _
+                as usize
         },
         228usize,
         concat!(
@@ -7976,7 +8444,8 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).val100percent as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).val100percent as *const _
+                as usize
         },
         230usize,
         concat!(
@@ -7988,7 +8457,8 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).val170percent as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).val170percent as *const _
+                as usize
         },
         232usize,
         concat!(
@@ -8000,7 +8470,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).MakerNoteKodak8a as *const _
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).MakerNoteKodak8a as *const _
                 as usize
         },
         234usize,
@@ -8013,7 +8483,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).ISOCalibrationGain as *const _
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).ISOCalibrationGain as *const _
                 as usize
         },
         236usize,
@@ -8026,7 +8496,7 @@ fn bindgen_test_layout_libraw_kodak_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_kodak_makernotes_t>())).AnalogISO as *const _ as usize
+            &(*(::core::ptr::null::<libraw_kodak_makernotes_t>())).AnalogISO as *const _ as usize
         },
         240usize,
         concat!(
@@ -8048,17 +8518,19 @@ pub struct libraw_p1_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_p1_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_p1_makernotes_t>(),
+        ::core::mem::size_of::<libraw_p1_makernotes_t>(),
         448usize,
         concat!("Size of: ", stringify!(libraw_p1_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_p1_makernotes_t>(),
+        ::core::mem::align_of::<libraw_p1_makernotes_t>(),
         1usize,
         concat!("Alignment of ", stringify!(libraw_p1_makernotes_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_p1_makernotes_t>())).Software as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_p1_makernotes_t>())).Software as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8069,7 +8541,7 @@ fn bindgen_test_layout_libraw_p1_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_p1_makernotes_t>())).SystemType as *const _ as usize
+            &(*(::core::ptr::null::<libraw_p1_makernotes_t>())).SystemType as *const _ as usize
         },
         64usize,
         concat!(
@@ -8081,7 +8553,7 @@ fn bindgen_test_layout_libraw_p1_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_p1_makernotes_t>())).FirmwareString as *const _ as usize
+            &(*(::core::ptr::null::<libraw_p1_makernotes_t>())).FirmwareString as *const _ as usize
         },
         128usize,
         concat!(
@@ -8093,7 +8565,7 @@ fn bindgen_test_layout_libraw_p1_makernotes_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_p1_makernotes_t>())).SystemModel as *const _ as usize
+            &(*(::core::ptr::null::<libraw_p1_makernotes_t>())).SystemModel as *const _ as usize
         },
         384usize,
         concat!(
@@ -8165,17 +8637,17 @@ pub struct libraw_sony_info_t {
 #[test]
 fn bindgen_test_layout_libraw_sony_info_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_sony_info_t>(),
+        ::core::mem::size_of::<libraw_sony_info_t>(),
         180usize,
         concat!("Size of: ", stringify!(libraw_sony_info_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_sony_info_t>(),
+        ::core::mem::align_of::<libraw_sony_info_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_sony_info_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).CameraType as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).CameraType as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8186,7 +8658,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).Sony0x9400_version as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).Sony0x9400_version as *const _ as usize
         },
         2usize,
         concat!(
@@ -8198,7 +8670,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).Sony0x9400_ReleaseMode2 as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).Sony0x9400_ReleaseMode2 as *const _
                 as usize
         },
         3usize,
@@ -8211,7 +8683,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).Sony0x9400_SequenceImageNumber
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).Sony0x9400_SequenceImageNumber
                 as *const _ as usize
         },
         4usize,
@@ -8224,7 +8696,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).Sony0x9400_SequenceLength1 as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).Sony0x9400_SequenceLength1 as *const _
                 as usize
         },
         8usize,
@@ -8237,8 +8709,8 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).Sony0x9400_SequenceFileNumber as *const _
-                as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).Sony0x9400_SequenceFileNumber
+                as *const _ as usize
         },
         12usize,
         concat!(
@@ -8250,7 +8722,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).Sony0x9400_SequenceLength2 as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).Sony0x9400_SequenceLength2 as *const _
                 as usize
         },
         16usize,
@@ -8263,7 +8735,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).AFAreaModeSetting as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).AFAreaModeSetting as *const _ as usize
         },
         17usize,
         concat!(
@@ -8274,7 +8746,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).AFAreaMode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).AFAreaMode as *const _ as usize },
         18usize,
         concat!(
             "Offset of field: ",
@@ -8285,7 +8757,8 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).FlexibleSpotPosition as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).FlexibleSpotPosition as *const _
+                as usize
         },
         20usize,
         concat!(
@@ -8297,7 +8770,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).AFPointSelected as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).AFPointSelected as *const _ as usize
         },
         24usize,
         concat!(
@@ -8309,7 +8782,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).AFPointSelected_0x201e as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).AFPointSelected_0x201e as *const _
                 as usize
         },
         25usize,
@@ -8322,7 +8795,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).nAFPointsUsed as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).nAFPointsUsed as *const _ as usize
         },
         26usize,
         concat!(
@@ -8333,7 +8806,9 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).AFPointsUsed as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).AFPointsUsed as *const _ as usize
+        },
         28usize,
         concat!(
             "Offset of field: ",
@@ -8343,7 +8818,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).AFTracking as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).AFTracking as *const _ as usize },
         38usize,
         concat!(
             "Offset of field: ",
@@ -8353,7 +8828,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).AFType as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).AFType as *const _ as usize },
         39usize,
         concat!(
             "Offset of field: ",
@@ -8364,7 +8839,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).FocusLocation as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).FocusLocation as *const _ as usize
         },
         40usize,
         concat!(
@@ -8376,7 +8851,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).FocusPosition as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).FocusPosition as *const _ as usize
         },
         48usize,
         concat!(
@@ -8388,7 +8863,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).AFMicroAdjValue as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).AFMicroAdjValue as *const _ as usize
         },
         50usize,
         concat!(
@@ -8399,7 +8874,9 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).AFMicroAdjOn as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).AFMicroAdjOn as *const _ as usize
+        },
         51usize,
         concat!(
             "Offset of field: ",
@@ -8410,7 +8887,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).AFMicroAdjRegisteredLenses as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).AFMicroAdjRegisteredLenses as *const _
                 as usize
         },
         52usize,
@@ -8423,7 +8900,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).VariableLowPassFilter as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).VariableLowPassFilter as *const _
                 as usize
         },
         54usize,
@@ -8436,7 +8913,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).LongExposureNoiseReduction as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).LongExposureNoiseReduction as *const _
                 as usize
         },
         56usize,
@@ -8449,7 +8926,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).HighISONoiseReduction as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).HighISONoiseReduction as *const _
                 as usize
         },
         60usize,
@@ -8461,7 +8938,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).HDR as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).HDR as *const _ as usize },
         62usize,
         concat!(
             "Offset of field: ",
@@ -8471,7 +8948,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).group2010 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).group2010 as *const _ as usize },
         66usize,
         concat!(
             "Offset of field: ",
@@ -8481,7 +8958,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).group9050 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).group9050 as *const _ as usize },
         68usize,
         concat!(
             "Offset of field: ",
@@ -8492,7 +8969,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).real_iso_offset as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).real_iso_offset as *const _ as usize
         },
         70usize,
         concat!(
@@ -8504,7 +8981,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).MeteringMode_offset as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).MeteringMode_offset as *const _ as usize
         },
         72usize,
         concat!(
@@ -8516,7 +8993,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).ExposureProgram_offset as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).ExposureProgram_offset as *const _
                 as usize
         },
         74usize,
@@ -8529,7 +9006,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).ReleaseMode2_offset as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).ReleaseMode2_offset as *const _ as usize
         },
         76usize,
         concat!(
@@ -8540,7 +9017,9 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).MinoltaCamID as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).MinoltaCamID as *const _ as usize
+        },
         80usize,
         concat!(
             "Offset of field: ",
@@ -8550,7 +9029,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).firmware as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).firmware as *const _ as usize },
         84usize,
         concat!(
             "Offset of field: ",
@@ -8561,7 +9040,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).ImageCount3_offset as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).ImageCount3_offset as *const _ as usize
         },
         88usize,
         concat!(
@@ -8572,7 +9051,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).ImageCount3 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).ImageCount3 as *const _ as usize },
         92usize,
         concat!(
             "Offset of field: ",
@@ -8583,8 +9062,8 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).ElectronicFrontCurtainShutter as *const _
-                as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).ElectronicFrontCurtainShutter
+                as *const _ as usize
         },
         96usize,
         concat!(
@@ -8596,7 +9075,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).MeteringMode2 as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).MeteringMode2 as *const _ as usize
         },
         100usize,
         concat!(
@@ -8607,7 +9086,9 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).SonyDateTime as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).SonyDateTime as *const _ as usize
+        },
         102usize,
         concat!(
             "Offset of field: ",
@@ -8618,7 +9099,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).ShotNumberSincePowerUp as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).ShotNumberSincePowerUp as *const _
                 as usize
         },
         124usize,
@@ -8631,7 +9112,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).PixelShiftGroupPrefix as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).PixelShiftGroupPrefix as *const _
                 as usize
         },
         128usize,
@@ -8644,7 +9125,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).PixelShiftGroupID as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).PixelShiftGroupID as *const _ as usize
         },
         132usize,
         concat!(
@@ -8656,7 +9137,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).nShotsInPixelShiftGroup as *const _
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).nShotsInPixelShiftGroup as *const _
                 as usize
         },
         136usize,
@@ -8669,7 +9150,8 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).numInPixelShiftGroup as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).numInPixelShiftGroup as *const _
+                as usize
         },
         137usize,
         concat!(
@@ -8681,7 +9163,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).prd_ImageHeight as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).prd_ImageHeight as *const _ as usize
         },
         138usize,
         concat!(
@@ -8693,7 +9175,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).prd_ImageWidth as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).prd_ImageWidth as *const _ as usize
         },
         140usize,
         concat!(
@@ -8705,7 +9187,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).prd_Total_bps as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).prd_Total_bps as *const _ as usize
         },
         142usize,
         concat!(
@@ -8717,7 +9199,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).prd_Active_bps as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).prd_Active_bps as *const _ as usize
         },
         144usize,
         concat!(
@@ -8729,7 +9211,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).prd_StorageMethod as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).prd_StorageMethod as *const _ as usize
         },
         146usize,
         concat!(
@@ -8741,7 +9223,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).prd_BayerPattern as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).prd_BayerPattern as *const _ as usize
         },
         148usize,
         concat!(
@@ -8753,7 +9235,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_sony_info_t>())).SonyRawFileType as *const _ as usize
+            &(*(::core::ptr::null::<libraw_sony_info_t>())).SonyRawFileType as *const _ as usize
         },
         150usize,
         concat!(
@@ -8764,7 +9246,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).RAWFileType as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).RAWFileType as *const _ as usize },
         152usize,
         concat!(
             "Offset of field: ",
@@ -8774,7 +9256,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).Quality as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).Quality as *const _ as usize },
         156usize,
         concat!(
             "Offset of field: ",
@@ -8784,7 +9266,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).FileFormat as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).FileFormat as *const _ as usize },
         160usize,
         concat!(
             "Offset of field: ",
@@ -8794,7 +9276,7 @@ fn bindgen_test_layout_libraw_sony_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_sony_info_t>())).MetaVersion as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_sony_info_t>())).MetaVersion as *const _ as usize },
         162usize,
         concat!(
             "Offset of field: ",
@@ -8846,17 +9328,17 @@ pub struct libraw_colordata_t {
 #[test]
 fn bindgen_test_layout_libraw_colordata_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_colordata_t>(),
+        ::core::mem::size_of::<libraw_colordata_t>(),
         187032usize,
         concat!("Size of: ", stringify!(libraw_colordata_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_colordata_t>(),
+        ::core::mem::align_of::<libraw_colordata_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_colordata_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).curve as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).curve as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8866,7 +9348,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).cblack as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).cblack as *const _ as usize },
         131072usize,
         concat!(
             "Offset of field: ",
@@ -8876,7 +9358,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).black as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).black as *const _ as usize },
         147488usize,
         concat!(
             "Offset of field: ",
@@ -8886,7 +9368,9 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).data_maximum as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_colordata_t>())).data_maximum as *const _ as usize
+        },
         147492usize,
         concat!(
             "Offset of field: ",
@@ -8896,7 +9380,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).maximum as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).maximum as *const _ as usize },
         147496usize,
         concat!(
             "Offset of field: ",
@@ -8906,7 +9390,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).linear_max as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).linear_max as *const _ as usize },
         147500usize,
         concat!(
             "Offset of field: ",
@@ -8916,7 +9400,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).fmaximum as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).fmaximum as *const _ as usize },
         147516usize,
         concat!(
             "Offset of field: ",
@@ -8926,7 +9410,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).fnorm as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).fnorm as *const _ as usize },
         147520usize,
         concat!(
             "Offset of field: ",
@@ -8936,7 +9420,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).white as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).white as *const _ as usize },
         147524usize,
         concat!(
             "Offset of field: ",
@@ -8946,7 +9430,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).cam_mul as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).cam_mul as *const _ as usize },
         147652usize,
         concat!(
             "Offset of field: ",
@@ -8956,7 +9440,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).pre_mul as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).pre_mul as *const _ as usize },
         147668usize,
         concat!(
             "Offset of field: ",
@@ -8966,7 +9450,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).cmatrix as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).cmatrix as *const _ as usize },
         147684usize,
         concat!(
             "Offset of field: ",
@@ -8976,7 +9460,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).ccm as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).ccm as *const _ as usize },
         147732usize,
         concat!(
             "Offset of field: ",
@@ -8986,7 +9470,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).rgb_cam as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).rgb_cam as *const _ as usize },
         147780usize,
         concat!(
             "Offset of field: ",
@@ -8996,7 +9480,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).cam_xyz as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).cam_xyz as *const _ as usize },
         147828usize,
         concat!(
             "Offset of field: ",
@@ -9007,7 +9491,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_colordata_t>())).phase_one_data as *const _ as usize
+            &(*(::core::ptr::null::<libraw_colordata_t>())).phase_one_data as *const _ as usize
         },
         147876usize,
         concat!(
@@ -9018,7 +9502,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).flash_used as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).flash_used as *const _ as usize },
         147912usize,
         concat!(
             "Offset of field: ",
@@ -9028,7 +9512,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).canon_ev as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).canon_ev as *const _ as usize },
         147916usize,
         concat!(
             "Offset of field: ",
@@ -9038,7 +9522,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).model2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).model2 as *const _ as usize },
         147920usize,
         concat!(
             "Offset of field: ",
@@ -9049,7 +9533,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_colordata_t>())).UniqueCameraModel as *const _ as usize
+            &(*(::core::ptr::null::<libraw_colordata_t>())).UniqueCameraModel as *const _ as usize
         },
         147984usize,
         concat!(
@@ -9061,7 +9545,8 @@ fn bindgen_test_layout_libraw_colordata_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_colordata_t>())).LocalizedCameraModel as *const _ as usize
+            &(*(::core::ptr::null::<libraw_colordata_t>())).LocalizedCameraModel as *const _
+                as usize
         },
         148048usize,
         concat!(
@@ -9073,7 +9558,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_colordata_t>())).ImageUniqueID as *const _ as usize
+            &(*(::core::ptr::null::<libraw_colordata_t>())).ImageUniqueID as *const _ as usize
         },
         148112usize,
         concat!(
@@ -9085,7 +9570,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_colordata_t>())).RawDataUniqueID as *const _ as usize
+            &(*(::core::ptr::null::<libraw_colordata_t>())).RawDataUniqueID as *const _ as usize
         },
         148176usize,
         concat!(
@@ -9097,7 +9582,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_colordata_t>())).OriginalRawFileName as *const _ as usize
+            &(*(::core::ptr::null::<libraw_colordata_t>())).OriginalRawFileName as *const _ as usize
         },
         148193usize,
         concat!(
@@ -9108,7 +9593,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).profile as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).profile as *const _ as usize },
         148264usize,
         concat!(
             "Offset of field: ",
@@ -9119,7 +9604,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_colordata_t>())).profile_length as *const _ as usize
+            &(*(::core::ptr::null::<libraw_colordata_t>())).profile_length as *const _ as usize
         },
         148272usize,
         concat!(
@@ -9130,7 +9615,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).black_stat as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).black_stat as *const _ as usize },
         148276usize,
         concat!(
             "Offset of field: ",
@@ -9140,7 +9625,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).dng_color as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).dng_color as *const _ as usize },
         148308usize,
         concat!(
             "Offset of field: ",
@@ -9150,7 +9635,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).dng_levels as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).dng_levels as *const _ as usize },
         148644usize,
         concat!(
             "Offset of field: ",
@@ -9160,7 +9645,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).WB_Coeffs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).WB_Coeffs as *const _ as usize },
         181572usize,
         concat!(
             "Offset of field: ",
@@ -9170,7 +9655,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).WBCT_Coeffs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).WBCT_Coeffs as *const _ as usize },
         185668usize,
         concat!(
             "Offset of field: ",
@@ -9181,7 +9666,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_colordata_t>())).as_shot_wb_applied as *const _ as usize
+            &(*(::core::ptr::null::<libraw_colordata_t>())).as_shot_wb_applied as *const _ as usize
         },
         186948usize,
         concat!(
@@ -9192,7 +9677,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).P1_color as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).P1_color as *const _ as usize },
         186952usize,
         concat!(
             "Offset of field: ",
@@ -9202,7 +9687,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_colordata_t>())).raw_bps as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_colordata_t>())).raw_bps as *const _ as usize },
         187024usize,
         concat!(
             "Offset of field: ",
@@ -9213,7 +9698,7 @@ fn bindgen_test_layout_libraw_colordata_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_colordata_t>())).ExifColorSpace as *const _ as usize
+            &(*(::core::ptr::null::<libraw_colordata_t>())).ExifColorSpace as *const _ as usize
         },
         187028usize,
         concat!(
@@ -9237,17 +9722,17 @@ pub struct libraw_thumbnail_t {
 #[test]
 fn bindgen_test_layout_libraw_thumbnail_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_thumbnail_t>(),
+        ::core::mem::size_of::<libraw_thumbnail_t>(),
         24usize,
         concat!("Size of: ", stringify!(libraw_thumbnail_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_thumbnail_t>(),
+        ::core::mem::align_of::<libraw_thumbnail_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_thumbnail_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_thumbnail_t>())).tformat as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_thumbnail_t>())).tformat as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9257,7 +9742,7 @@ fn bindgen_test_layout_libraw_thumbnail_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_thumbnail_t>())).twidth as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_thumbnail_t>())).twidth as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9267,7 +9752,7 @@ fn bindgen_test_layout_libraw_thumbnail_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_thumbnail_t>())).theight as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_thumbnail_t>())).theight as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -9277,7 +9762,7 @@ fn bindgen_test_layout_libraw_thumbnail_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_thumbnail_t>())).tlength as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_thumbnail_t>())).tlength as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9287,7 +9772,7 @@ fn bindgen_test_layout_libraw_thumbnail_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_thumbnail_t>())).tcolors as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_thumbnail_t>())).tcolors as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -9297,13 +9782,158 @@ fn bindgen_test_layout_libraw_thumbnail_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_thumbnail_t>())).thumb as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_thumbnail_t>())).thumb as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_thumbnail_t),
             "::",
             stringify!(thumb)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub struct libraw_thumbnail_item_t {
+    pub tformat: LibRaw_internal_thumbnail_formats,
+    pub twidth: ushort,
+    pub theight: ushort,
+    pub tflip: ushort,
+    pub tlength: libc::c_uint,
+    pub tmisc: libc::c_uint,
+    pub toffset: INT64,
+}
+#[test]
+fn bindgen_test_layout_libraw_thumbnail_item_t() {
+    assert_eq!(
+        ::core::mem::size_of::<libraw_thumbnail_item_t>(),
+        32usize,
+        concat!("Size of: ", stringify!(libraw_thumbnail_item_t))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<libraw_thumbnail_item_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(libraw_thumbnail_item_t))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<libraw_thumbnail_item_t>())).tformat as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_thumbnail_item_t),
+            "::",
+            stringify!(tformat)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<libraw_thumbnail_item_t>())).twidth as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_thumbnail_item_t),
+            "::",
+            stringify!(twidth)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<libraw_thumbnail_item_t>())).theight as *const _ as usize
+        },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_thumbnail_item_t),
+            "::",
+            stringify!(theight)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<libraw_thumbnail_item_t>())).tflip as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_thumbnail_item_t),
+            "::",
+            stringify!(tflip)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<libraw_thumbnail_item_t>())).tlength as *const _ as usize
+        },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_thumbnail_item_t),
+            "::",
+            stringify!(tlength)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<libraw_thumbnail_item_t>())).tmisc as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_thumbnail_item_t),
+            "::",
+            stringify!(tmisc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<libraw_thumbnail_item_t>())).toffset as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_thumbnail_item_t),
+            "::",
+            stringify!(toffset)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub struct libraw_thumbnail_list_t {
+    pub thumbcount: libc::c_int,
+    pub thumblist: [libraw_thumbnail_item_t; 8usize],
+}
+#[test]
+fn bindgen_test_layout_libraw_thumbnail_list_t() {
+    assert_eq!(
+        ::core::mem::size_of::<libraw_thumbnail_list_t>(),
+        264usize,
+        concat!("Size of: ", stringify!(libraw_thumbnail_list_t))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<libraw_thumbnail_list_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(libraw_thumbnail_list_t))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<libraw_thumbnail_list_t>())).thumbcount as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_thumbnail_list_t),
+            "::",
+            stringify!(thumbcount)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<libraw_thumbnail_list_t>())).thumblist as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_thumbnail_list_t),
+            "::",
+            stringify!(thumblist)
         )
     );
 }
@@ -9323,17 +9953,17 @@ pub struct libraw_gps_info_t {
 #[test]
 fn bindgen_test_layout_libraw_gps_info_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_gps_info_t>(),
+        ::core::mem::size_of::<libraw_gps_info_t>(),
         48usize,
         concat!("Size of: ", stringify!(libraw_gps_info_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_gps_info_t>(),
+        ::core::mem::align_of::<libraw_gps_info_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_gps_info_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_gps_info_t>())).latitude as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_gps_info_t>())).latitude as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9343,7 +9973,7 @@ fn bindgen_test_layout_libraw_gps_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_gps_info_t>())).longitude as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_gps_info_t>())).longitude as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -9353,7 +9983,7 @@ fn bindgen_test_layout_libraw_gps_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_gps_info_t>())).gpstimestamp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_gps_info_t>())).gpstimestamp as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -9363,7 +9993,7 @@ fn bindgen_test_layout_libraw_gps_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_gps_info_t>())).altitude as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_gps_info_t>())).altitude as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -9373,7 +10003,7 @@ fn bindgen_test_layout_libraw_gps_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_gps_info_t>())).altref as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_gps_info_t>())).altref as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -9383,7 +10013,7 @@ fn bindgen_test_layout_libraw_gps_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_gps_info_t>())).latref as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_gps_info_t>())).latref as *const _ as usize },
         41usize,
         concat!(
             "Offset of field: ",
@@ -9393,7 +10023,7 @@ fn bindgen_test_layout_libraw_gps_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_gps_info_t>())).longref as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_gps_info_t>())).longref as *const _ as usize },
         42usize,
         concat!(
             "Offset of field: ",
@@ -9403,7 +10033,7 @@ fn bindgen_test_layout_libraw_gps_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_gps_info_t>())).gpsstatus as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_gps_info_t>())).gpsstatus as *const _ as usize },
         43usize,
         concat!(
             "Offset of field: ",
@@ -9413,7 +10043,7 @@ fn bindgen_test_layout_libraw_gps_info_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_gps_info_t>())).gpsparsed as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_gps_info_t>())).gpsparsed as *const _ as usize },
         44usize,
         concat!(
             "Offset of field: ",
@@ -9441,17 +10071,17 @@ pub struct libraw_imgother_t {
 #[test]
 fn bindgen_test_layout_libraw_imgother_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_imgother_t>(),
+        ::core::mem::size_of::<libraw_imgother_t>(),
         800usize,
         concat!("Size of: ", stringify!(libraw_imgother_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_imgother_t>(),
+        ::core::mem::align_of::<libraw_imgother_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_imgother_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).iso_speed as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).iso_speed as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9461,7 +10091,7 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).shutter as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).shutter as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9471,7 +10101,7 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).aperture as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).aperture as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9481,7 +10111,7 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).focal_len as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).focal_len as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -9491,7 +10121,7 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).timestamp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).timestamp as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -9501,7 +10131,7 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).shot_order as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).shot_order as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -9511,7 +10141,7 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).gpsdata as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).gpsdata as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -9521,7 +10151,7 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).parsed_gps as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).parsed_gps as *const _ as usize },
         156usize,
         concat!(
             "Offset of field: ",
@@ -9531,7 +10161,7 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).desc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).desc as *const _ as usize },
         204usize,
         concat!(
             "Offset of field: ",
@@ -9541,7 +10171,7 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).artist as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_imgother_t>())).artist as *const _ as usize },
         716usize,
         concat!(
             "Offset of field: ",
@@ -9551,7 +10181,9 @@ fn bindgen_test_layout_libraw_imgother_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_imgother_t>())).analogbalance as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_imgother_t>())).analogbalance as *const _ as usize
+        },
         780usize,
         concat!(
             "Offset of field: ",
@@ -9573,18 +10205,18 @@ pub struct libraw_afinfo_item_t {
 #[test]
 fn bindgen_test_layout_libraw_afinfo_item_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_afinfo_item_t>(),
+        ::core::mem::size_of::<libraw_afinfo_item_t>(),
         24usize,
         concat!("Size of: ", stringify!(libraw_afinfo_item_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_afinfo_item_t>(),
+        ::core::mem::align_of::<libraw_afinfo_item_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_afinfo_item_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_afinfo_item_t>())).AFInfoData_tag as *const _ as usize
+            &(*(::core::ptr::null::<libraw_afinfo_item_t>())).AFInfoData_tag as *const _ as usize
         },
         0usize,
         concat!(
@@ -9596,7 +10228,7 @@ fn bindgen_test_layout_libraw_afinfo_item_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_afinfo_item_t>())).AFInfoData_order as *const _ as usize
+            &(*(::core::ptr::null::<libraw_afinfo_item_t>())).AFInfoData_order as *const _ as usize
         },
         4usize,
         concat!(
@@ -9608,7 +10240,8 @@ fn bindgen_test_layout_libraw_afinfo_item_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_afinfo_item_t>())).AFInfoData_version as *const _ as usize
+            &(*(::core::ptr::null::<libraw_afinfo_item_t>())).AFInfoData_version as *const _
+                as usize
         },
         8usize,
         concat!(
@@ -9620,7 +10253,7 @@ fn bindgen_test_layout_libraw_afinfo_item_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_afinfo_item_t>())).AFInfoData_length as *const _ as usize
+            &(*(::core::ptr::null::<libraw_afinfo_item_t>())).AFInfoData_length as *const _ as usize
         },
         12usize,
         concat!(
@@ -9631,7 +10264,9 @@ fn bindgen_test_layout_libraw_afinfo_item_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_afinfo_item_t>())).AFInfoData as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_afinfo_item_t>())).AFInfoData as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -9669,18 +10304,18 @@ pub struct libraw_metadata_common_t {
 #[test]
 fn bindgen_test_layout_libraw_metadata_common_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_metadata_common_t>(),
+        ::core::mem::size_of::<libraw_metadata_common_t>(),
         304usize,
         concat!("Size of: ", stringify!(libraw_metadata_common_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_metadata_common_t>(),
+        ::core::mem::align_of::<libraw_metadata_common_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_metadata_common_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).FlashEC as *const _ as usize
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).FlashEC as *const _ as usize
         },
         0usize,
         concat!(
@@ -9692,7 +10327,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).FlashGN as *const _ as usize
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).FlashGN as *const _ as usize
         },
         4usize,
         concat!(
@@ -9704,7 +10339,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).CameraTemperature as *const _
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).CameraTemperature as *const _
                 as usize
         },
         8usize,
@@ -9717,7 +10352,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).SensorTemperature as *const _
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).SensorTemperature as *const _
                 as usize
         },
         12usize,
@@ -9730,7 +10365,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).SensorTemperature2 as *const _
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).SensorTemperature2 as *const _
                 as usize
         },
         16usize,
@@ -9743,7 +10378,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).LensTemperature as *const _
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).LensTemperature as *const _
                 as usize
         },
         20usize,
@@ -9756,7 +10391,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).AmbientTemperature as *const _
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).AmbientTemperature as *const _
                 as usize
         },
         24usize,
@@ -9769,7 +10404,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).BatteryTemperature as *const _
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).BatteryTemperature as *const _
                 as usize
         },
         28usize,
@@ -9782,7 +10417,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).exifAmbientTemperature as *const _
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).exifAmbientTemperature as *const _
                 as usize
         },
         32usize,
@@ -9795,7 +10430,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).exifHumidity as *const _ as usize
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).exifHumidity as *const _ as usize
         },
         36usize,
         concat!(
@@ -9807,7 +10442,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).exifPressure as *const _ as usize
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).exifPressure as *const _ as usize
         },
         40usize,
         concat!(
@@ -9819,7 +10454,8 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).exifWaterDepth as *const _ as usize
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).exifWaterDepth as *const _
+                as usize
         },
         44usize,
         concat!(
@@ -9831,7 +10467,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).exifAcceleration as *const _
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).exifAcceleration as *const _
                 as usize
         },
         48usize,
@@ -9844,7 +10480,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).exifCameraElevationAngle
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).exifCameraElevationAngle
                 as *const _ as usize
         },
         52usize,
@@ -9857,7 +10493,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).real_ISO as *const _ as usize
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).real_ISO as *const _ as usize
         },
         56usize,
         concat!(
@@ -9869,7 +10505,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).exifExposureIndex as *const _
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).exifExposureIndex as *const _
                 as usize
         },
         60usize,
@@ -9882,7 +10518,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).ColorSpace as *const _ as usize
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).ColorSpace as *const _ as usize
         },
         64usize,
         concat!(
@@ -9894,7 +10530,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).firmware as *const _ as usize
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).firmware as *const _ as usize
         },
         66usize,
         concat!(
@@ -9906,7 +10542,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).ExposureCalibrationShift
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).ExposureCalibrationShift
                 as *const _ as usize
         },
         196usize,
@@ -9918,7 +10554,9 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_metadata_common_t>())).afdata as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).afdata as *const _ as usize
+        },
         200usize,
         concat!(
             "Offset of field: ",
@@ -9929,7 +10567,7 @@ fn bindgen_test_layout_libraw_metadata_common_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_metadata_common_t>())).afcount as *const _ as usize
+            &(*(::core::ptr::null::<libraw_metadata_common_t>())).afcount as *const _ as usize
         },
         296usize,
         concat!(
@@ -9987,17 +10625,17 @@ pub struct libraw_output_params_t {
 #[test]
 fn bindgen_test_layout_libraw_output_params_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_output_params_t>(),
+        ::core::mem::size_of::<libraw_output_params_t>(),
         304usize,
         concat!("Size of: ", stringify!(libraw_output_params_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_output_params_t>(),
+        ::core::mem::align_of::<libraw_output_params_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_output_params_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_output_params_t>())).greybox as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_output_params_t>())).greybox as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10007,7 +10645,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_output_params_t>())).cropbox as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_output_params_t>())).cropbox as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -10017,7 +10655,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_output_params_t>())).aber as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_output_params_t>())).aber as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -10027,7 +10665,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_output_params_t>())).gamm as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_output_params_t>())).gamm as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -10037,7 +10675,9 @@ fn bindgen_test_layout_libraw_output_params_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_output_params_t>())).user_mul as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_output_params_t>())).user_mul as *const _ as usize
+        },
         112usize,
         concat!(
             "Offset of field: ",
@@ -10047,7 +10687,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_output_params_t>())).bright as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_output_params_t>())).bright as *const _ as usize },
         128usize,
         concat!(
             "Offset of field: ",
@@ -10058,7 +10698,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).threshold as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).threshold as *const _ as usize
         },
         132usize,
         concat!(
@@ -10070,7 +10710,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).half_size as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).half_size as *const _ as usize
         },
         136usize,
         concat!(
@@ -10082,7 +10722,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).four_color_rgb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).four_color_rgb as *const _ as usize
         },
         140usize,
         concat!(
@@ -10094,7 +10734,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).highlight as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).highlight as *const _ as usize
         },
         144usize,
         concat!(
@@ -10106,7 +10746,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).use_auto_wb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).use_auto_wb as *const _ as usize
         },
         148usize,
         concat!(
@@ -10118,7 +10758,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).use_camera_wb as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).use_camera_wb as *const _ as usize
         },
         152usize,
         concat!(
@@ -10130,7 +10770,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).use_camera_matrix as *const _
+            &(*(::core::ptr::null::<libraw_output_params_t>())).use_camera_matrix as *const _
                 as usize
         },
         156usize,
@@ -10143,7 +10783,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).output_color as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).output_color as *const _ as usize
         },
         160usize,
         concat!(
@@ -10155,7 +10795,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).output_profile as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).output_profile as *const _ as usize
         },
         168usize,
         concat!(
@@ -10167,7 +10807,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).camera_profile as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).camera_profile as *const _ as usize
         },
         176usize,
         concat!(
@@ -10179,7 +10819,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).bad_pixels as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).bad_pixels as *const _ as usize
         },
         184usize,
         concat!(
@@ -10191,7 +10831,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).dark_frame as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).dark_frame as *const _ as usize
         },
         192usize,
         concat!(
@@ -10203,7 +10843,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).output_bps as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).output_bps as *const _ as usize
         },
         200usize,
         concat!(
@@ -10215,7 +10855,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).output_tiff as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).output_tiff as *const _ as usize
         },
         204usize,
         concat!(
@@ -10227,7 +10867,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).output_flags as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).output_flags as *const _ as usize
         },
         208usize,
         concat!(
@@ -10239,7 +10879,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).user_flip as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).user_flip as *const _ as usize
         },
         212usize,
         concat!(
@@ -10251,7 +10891,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).user_qual as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).user_qual as *const _ as usize
         },
         216usize,
         concat!(
@@ -10263,7 +10903,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).user_black as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).user_black as *const _ as usize
         },
         220usize,
         concat!(
@@ -10275,7 +10915,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).user_cblack as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).user_cblack as *const _ as usize
         },
         224usize,
         concat!(
@@ -10286,7 +10926,9 @@ fn bindgen_test_layout_libraw_output_params_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_output_params_t>())).user_sat as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_output_params_t>())).user_sat as *const _ as usize
+        },
         240usize,
         concat!(
             "Offset of field: ",
@@ -10297,7 +10939,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).med_passes as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).med_passes as *const _ as usize
         },
         244usize,
         concat!(
@@ -10309,7 +10951,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).auto_bright_thr as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).auto_bright_thr as *const _ as usize
         },
         248usize,
         concat!(
@@ -10321,7 +10963,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).adjust_maximum_thr as *const _
+            &(*(::core::ptr::null::<libraw_output_params_t>())).adjust_maximum_thr as *const _
                 as usize
         },
         252usize,
@@ -10334,7 +10976,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).no_auto_bright as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).no_auto_bright as *const _ as usize
         },
         256usize,
         concat!(
@@ -10346,7 +10988,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).use_fuji_rotate as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).use_fuji_rotate as *const _ as usize
         },
         260usize,
         concat!(
@@ -10358,7 +11000,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).green_matching as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).green_matching as *const _ as usize
         },
         264usize,
         concat!(
@@ -10370,7 +11012,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).dcb_iterations as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).dcb_iterations as *const _ as usize
         },
         268usize,
         concat!(
@@ -10382,7 +11024,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).dcb_enhance_fl as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).dcb_enhance_fl as *const _ as usize
         },
         272usize,
         concat!(
@@ -10394,7 +11036,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).fbdd_noiserd as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).fbdd_noiserd as *const _ as usize
         },
         276usize,
         concat!(
@@ -10406,7 +11048,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).exp_correc as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).exp_correc as *const _ as usize
         },
         280usize,
         concat!(
@@ -10418,7 +11060,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).exp_shift as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).exp_shift as *const _ as usize
         },
         284usize,
         concat!(
@@ -10430,7 +11072,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).exp_preser as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).exp_preser as *const _ as usize
         },
         288usize,
         concat!(
@@ -10442,7 +11084,7 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).no_auto_scale as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).no_auto_scale as *const _ as usize
         },
         292usize,
         concat!(
@@ -10454,7 +11096,8 @@ fn bindgen_test_layout_libraw_output_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_output_params_t>())).no_interpolation as *const _ as usize
+            &(*(::core::ptr::null::<libraw_output_params_t>())).no_interpolation as *const _
+                as usize
         },
         296usize,
         concat!(
@@ -10482,18 +11125,19 @@ pub struct libraw_raw_unpack_params_t {
 #[test]
 fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_raw_unpack_params_t>(),
+        ::core::mem::size_of::<libraw_raw_unpack_params_t>(),
         48usize,
         concat!("Size of: ", stringify!(libraw_raw_unpack_params_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_raw_unpack_params_t>(),
+        ::core::mem::align_of::<libraw_raw_unpack_params_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_raw_unpack_params_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).use_rawspeed as *const _ as usize
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).use_rawspeed as *const _
+                as usize
         },
         0usize,
         concat!(
@@ -10505,7 +11149,7 @@ fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).use_dngsdk as *const _ as usize
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).use_dngsdk as *const _ as usize
         },
         4usize,
         concat!(
@@ -10517,7 +11161,7 @@ fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).options as *const _ as usize
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).options as *const _ as usize
         },
         8usize,
         concat!(
@@ -10529,7 +11173,7 @@ fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).shot_select as *const _ as usize
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).shot_select as *const _ as usize
         },
         12usize,
         concat!(
@@ -10541,7 +11185,7 @@ fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).specials as *const _ as usize
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).specials as *const _ as usize
         },
         16usize,
         concat!(
@@ -10553,7 +11197,7 @@ fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).max_raw_memory_mb as *const _
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).max_raw_memory_mb as *const _
                 as usize
         },
         20usize,
@@ -10566,7 +11210,7 @@ fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).sony_arw2_posterization_thr
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).sony_arw2_posterization_thr
                 as *const _ as usize
         },
         24usize,
@@ -10579,7 +11223,7 @@ fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).coolscan_nef_gamma as *const _
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).coolscan_nef_gamma as *const _
                 as usize
         },
         28usize,
@@ -10592,7 +11236,8 @@ fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).p4shot_order as *const _ as usize
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).p4shot_order as *const _
+                as usize
         },
         32usize,
         concat!(
@@ -10604,8 +11249,8 @@ fn bindgen_test_layout_libraw_raw_unpack_params_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_raw_unpack_params_t>())).custom_camera_strings as *const _
-                as usize
+            &(*(::core::ptr::null::<libraw_raw_unpack_params_t>())).custom_camera_strings
+                as *const _ as usize
         },
         40usize,
         concat!(
@@ -10636,17 +11281,17 @@ pub struct libraw_rawdata_t {
 #[test]
 fn bindgen_test_layout_libraw_rawdata_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_rawdata_t>(),
+        ::core::mem::size_of::<libraw_rawdata_t>(),
         187744usize,
         concat!("Size of: ", stringify!(libraw_rawdata_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_rawdata_t>(),
+        ::core::mem::align_of::<libraw_rawdata_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_rawdata_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).raw_alloc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).raw_alloc as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10656,7 +11301,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).raw_image as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).raw_image as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -10666,7 +11311,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).color4_image as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).color4_image as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -10676,7 +11321,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).color3_image as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).color3_image as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -10686,7 +11331,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).float_image as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).float_image as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -10696,7 +11341,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).float3_image as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).float3_image as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -10706,7 +11351,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).float4_image as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).float4_image as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -10716,7 +11361,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).ph1_cblack as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).ph1_cblack as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -10726,7 +11371,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).ph1_rblack as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).ph1_rblack as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -10736,7 +11381,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).iparams as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).iparams as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -10746,7 +11391,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).sizes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).sizes as *const _ as usize },
         512usize,
         concat!(
             "Offset of field: ",
@@ -10756,7 +11401,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).ioparams as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).ioparams as *const _ as usize },
         696usize,
         concat!(
             "Offset of field: ",
@@ -10766,7 +11411,7 @@ fn bindgen_test_layout_libraw_rawdata_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_rawdata_t>())).color as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_rawdata_t>())).color as *const _ as usize },
         712usize,
         concat!(
             "Offset of field: ",
@@ -10817,17 +11462,19 @@ pub struct libraw_makernotes_lens_t {
 #[test]
 fn bindgen_test_layout_libraw_makernotes_lens_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_makernotes_lens_t>(),
+        ::core::mem::size_of::<libraw_makernotes_lens_t>(),
         736usize,
         concat!("Size of: ", stringify!(libraw_makernotes_lens_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_makernotes_lens_t>(),
+        ::core::mem::align_of::<libraw_makernotes_lens_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_makernotes_lens_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).LensID as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).LensID as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10837,7 +11484,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).Lens as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).Lens as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -10848,7 +11495,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).LensFormat as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).LensFormat as *const _ as usize
         },
         136usize,
         concat!(
@@ -10860,7 +11507,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).LensMount as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).LensMount as *const _ as usize
         },
         138usize,
         concat!(
@@ -10871,7 +11518,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).CamID as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).CamID as *const _ as usize },
         144usize,
         concat!(
             "Offset of field: ",
@@ -10882,7 +11529,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).CameraFormat as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).CameraFormat as *const _ as usize
         },
         152usize,
         concat!(
@@ -10894,7 +11541,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).CameraMount as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).CameraMount as *const _ as usize
         },
         154usize,
         concat!(
@@ -10905,7 +11552,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).body as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).body as *const _ as usize },
         156usize,
         concat!(
             "Offset of field: ",
@@ -10916,7 +11563,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).FocalType as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).FocalType as *const _ as usize
         },
         220usize,
         concat!(
@@ -10928,7 +11575,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).LensFeatures_pre as *const _
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).LensFeatures_pre as *const _
                 as usize
         },
         222usize,
@@ -10941,7 +11588,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).LensFeatures_suf as *const _
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).LensFeatures_suf as *const _
                 as usize
         },
         238usize,
@@ -10954,7 +11601,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MinFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MinFocal as *const _ as usize
         },
         256usize,
         concat!(
@@ -10966,7 +11613,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MaxFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MaxFocal as *const _ as usize
         },
         260usize,
         concat!(
@@ -10978,7 +11625,8 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MaxAp4MinFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MaxAp4MinFocal as *const _
+                as usize
         },
         264usize,
         concat!(
@@ -10990,7 +11638,8 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MaxAp4MaxFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MaxAp4MaxFocal as *const _
+                as usize
         },
         268usize,
         concat!(
@@ -11002,7 +11651,8 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MinAp4MinFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MinAp4MinFocal as *const _
+                as usize
         },
         272usize,
         concat!(
@@ -11014,7 +11664,8 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MinAp4MaxFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MinAp4MaxFocal as *const _
+                as usize
         },
         276usize,
         concat!(
@@ -11025,7 +11676,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MaxAp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MaxAp as *const _ as usize },
         280usize,
         concat!(
             "Offset of field: ",
@@ -11035,7 +11686,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MinAp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MinAp as *const _ as usize },
         284usize,
         concat!(
             "Offset of field: ",
@@ -11046,7 +11697,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).CurFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).CurFocal as *const _ as usize
         },
         288usize,
         concat!(
@@ -11057,7 +11708,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).CurAp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).CurAp as *const _ as usize },
         292usize,
         concat!(
             "Offset of field: ",
@@ -11068,7 +11719,8 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MaxAp4CurFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MaxAp4CurFocal as *const _
+                as usize
         },
         296usize,
         concat!(
@@ -11080,7 +11732,8 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MinAp4CurFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MinAp4CurFocal as *const _
+                as usize
         },
         300usize,
         concat!(
@@ -11092,7 +11745,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).MinFocusDistance as *const _
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).MinFocusDistance as *const _
                 as usize
         },
         304usize,
@@ -11105,7 +11758,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).FocusRangeIndex as *const _
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).FocusRangeIndex as *const _
                 as usize
         },
         308usize,
@@ -11118,7 +11771,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).LensFStops as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).LensFStops as *const _ as usize
         },
         312usize,
         concat!(
@@ -11130,7 +11783,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).TeleconverterID as *const _
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).TeleconverterID as *const _
                 as usize
         },
         320usize,
@@ -11143,7 +11796,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).Teleconverter as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).Teleconverter as *const _ as usize
         },
         328usize,
         concat!(
@@ -11155,7 +11808,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).AdapterID as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).AdapterID as *const _ as usize
         },
         456usize,
         concat!(
@@ -11167,7 +11820,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).Adapter as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).Adapter as *const _ as usize
         },
         464usize,
         concat!(
@@ -11179,7 +11832,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).AttachmentID as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).AttachmentID as *const _ as usize
         },
         592usize,
         concat!(
@@ -11191,7 +11844,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).Attachment as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).Attachment as *const _ as usize
         },
         600usize,
         concat!(
@@ -11203,7 +11856,7 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).FocalUnits as *const _ as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).FocalUnits as *const _ as usize
         },
         728usize,
         concat!(
@@ -11215,8 +11868,8 @@ fn bindgen_test_layout_libraw_makernotes_lens_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_makernotes_lens_t>())).FocalLengthIn35mmFormat as *const _
-                as usize
+            &(*(::core::ptr::null::<libraw_makernotes_lens_t>())).FocalLengthIn35mmFormat
+                as *const _ as usize
         },
         732usize,
         concat!(
@@ -11239,18 +11892,18 @@ pub struct libraw_nikonlens_t {
 #[test]
 fn bindgen_test_layout_libraw_nikonlens_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_nikonlens_t>(),
+        ::core::mem::size_of::<libraw_nikonlens_t>(),
         8usize,
         concat!("Size of: ", stringify!(libraw_nikonlens_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_nikonlens_t>(),
+        ::core::mem::align_of::<libraw_nikonlens_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_nikonlens_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_nikonlens_t>())).EffectiveMaxAp as *const _ as usize
+            &(*(::core::ptr::null::<libraw_nikonlens_t>())).EffectiveMaxAp as *const _ as usize
         },
         0usize,
         concat!(
@@ -11261,7 +11914,9 @@ fn bindgen_test_layout_libraw_nikonlens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_nikonlens_t>())).LensIDNumber as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_nikonlens_t>())).LensIDNumber as *const _ as usize
+        },
         4usize,
         concat!(
             "Offset of field: ",
@@ -11271,7 +11926,7 @@ fn bindgen_test_layout_libraw_nikonlens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_nikonlens_t>())).LensFStops as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_nikonlens_t>())).LensFStops as *const _ as usize },
         5usize,
         concat!(
             "Offset of field: ",
@@ -11281,7 +11936,7 @@ fn bindgen_test_layout_libraw_nikonlens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_nikonlens_t>())).MCUVersion as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_nikonlens_t>())).MCUVersion as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -11291,7 +11946,7 @@ fn bindgen_test_layout_libraw_nikonlens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_nikonlens_t>())).LensType as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_nikonlens_t>())).LensType as *const _ as usize },
         7usize,
         concat!(
             "Offset of field: ",
@@ -11312,17 +11967,17 @@ pub struct libraw_dnglens_t {
 #[test]
 fn bindgen_test_layout_libraw_dnglens_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_dnglens_t>(),
+        ::core::mem::size_of::<libraw_dnglens_t>(),
         16usize,
         concat!("Size of: ", stringify!(libraw_dnglens_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_dnglens_t>(),
+        ::core::mem::align_of::<libraw_dnglens_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_dnglens_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dnglens_t>())).MinFocal as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_dnglens_t>())).MinFocal as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11332,7 +11987,7 @@ fn bindgen_test_layout_libraw_dnglens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dnglens_t>())).MaxFocal as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_dnglens_t>())).MaxFocal as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -11342,7 +11997,9 @@ fn bindgen_test_layout_libraw_dnglens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dnglens_t>())).MaxAp4MinFocal as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_dnglens_t>())).MaxAp4MinFocal as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -11352,7 +12009,9 @@ fn bindgen_test_layout_libraw_dnglens_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_dnglens_t>())).MaxAp4MaxFocal as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_dnglens_t>())).MaxAp4MaxFocal as *const _ as usize
+        },
         12usize,
         concat!(
             "Offset of field: ",
@@ -11382,17 +12041,17 @@ pub struct libraw_lensinfo_t {
 #[test]
 fn bindgen_test_layout_libraw_lensinfo_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_lensinfo_t>(),
+        ::core::mem::size_of::<libraw_lensinfo_t>(),
         1296usize,
         concat!("Size of: ", stringify!(libraw_lensinfo_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_lensinfo_t>(),
+        ::core::mem::align_of::<libraw_lensinfo_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_lensinfo_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_lensinfo_t>())).MinFocal as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_lensinfo_t>())).MinFocal as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11402,7 +12061,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_lensinfo_t>())).MaxFocal as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_lensinfo_t>())).MaxFocal as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -11413,7 +12072,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_lensinfo_t>())).MaxAp4MinFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_lensinfo_t>())).MaxAp4MinFocal as *const _ as usize
         },
         8usize,
         concat!(
@@ -11425,7 +12084,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_lensinfo_t>())).MaxAp4MaxFocal as *const _ as usize
+            &(*(::core::ptr::null::<libraw_lensinfo_t>())).MaxAp4MaxFocal as *const _ as usize
         },
         12usize,
         concat!(
@@ -11436,7 +12095,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_lensinfo_t>())).EXIF_MaxAp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_lensinfo_t>())).EXIF_MaxAp as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -11446,7 +12105,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_lensinfo_t>())).LensMake as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_lensinfo_t>())).LensMake as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -11456,7 +12115,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_lensinfo_t>())).Lens as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_lensinfo_t>())).Lens as *const _ as usize },
         148usize,
         concat!(
             "Offset of field: ",
@@ -11466,7 +12125,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_lensinfo_t>())).LensSerial as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_lensinfo_t>())).LensSerial as *const _ as usize },
         276usize,
         concat!(
             "Offset of field: ",
@@ -11477,7 +12136,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_lensinfo_t>())).InternalLensSerial as *const _ as usize
+            &(*(::core::ptr::null::<libraw_lensinfo_t>())).InternalLensSerial as *const _ as usize
         },
         404usize,
         concat!(
@@ -11489,7 +12148,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_lensinfo_t>())).FocalLengthIn35mmFormat as *const _
+            &(*(::core::ptr::null::<libraw_lensinfo_t>())).FocalLengthIn35mmFormat as *const _
                 as usize
         },
         532usize,
@@ -11501,7 +12160,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_lensinfo_t>())).nikon as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_lensinfo_t>())).nikon as *const _ as usize },
         536usize,
         concat!(
             "Offset of field: ",
@@ -11511,7 +12170,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_lensinfo_t>())).dng as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_lensinfo_t>())).dng as *const _ as usize },
         544usize,
         concat!(
             "Offset of field: ",
@@ -11521,7 +12180,7 @@ fn bindgen_test_layout_libraw_lensinfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_lensinfo_t>())).makernotes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_lensinfo_t>())).makernotes as *const _ as usize },
         560usize,
         concat!(
             "Offset of field: ",
@@ -11551,17 +12210,17 @@ pub struct libraw_makernotes_t {
 #[test]
 fn bindgen_test_layout_libraw_makernotes_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_makernotes_t>(),
+        ::core::mem::size_of::<libraw_makernotes_t>(),
         2952usize,
         concat!("Size of: ", stringify!(libraw_makernotes_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_makernotes_t>(),
+        ::core::mem::align_of::<libraw_makernotes_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_makernotes_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).canon as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).canon as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11571,7 +12230,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).nikon as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).nikon as *const _ as usize },
         168usize,
         concat!(
             "Offset of field: ",
@@ -11581,7 +12240,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).hasselblad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).hasselblad as *const _ as usize },
         392usize,
         concat!(
             "Offset of field: ",
@@ -11591,7 +12250,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).fuji as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).fuji as *const _ as usize },
         776usize,
         concat!(
             "Offset of field: ",
@@ -11601,7 +12260,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).olympus as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).olympus as *const _ as usize },
         1056usize,
         concat!(
             "Offset of field: ",
@@ -11611,7 +12270,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).sony as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).sony as *const _ as usize },
         1464usize,
         concat!(
             "Offset of field: ",
@@ -11621,7 +12280,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).kodak as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).kodak as *const _ as usize },
         1644usize,
         concat!(
             "Offset of field: ",
@@ -11631,7 +12290,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).panasonic as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).panasonic as *const _ as usize },
         1888usize,
         concat!(
             "Offset of field: ",
@@ -11641,7 +12300,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).pentax as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).pentax as *const _ as usize },
         1956usize,
         concat!(
             "Offset of field: ",
@@ -11651,7 +12310,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).phaseone as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).phaseone as *const _ as usize },
         1988usize,
         concat!(
             "Offset of field: ",
@@ -11661,7 +12320,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).ricoh as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).ricoh as *const _ as usize },
         2440usize,
         concat!(
             "Offset of field: ",
@@ -11671,7 +12330,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).samsung as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).samsung as *const _ as usize },
         2512usize,
         concat!(
             "Offset of field: ",
@@ -11681,7 +12340,7 @@ fn bindgen_test_layout_libraw_makernotes_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_makernotes_t>())).common as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_makernotes_t>())).common as *const _ as usize },
         2648usize,
         concat!(
             "Offset of field: ",
@@ -11707,17 +12366,19 @@ pub struct libraw_shootinginfo_t {
 #[test]
 fn bindgen_test_layout_libraw_shootinginfo_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_shootinginfo_t>(),
+        ::core::mem::size_of::<libraw_shootinginfo_t>(),
         142usize,
         concat!("Size of: ", stringify!(libraw_shootinginfo_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_shootinginfo_t>(),
+        ::core::mem::align_of::<libraw_shootinginfo_t>(),
         2usize,
         concat!("Alignment of ", stringify!(libraw_shootinginfo_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_shootinginfo_t>())).DriveMode as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_shootinginfo_t>())).DriveMode as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11727,7 +12388,9 @@ fn bindgen_test_layout_libraw_shootinginfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_shootinginfo_t>())).FocusMode as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_shootinginfo_t>())).FocusMode as *const _ as usize
+        },
         2usize,
         concat!(
             "Offset of field: ",
@@ -11738,7 +12401,7 @@ fn bindgen_test_layout_libraw_shootinginfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_shootinginfo_t>())).MeteringMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_shootinginfo_t>())).MeteringMode as *const _ as usize
         },
         4usize,
         concat!(
@@ -11749,7 +12412,7 @@ fn bindgen_test_layout_libraw_shootinginfo_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_shootinginfo_t>())).AFPoint as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_shootinginfo_t>())).AFPoint as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -11760,7 +12423,7 @@ fn bindgen_test_layout_libraw_shootinginfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_shootinginfo_t>())).ExposureMode as *const _ as usize
+            &(*(::core::ptr::null::<libraw_shootinginfo_t>())).ExposureMode as *const _ as usize
         },
         8usize,
         concat!(
@@ -11772,7 +12435,7 @@ fn bindgen_test_layout_libraw_shootinginfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_shootinginfo_t>())).ExposureProgram as *const _ as usize
+            &(*(::core::ptr::null::<libraw_shootinginfo_t>())).ExposureProgram as *const _ as usize
         },
         10usize,
         concat!(
@@ -11784,7 +12447,7 @@ fn bindgen_test_layout_libraw_shootinginfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_shootinginfo_t>())).ImageStabilization as *const _
+            &(*(::core::ptr::null::<libraw_shootinginfo_t>())).ImageStabilization as *const _
                 as usize
         },
         12usize,
@@ -11797,7 +12460,7 @@ fn bindgen_test_layout_libraw_shootinginfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_shootinginfo_t>())).BodySerial as *const _ as usize
+            &(*(::core::ptr::null::<libraw_shootinginfo_t>())).BodySerial as *const _ as usize
         },
         14usize,
         concat!(
@@ -11809,7 +12472,7 @@ fn bindgen_test_layout_libraw_shootinginfo_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_shootinginfo_t>())).InternalBodySerial as *const _
+            &(*(::core::ptr::null::<libraw_shootinginfo_t>())).InternalBodySerial as *const _
                 as usize
         },
         78usize,
@@ -11842,17 +12505,17 @@ pub struct libraw_custom_camera_t {
 #[test]
 fn bindgen_test_layout_libraw_custom_camera_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_custom_camera_t>(),
+        ::core::mem::size_of::<libraw_custom_camera_t>(),
         52usize,
         concat!("Size of: ", stringify!(libraw_custom_camera_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_custom_camera_t>(),
+        ::core::mem::align_of::<libraw_custom_camera_t>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_custom_camera_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).fsize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).fsize as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11862,7 +12525,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).rw as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).rw as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -11872,7 +12535,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).rh as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).rh as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -11882,7 +12545,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).lm as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).lm as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -11892,7 +12555,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).tm as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).tm as *const _ as usize },
         9usize,
         concat!(
             "Offset of field: ",
@@ -11902,7 +12565,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).rm as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).rm as *const _ as usize },
         10usize,
         concat!(
             "Offset of field: ",
@@ -11912,7 +12575,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).bm as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).bm as *const _ as usize },
         11usize,
         concat!(
             "Offset of field: ",
@@ -11922,7 +12585,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).lf as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).lf as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -11932,7 +12595,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).cf as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).cf as *const _ as usize },
         14usize,
         concat!(
             "Offset of field: ",
@@ -11942,7 +12605,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).max as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).max as *const _ as usize },
         15usize,
         concat!(
             "Offset of field: ",
@@ -11952,7 +12615,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).flags as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -11962,7 +12625,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).t_make as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).t_make as *const _ as usize },
         17usize,
         concat!(
             "Offset of field: ",
@@ -11972,7 +12635,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).t_model as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).t_model as *const _ as usize },
         27usize,
         concat!(
             "Offset of field: ",
@@ -11982,7 +12645,7 @@ fn bindgen_test_layout_libraw_custom_camera_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_custom_camera_t>())).offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_custom_camera_t>())).offset as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -12008,23 +12671,24 @@ pub struct libraw_data_t {
     pub color: libraw_colordata_t,
     pub other: libraw_imgother_t,
     pub thumbnail: libraw_thumbnail_t,
+    pub thumbs_list: libraw_thumbnail_list_t,
     pub rawdata: libraw_rawdata_t,
     pub parent_class: *mut libc::c_void,
 }
 #[test]
 fn bindgen_test_layout_libraw_data_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_data_t>(),
-        380992usize,
+        ::core::mem::size_of::<libraw_data_t>(),
+        381256usize,
         concat!("Size of: ", stringify!(libraw_data_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_data_t>(),
+        ::core::mem::align_of::<libraw_data_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_data_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).image as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).image as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -12034,7 +12698,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).sizes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).sizes as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -12044,7 +12708,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).idata as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).idata as *const _ as usize },
         192usize,
         concat!(
             "Offset of field: ",
@@ -12054,7 +12718,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).lens as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).lens as *const _ as usize },
         632usize,
         concat!(
             "Offset of field: ",
@@ -12064,7 +12728,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).makernotes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).makernotes as *const _ as usize },
         1928usize,
         concat!(
             "Offset of field: ",
@@ -12074,7 +12738,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).shootinginfo as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).shootinginfo as *const _ as usize },
         4880usize,
         concat!(
             "Offset of field: ",
@@ -12084,7 +12748,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).params as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).params as *const _ as usize },
         5024usize,
         concat!(
             "Offset of field: ",
@@ -12094,7 +12758,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).rawparams as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).rawparams as *const _ as usize },
         5328usize,
         concat!(
             "Offset of field: ",
@@ -12104,7 +12768,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).progress_flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).progress_flags as *const _ as usize },
         5376usize,
         concat!(
             "Offset of field: ",
@@ -12114,7 +12778,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).process_warnings as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).process_warnings as *const _ as usize },
         5380usize,
         concat!(
             "Offset of field: ",
@@ -12124,7 +12788,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).color as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).color as *const _ as usize },
         5384usize,
         concat!(
             "Offset of field: ",
@@ -12134,7 +12798,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).other as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).other as *const _ as usize },
         192416usize,
         concat!(
             "Offset of field: ",
@@ -12144,7 +12808,7 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).thumbnail as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).thumbnail as *const _ as usize },
         193216usize,
         concat!(
             "Offset of field: ",
@@ -12154,8 +12818,18 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).rawdata as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).thumbs_list as *const _ as usize },
         193240usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(libraw_data_t),
+            "::",
+            stringify!(thumbs_list)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).rawdata as *const _ as usize },
+        193504usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_data_t),
@@ -12164,8 +12838,8 @@ fn bindgen_test_layout_libraw_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_data_t>())).parent_class as *const _ as usize },
-        380984usize,
+        unsafe { &(*(::core::ptr::null::<libraw_data_t>())).parent_class as *const _ as usize },
+        381248usize,
         concat!(
             "Offset of field: ",
             stringify!(libraw_data_t),
@@ -12187,17 +12861,17 @@ pub struct fuji_q_table {
 #[test]
 fn bindgen_test_layout_fuji_q_table() {
     assert_eq!(
-        ::std::mem::size_of::<fuji_q_table>(),
+        ::core::mem::size_of::<fuji_q_table>(),
         32usize,
         concat!("Size of: ", stringify!(fuji_q_table))
     );
     assert_eq!(
-        ::std::mem::align_of::<fuji_q_table>(),
+        ::core::mem::align_of::<fuji_q_table>(),
         8usize,
         concat!("Alignment of ", stringify!(fuji_q_table))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fuji_q_table>())).q_table as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fuji_q_table>())).q_table as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -12207,7 +12881,7 @@ fn bindgen_test_layout_fuji_q_table() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fuji_q_table>())).raw_bits as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fuji_q_table>())).raw_bits as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -12217,7 +12891,7 @@ fn bindgen_test_layout_fuji_q_table() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fuji_q_table>())).total_values as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fuji_q_table>())).total_values as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -12227,7 +12901,7 @@ fn bindgen_test_layout_fuji_q_table() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fuji_q_table>())).max_grad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fuji_q_table>())).max_grad as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -12237,7 +12911,7 @@ fn bindgen_test_layout_fuji_q_table() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fuji_q_table>())).q_grad_mult as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fuji_q_table>())).q_grad_mult as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -12247,7 +12921,7 @@ fn bindgen_test_layout_fuji_q_table() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fuji_q_table>())).q_base as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fuji_q_table>())).q_base as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -12270,17 +12944,17 @@ pub struct fuji_compressed_params {
 #[test]
 fn bindgen_test_layout_fuji_compressed_params() {
     assert_eq!(
-        ::std::mem::size_of::<fuji_compressed_params>(),
+        ::core::mem::size_of::<fuji_compressed_params>(),
         152usize,
         concat!("Size of: ", stringify!(fuji_compressed_params))
     );
     assert_eq!(
-        ::std::mem::align_of::<fuji_compressed_params>(),
+        ::core::mem::align_of::<fuji_compressed_params>(),
         8usize,
         concat!("Alignment of ", stringify!(fuji_compressed_params))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fuji_compressed_params>())).qt as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fuji_compressed_params>())).qt as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -12290,7 +12964,7 @@ fn bindgen_test_layout_fuji_compressed_params() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fuji_compressed_params>())).buf as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fuji_compressed_params>())).buf as *const _ as usize },
         128usize,
         concat!(
             "Offset of field: ",
@@ -12300,7 +12974,9 @@ fn bindgen_test_layout_fuji_compressed_params() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fuji_compressed_params>())).max_bits as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<fuji_compressed_params>())).max_bits as *const _ as usize
+        },
         136usize,
         concat!(
             "Offset of field: ",
@@ -12311,7 +12987,7 @@ fn bindgen_test_layout_fuji_compressed_params() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<fuji_compressed_params>())).min_value as *const _ as usize
+            &(*(::core::ptr::null::<fuji_compressed_params>())).min_value as *const _ as usize
         },
         140usize,
         concat!(
@@ -12323,7 +12999,7 @@ fn bindgen_test_layout_fuji_compressed_params() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<fuji_compressed_params>())).max_value as *const _ as usize
+            &(*(::core::ptr::null::<fuji_compressed_params>())).max_value as *const _ as usize
         },
         144usize,
         concat!(
@@ -12335,7 +13011,7 @@ fn bindgen_test_layout_fuji_compressed_params() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<fuji_compressed_params>())).line_width as *const _ as usize
+            &(*(::core::ptr::null::<fuji_compressed_params>())).line_width as *const _ as usize
         },
         148usize,
         concat!(
@@ -12360,17 +13036,17 @@ pub struct internal_data_t {
 #[test]
 fn bindgen_test_layout_internal_data_t() {
     assert_eq!(
-        ::std::mem::size_of::<internal_data_t>(),
+        ::core::mem::size_of::<internal_data_t>(),
         64usize,
         concat!("Size of: ", stringify!(internal_data_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<internal_data_t>(),
+        ::core::mem::align_of::<internal_data_t>(),
         8usize,
         concat!("Alignment of ", stringify!(internal_data_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<internal_data_t>())).input as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<internal_data_t>())).input as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -12380,7 +13056,7 @@ fn bindgen_test_layout_internal_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<internal_data_t>())).output as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<internal_data_t>())).output as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -12390,7 +13066,7 @@ fn bindgen_test_layout_internal_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<internal_data_t>())).input_internal as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<internal_data_t>())).input_internal as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -12400,7 +13076,7 @@ fn bindgen_test_layout_internal_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<internal_data_t>())).meta_data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<internal_data_t>())).meta_data as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -12410,7 +13086,7 @@ fn bindgen_test_layout_internal_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<internal_data_t>())).profile_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<internal_data_t>())).profile_offset as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -12420,7 +13096,7 @@ fn bindgen_test_layout_internal_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<internal_data_t>())).toffset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<internal_data_t>())).toffset as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -12430,7 +13106,7 @@ fn bindgen_test_layout_internal_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<internal_data_t>())).pana_black as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<internal_data_t>())).pana_black as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -12449,17 +13125,17 @@ pub struct output_data_t {
 #[test]
 fn bindgen_test_layout_output_data_t() {
     assert_eq!(
-        ::std::mem::size_of::<output_data_t>(),
+        ::core::mem::size_of::<output_data_t>(),
         16usize,
         concat!("Size of: ", stringify!(output_data_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<output_data_t>(),
+        ::core::mem::align_of::<output_data_t>(),
         8usize,
         concat!("Alignment of ", stringify!(output_data_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<output_data_t>())).histogram as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<output_data_t>())).histogram as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -12469,7 +13145,7 @@ fn bindgen_test_layout_output_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<output_data_t>())).oprof as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<output_data_t>())).oprof as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -12492,18 +13168,18 @@ pub struct identify_data_t {
 #[test]
 fn bindgen_test_layout_identify_data_t() {
     assert_eq!(
-        ::std::mem::size_of::<identify_data_t>(),
+        ::core::mem::size_of::<identify_data_t>(),
         40usize,
         concat!("Size of: ", stringify!(identify_data_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<identify_data_t>(),
+        ::core::mem::align_of::<identify_data_t>(),
         8usize,
         concat!("Alignment of ", stringify!(identify_data_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<identify_data_t>())).olympus_exif_cfa as *const _ as usize
+            &(*(::core::ptr::null::<identify_data_t>())).olympus_exif_cfa as *const _ as usize
         },
         0usize,
         concat!(
@@ -12514,7 +13190,7 @@ fn bindgen_test_layout_identify_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<identify_data_t>())).unique_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<identify_data_t>())).unique_id as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -12524,7 +13200,7 @@ fn bindgen_test_layout_identify_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<identify_data_t>())).OlyID as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<identify_data_t>())).OlyID as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -12534,7 +13210,7 @@ fn bindgen_test_layout_identify_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<identify_data_t>())).tiff_nifds as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<identify_data_t>())).tiff_nifds as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -12544,7 +13220,7 @@ fn bindgen_test_layout_identify_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<identify_data_t>())).tiff_flip as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<identify_data_t>())).tiff_flip as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -12554,7 +13230,9 @@ fn bindgen_test_layout_identify_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<identify_data_t>())).metadata_blocks as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<identify_data_t>())).metadata_blocks as *const _ as usize
+        },
         32usize,
         concat!(
             "Offset of field: ",
@@ -12574,17 +13252,17 @@ pub struct crx_sample_to_chunk_t {
 #[test]
 fn bindgen_test_layout_crx_sample_to_chunk_t() {
     assert_eq!(
-        ::std::mem::size_of::<crx_sample_to_chunk_t>(),
+        ::core::mem::size_of::<crx_sample_to_chunk_t>(),
         12usize,
         concat!("Size of: ", stringify!(crx_sample_to_chunk_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<crx_sample_to_chunk_t>(),
+        ::core::mem::align_of::<crx_sample_to_chunk_t>(),
         4usize,
         concat!("Alignment of ", stringify!(crx_sample_to_chunk_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_sample_to_chunk_t>())).first as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_sample_to_chunk_t>())).first as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -12594,7 +13272,7 @@ fn bindgen_test_layout_crx_sample_to_chunk_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_sample_to_chunk_t>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_sample_to_chunk_t>())).count as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -12604,7 +13282,7 @@ fn bindgen_test_layout_crx_sample_to_chunk_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_sample_to_chunk_t>())).id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_sample_to_chunk_t>())).id as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -12645,17 +13323,17 @@ pub struct crx_data_header_t {
 #[test]
 fn bindgen_test_layout_crx_data_header_t() {
     assert_eq!(
-        ::std::mem::size_of::<crx_data_header_t>(),
+        ::core::mem::size_of::<crx_data_header_t>(),
         128usize,
         concat!("Size of: ", stringify!(crx_data_header_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<crx_data_header_t>(),
+        ::core::mem::align_of::<crx_data_header_t>(),
         8usize,
         concat!("Alignment of ", stringify!(crx_data_header_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).version as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).version as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -12665,7 +13343,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).f_width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).f_width as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -12675,7 +13353,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).f_height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).f_height as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -12685,7 +13363,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).tileWidth as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).tileWidth as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -12695,7 +13373,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).tileHeight as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).tileHeight as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -12705,7 +13383,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).nBits as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).nBits as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -12715,7 +13393,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).nPlanes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).nPlanes as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -12725,7 +13403,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).cfaLayout as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).cfaLayout as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -12735,7 +13413,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).encType as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).encType as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -12745,7 +13423,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).imageLevels as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).imageLevels as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -12755,7 +13433,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).hasTileCols as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).hasTileCols as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -12765,7 +13443,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).hasTileRows as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).hasTileRows as *const _ as usize },
         44usize,
         concat!(
             "Offset of field: ",
@@ -12775,7 +13453,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).mdatHdrSize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).mdatHdrSize as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -12785,7 +13463,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).medianBits as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).medianBits as *const _ as usize },
         52usize,
         concat!(
             "Offset of field: ",
@@ -12795,7 +13473,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).MediaSize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).MediaSize as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -12805,7 +13483,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).MediaOffset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).MediaOffset as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -12815,7 +13493,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).MediaType as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).MediaType as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -12825,7 +13503,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).stsc_data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).stsc_data as *const _ as usize },
         80usize,
         concat!(
             "Offset of field: ",
@@ -12835,7 +13513,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).stsc_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).stsc_count as *const _ as usize },
         88usize,
         concat!(
             "Offset of field: ",
@@ -12845,7 +13523,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).sample_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).sample_count as *const _ as usize },
         92usize,
         concat!(
             "Offset of field: ",
@@ -12855,7 +13533,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).sample_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).sample_size as *const _ as usize },
         96usize,
         concat!(
             "Offset of field: ",
@@ -12865,7 +13543,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).sample_sizes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).sample_sizes as *const _ as usize },
         104usize,
         concat!(
             "Offset of field: ",
@@ -12875,7 +13553,7 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).chunk_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<crx_data_header_t>())).chunk_count as *const _ as usize },
         112usize,
         concat!(
             "Offset of field: ",
@@ -12885,13 +13563,188 @@ fn bindgen_test_layout_crx_data_header_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<crx_data_header_t>())).chunk_offsets as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<crx_data_header_t>())).chunk_offsets as *const _ as usize
+        },
         120usize,
         concat!(
             "Offset of field: ",
             stringify!(crx_data_header_t),
             "::",
             stringify!(chunk_offsets)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub struct pana8_tags_t {
+    pub tag39: [u32; 6usize],
+    pub tag3A: [u16; 6usize],
+    pub tag3B: u16,
+    pub initial: [u16; 4usize],
+    pub tag40a: [u16; 17usize],
+    pub tag40b: [u16; 17usize],
+    pub tag41: [u16; 17usize],
+    pub stripe_count: u16,
+    pub tag43: u16,
+    pub stripe_offsets: [INT64; 5usize],
+    pub stripe_left: [u16; 5usize],
+    pub stripe_compressed_size: [u32; 5usize],
+    pub stripe_width: [u16; 5usize],
+    pub stripe_height: [u16; 5usize],
+}
+#[test]
+fn bindgen_test_layout_pana8_tags_t() {
+    assert_eq!(
+        ::core::mem::size_of::<pana8_tags_t>(),
+        248usize,
+        concat!("Size of: ", stringify!(pana8_tags_t))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<pana8_tags_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(pana8_tags_t))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag39 as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag39)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag3A as *const _ as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag3A)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag3B as *const _ as usize },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag3B)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).initial as *const _ as usize },
+        38usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(initial)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag40a as *const _ as usize },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag40a)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag40b as *const _ as usize },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag40b)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag41 as *const _ as usize },
+        114usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag41)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_count as *const _ as usize },
+        148usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_count)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag43 as *const _ as usize },
+        150usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag43)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_offsets as *const _ as usize },
+        152usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_offsets)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_left as *const _ as usize },
+        192usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_left)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<pana8_tags_t>())).stripe_compressed_size as *const _ as usize
+        },
+        204usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_compressed_size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_width as *const _ as usize },
+        224usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_width)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_height as *const _ as usize },
+        234usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_height)
         )
     );
 }
@@ -12906,12 +13759,14 @@ pub struct unpacker_data_t {
     pub data_offset: INT64,
     pub meta_offset: INT64,
     pub exif_offset: INT64,
+    pub exif_subdir_offset: INT64,
     pub ifd0_offset: INT64,
     pub data_size: libc::c_uint,
     pub meta_length: libc::c_uint,
     pub cr3_exif_length: libc::c_uint,
     pub cr3_ifd0_length: libc::c_uint,
     pub thumb_misc: libc::c_uint,
+    pub thumb_format: LibRaw_internal_thumbnail_formats,
     pub fuji_layout: libc::c_uint,
     pub tiff_samples: libc::c_uint,
     pub tiff_bps: libc::c_uint,
@@ -12933,6 +13788,7 @@ pub struct unpacker_data_t {
     pub fuji_lossless: libc::c_int,
     pub pana_encoding: libc::c_int,
     pub pana_bpp: libc::c_int,
+    pub pana8: pana8_tags_t,
     pub crx_header: [crx_data_header_t; 16usize],
     pub crx_track_selected: libc::c_int,
     pub crx_track_count: libc::c_int,
@@ -12951,17 +13807,17 @@ pub struct unpacker_data_t {
 #[test]
 fn bindgen_test_layout_unpacker_data_t() {
     assert_eq!(
-        ::std::mem::size_of::<unpacker_data_t>(),
-        2352usize,
+        ::core::mem::size_of::<unpacker_data_t>(),
+        2616usize,
         concat!("Size of: ", stringify!(unpacker_data_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<unpacker_data_t>(),
+        ::core::mem::align_of::<unpacker_data_t>(),
         8usize,
         concat!("Alignment of ", stringify!(unpacker_data_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).order as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).order as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -12971,7 +13827,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).sraw_mul as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).sraw_mul as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -12981,7 +13837,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).cr2_slice as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).cr2_slice as *const _ as usize },
         10usize,
         concat!(
             "Offset of field: ",
@@ -12991,7 +13847,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).kodak_cbpp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).kodak_cbpp as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -13001,7 +13857,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).strip_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).strip_offset as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -13011,7 +13867,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).data_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).data_offset as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -13021,7 +13877,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).meta_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).meta_offset as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -13031,7 +13887,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).exif_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).exif_offset as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -13041,8 +13897,20 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).ifd0_offset as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<unpacker_data_t>())).exif_subdir_offset as *const _ as usize
+        },
         56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(unpacker_data_t),
+            "::",
+            stringify!(exif_subdir_offset)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).ifd0_offset as *const _ as usize },
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13051,8 +13919,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).data_size as *const _ as usize },
-        64usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).data_size as *const _ as usize },
+        72usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13061,8 +13929,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).meta_length as *const _ as usize },
-        68usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).meta_length as *const _ as usize },
+        76usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13071,8 +13939,10 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).cr3_exif_length as *const _ as usize },
-        72usize,
+        unsafe {
+            &(*(::core::ptr::null::<unpacker_data_t>())).cr3_exif_length as *const _ as usize
+        },
+        80usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13081,8 +13951,10 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).cr3_ifd0_length as *const _ as usize },
-        76usize,
+        unsafe {
+            &(*(::core::ptr::null::<unpacker_data_t>())).cr3_ifd0_length as *const _ as usize
+        },
+        84usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13091,8 +13963,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).thumb_misc as *const _ as usize },
-        80usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).thumb_misc as *const _ as usize },
+        88usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13101,8 +13973,18 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).fuji_layout as *const _ as usize },
-        84usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).thumb_format as *const _ as usize },
+        92usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(unpacker_data_t),
+            "::",
+            stringify!(thumb_format)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).fuji_layout as *const _ as usize },
+        96usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13111,8 +13993,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).tiff_samples as *const _ as usize },
-        88usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).tiff_samples as *const _ as usize },
+        100usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13121,8 +14003,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).tiff_bps as *const _ as usize },
-        92usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).tiff_bps as *const _ as usize },
+        104usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13131,8 +14013,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).tiff_compress as *const _ as usize },
-        96usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).tiff_compress as *const _ as usize },
+        108usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13142,9 +14024,9 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<unpacker_data_t>())).tiff_sampleformat as *const _ as usize
+            &(*(::core::ptr::null::<unpacker_data_t>())).tiff_sampleformat as *const _ as usize
         },
-        100usize,
+        112usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13153,8 +14035,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).zero_after_ff as *const _ as usize },
-        104usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).zero_after_ff as *const _ as usize },
+        116usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13163,8 +14045,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).tile_width as *const _ as usize },
-        108usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).tile_width as *const _ as usize },
+        120usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13173,8 +14055,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).tile_length as *const _ as usize },
-        112usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).tile_length as *const _ as usize },
+        124usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13183,8 +14065,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).load_flags as *const _ as usize },
-        116usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).load_flags as *const _ as usize },
+        128usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13193,8 +14075,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).data_error as *const _ as usize },
-        120usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).data_error as *const _ as usize },
+        132usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13204,9 +14086,9 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<unpacker_data_t>())).hasselblad_parser_flag as *const _ as usize
+            &(*(::core::ptr::null::<unpacker_data_t>())).hasselblad_parser_flag as *const _ as usize
         },
-        124usize,
+        136usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13215,8 +14097,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).posRAFData as *const _ as usize },
-        128usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).posRAFData as *const _ as usize },
+        144usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13225,8 +14107,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).lenRAFData as *const _ as usize },
-        136usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).lenRAFData as *const _ as usize },
+        152usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13236,9 +14118,9 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<unpacker_data_t>())).fuji_total_lines as *const _ as usize
+            &(*(::core::ptr::null::<unpacker_data_t>())).fuji_total_lines as *const _ as usize
         },
-        140usize,
+        156usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13248,9 +14130,9 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<unpacker_data_t>())).fuji_total_blocks as *const _ as usize
+            &(*(::core::ptr::null::<unpacker_data_t>())).fuji_total_blocks as *const _ as usize
         },
-        144usize,
+        160usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13260,9 +14142,9 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<unpacker_data_t>())).fuji_block_width as *const _ as usize
+            &(*(::core::ptr::null::<unpacker_data_t>())).fuji_block_width as *const _ as usize
         },
-        148usize,
+        164usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13271,8 +14153,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).fuji_bits as *const _ as usize },
-        152usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).fuji_bits as *const _ as usize },
+        168usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13281,8 +14163,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).fuji_raw_type as *const _ as usize },
-        156usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).fuji_raw_type as *const _ as usize },
+        172usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13291,8 +14173,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).fuji_lossless as *const _ as usize },
-        160usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).fuji_lossless as *const _ as usize },
+        176usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13301,8 +14183,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).pana_encoding as *const _ as usize },
-        164usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).pana_encoding as *const _ as usize },
+        180usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13311,8 +14193,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).pana_bpp as *const _ as usize },
-        168usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).pana_bpp as *const _ as usize },
+        184usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13321,8 +14203,18 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).crx_header as *const _ as usize },
-        176usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).pana8 as *const _ as usize },
+        192usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(unpacker_data_t),
+            "::",
+            stringify!(pana8)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).crx_header as *const _ as usize },
+        440usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13332,9 +14224,9 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<unpacker_data_t>())).crx_track_selected as *const _ as usize
+            &(*(::core::ptr::null::<unpacker_data_t>())).crx_track_selected as *const _ as usize
         },
-        2224usize,
+        2488usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13343,8 +14235,10 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).crx_track_count as *const _ as usize },
-        2228usize,
+        unsafe {
+            &(*(::core::ptr::null::<unpacker_data_t>())).crx_track_count as *const _ as usize
+        },
+        2492usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13353,8 +14247,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).CR3_CTMDtag as *const _ as usize },
-        2232usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).CR3_CTMDtag as *const _ as usize },
+        2496usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13363,8 +14257,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).CR3_Version as *const _ as usize },
-        2234usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).CR3_Version as *const _ as usize },
+        2498usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13373,8 +14267,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).CM_found as *const _ as usize },
-        2236usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).CM_found as *const _ as usize },
+        2500usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13384,9 +14278,9 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<unpacker_data_t>())).is_NikonTransfer as *const _ as usize
+            &(*(::core::ptr::null::<unpacker_data_t>())).is_NikonTransfer as *const _ as usize
         },
-        2240usize,
+        2504usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13395,8 +14289,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).is_Olympus as *const _ as usize },
-        2244usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).is_Olympus as *const _ as usize },
+        2508usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13406,10 +14300,10 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<unpacker_data_t>())).OlympusDNG_SubDirOffsetValid as *const _
+            &(*(::core::ptr::null::<unpacker_data_t>())).OlympusDNG_SubDirOffsetValid as *const _
                 as usize
         },
-        2248usize,
+        2512usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13418,8 +14312,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).is_Sony as *const _ as usize },
-        2252usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).is_Sony as *const _ as usize },
+        2516usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13428,8 +14322,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).is_pana_raw as *const _ as usize },
-        2256usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).is_pana_raw as *const _ as usize },
+        2520usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13439,10 +14333,10 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<unpacker_data_t>())).is_PentaxRicohMakernotes as *const _
+            &(*(::core::ptr::null::<unpacker_data_t>())).is_PentaxRicohMakernotes as *const _
                 as usize
         },
-        2260usize,
+        2524usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13451,8 +14345,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).dng_frames as *const _ as usize },
-        2264usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).dng_frames as *const _ as usize },
+        2528usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13461,8 +14355,8 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<unpacker_data_t>())).raw_stride as *const _ as usize },
-        2344usize,
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).raw_stride as *const _ as usize },
+        2608usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -13483,18 +14377,18 @@ pub struct libraw_internal_data_t {
 #[test]
 fn bindgen_test_layout_libraw_internal_data_t() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_internal_data_t>(),
-        2488usize,
+        ::core::mem::size_of::<libraw_internal_data_t>(),
+        2752usize,
         concat!("Size of: ", stringify!(libraw_internal_data_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_internal_data_t>(),
+        ::core::mem::align_of::<libraw_internal_data_t>(),
         8usize,
         concat!("Alignment of ", stringify!(libraw_internal_data_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_data_t>())).internal_data as *const _ as usize
+            &(*(::core::ptr::null::<libraw_internal_data_t>())).internal_data as *const _ as usize
         },
         0usize,
         concat!(
@@ -13506,7 +14400,7 @@ fn bindgen_test_layout_libraw_internal_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_data_t>())).internal_output_params as *const _
+            &(*(::core::ptr::null::<libraw_internal_data_t>())).internal_output_params as *const _
                 as usize
         },
         64usize,
@@ -13519,7 +14413,7 @@ fn bindgen_test_layout_libraw_internal_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_data_t>())).output_data as *const _ as usize
+            &(*(::core::ptr::null::<libraw_internal_data_t>())).output_data as *const _ as usize
         },
         80usize,
         concat!(
@@ -13531,7 +14425,7 @@ fn bindgen_test_layout_libraw_internal_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_data_t>())).identify_data as *const _ as usize
+            &(*(::core::ptr::null::<libraw_internal_data_t>())).identify_data as *const _ as usize
         },
         96usize,
         concat!(
@@ -13543,7 +14437,7 @@ fn bindgen_test_layout_libraw_internal_data_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<libraw_internal_data_t>())).unpacker_data as *const _ as usize
+            &(*(::core::ptr::null::<libraw_internal_data_t>())).unpacker_data as *const _ as usize
         },
         136usize,
         concat!(
@@ -13563,17 +14457,17 @@ pub struct decode {
 #[test]
 fn bindgen_test_layout_decode() {
     assert_eq!(
-        ::std::mem::size_of::<decode>(),
+        ::core::mem::size_of::<decode>(),
         24usize,
         concat!("Size of: ", stringify!(decode))
     );
     assert_eq!(
-        ::std::mem::align_of::<decode>(),
+        ::core::mem::align_of::<decode>(),
         8usize,
         concat!("Alignment of ", stringify!(decode))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<decode>())).branch as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<decode>())).branch as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13583,7 +14477,7 @@ fn bindgen_test_layout_decode() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<decode>())).leaf as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<decode>())).leaf as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -13632,17 +14526,17 @@ pub struct tiff_ifd_t {
 #[test]
 fn bindgen_test_layout_tiff_ifd_t() {
     assert_eq!(
-        ::std::mem::size_of::<tiff_ifd_t>(),
+        ::core::mem::size_of::<tiff_ifd_t>(),
         33408usize,
         concat!("Size of: ", stringify!(tiff_ifd_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<tiff_ifd_t>(),
+        ::core::mem::align_of::<tiff_ifd_t>(),
         8usize,
         concat!("Alignment of ", stringify!(tiff_ifd_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_width as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13652,7 +14546,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_height as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -13662,7 +14556,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).bps as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).bps as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -13672,7 +14566,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).comp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).comp as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -13682,7 +14576,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).phint as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).phint as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -13692,7 +14586,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).offset as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -13702,7 +14596,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_flip as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_flip as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -13712,7 +14606,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).samples as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).samples as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -13722,7 +14616,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).bytes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).bytes as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -13732,7 +14626,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).extrasamples as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).extrasamples as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -13742,7 +14636,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_tile_width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_tile_width as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -13752,7 +14646,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_tile_length as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_tile_length as *const _ as usize },
         44usize,
         concat!(
             "Offset of field: ",
@@ -13762,7 +14656,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).sample_format as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).sample_format as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -13772,7 +14666,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).predictor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).predictor as *const _ as usize },
         52usize,
         concat!(
             "Offset of field: ",
@@ -13782,7 +14676,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).rows_per_strip as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).rows_per_strip as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -13792,7 +14686,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).strip_offsets as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).strip_offsets as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -13802,7 +14696,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).strip_offsets_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).strip_offsets_count as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -13812,7 +14706,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).strip_byte_counts as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).strip_byte_counts as *const _ as usize },
         80usize,
         concat!(
             "Offset of field: ",
@@ -13823,7 +14717,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<tiff_ifd_t>())).strip_byte_counts_count as *const _ as usize
+            &(*(::core::ptr::null::<tiff_ifd_t>())).strip_byte_counts_count as *const _ as usize
         },
         88usize,
         concat!(
@@ -13834,7 +14728,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_filters as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_filters as *const _ as usize },
         92usize,
         concat!(
             "Offset of field: ",
@@ -13844,7 +14738,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_vwidth as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_vwidth as *const _ as usize },
         96usize,
         concat!(
             "Offset of field: ",
@@ -13854,7 +14748,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_vheight as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_vheight as *const _ as usize },
         100usize,
         concat!(
             "Offset of field: ",
@@ -13864,7 +14758,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_lm as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_lm as *const _ as usize },
         104usize,
         concat!(
             "Offset of field: ",
@@ -13874,7 +14768,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_tm as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_tm as *const _ as usize },
         108usize,
         concat!(
             "Offset of field: ",
@@ -13884,7 +14778,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_fuji_width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_fuji_width as *const _ as usize },
         112usize,
         concat!(
             "Offset of field: ",
@@ -13894,7 +14788,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).t_shutter as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).t_shutter as *const _ as usize },
         116usize,
         concat!(
             "Offset of field: ",
@@ -13904,7 +14798,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).opcode2_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).opcode2_offset as *const _ as usize },
         120usize,
         concat!(
             "Offset of field: ",
@@ -13914,7 +14808,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).lineartable_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).lineartable_offset as *const _ as usize },
         128usize,
         concat!(
             "Offset of field: ",
@@ -13924,7 +14818,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).lineartable_len as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).lineartable_len as *const _ as usize },
         136usize,
         concat!(
             "Offset of field: ",
@@ -13934,7 +14828,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).dng_color as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).dng_color as *const _ as usize },
         140usize,
         concat!(
             "Offset of field: ",
@@ -13944,7 +14838,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).dng_levels as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).dng_levels as *const _ as usize },
         476usize,
         concat!(
             "Offset of field: ",
@@ -13954,7 +14848,7 @@ fn bindgen_test_layout_tiff_ifd_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_ifd_t>())).newsubfiletype as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_ifd_t>())).newsubfiletype as *const _ as usize },
         33404usize,
         concat!(
             "Offset of field: ",
@@ -13985,17 +14879,17 @@ pub struct jhead {
 #[test]
 fn bindgen_test_layout_jhead() {
     assert_eq!(
-        ::std::mem::size_of::<jhead>(),
+        ::core::mem::size_of::<jhead>(),
         640usize,
         concat!("Size of: ", stringify!(jhead))
     );
     assert_eq!(
-        ::std::mem::align_of::<jhead>(),
+        ::core::mem::align_of::<jhead>(),
         8usize,
         concat!("Alignment of ", stringify!(jhead))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).algo as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).algo as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14005,7 +14899,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).bits as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).bits as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -14015,7 +14909,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).high as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).high as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14025,7 +14919,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).wide as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).wide as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -14035,7 +14929,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).clrs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).clrs as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -14045,7 +14939,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).sraw as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).sraw as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -14055,7 +14949,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).psv as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).psv as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -14065,7 +14959,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).restart as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).restart as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -14075,7 +14969,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).vpred as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).vpred as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -14085,7 +14979,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).quant as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).quant as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -14095,7 +14989,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).idct as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).idct as *const _ as usize },
         184usize,
         concat!(
             "Offset of field: ",
@@ -14105,7 +14999,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).huff as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).huff as *const _ as usize },
         312usize,
         concat!(
             "Offset of field: ",
@@ -14115,7 +15009,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).free as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).free as *const _ as usize },
         472usize,
         concat!(
             "Offset of field: ",
@@ -14125,7 +15019,7 @@ fn bindgen_test_layout_jhead() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<jhead>())).row as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<jhead>())).row as *const _ as usize },
         632usize,
         concat!(
             "Offset of field: ",
@@ -14153,17 +15047,19 @@ pub union libraw_tiff_tag__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout_libraw_tiff_tag__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_tiff_tag__bindgen_ty_1>(),
+        ::core::mem::size_of::<libraw_tiff_tag__bindgen_ty_1>(),
         4usize,
         concat!("Size of: ", stringify!(libraw_tiff_tag__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_tiff_tag__bindgen_ty_1>(),
+        ::core::mem::align_of::<libraw_tiff_tag__bindgen_ty_1>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_tiff_tag__bindgen_ty_1))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_tiff_tag__bindgen_ty_1>())).c as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_tiff_tag__bindgen_ty_1>())).c as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14173,7 +15069,9 @@ fn bindgen_test_layout_libraw_tiff_tag__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_tiff_tag__bindgen_ty_1>())).s as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_tiff_tag__bindgen_ty_1>())).s as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14183,7 +15081,9 @@ fn bindgen_test_layout_libraw_tiff_tag__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_tiff_tag__bindgen_ty_1>())).i as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<libraw_tiff_tag__bindgen_ty_1>())).i as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14196,17 +15096,17 @@ fn bindgen_test_layout_libraw_tiff_tag__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout_libraw_tiff_tag() {
     assert_eq!(
-        ::std::mem::size_of::<libraw_tiff_tag>(),
+        ::core::mem::size_of::<libraw_tiff_tag>(),
         12usize,
         concat!("Size of: ", stringify!(libraw_tiff_tag))
     );
     assert_eq!(
-        ::std::mem::align_of::<libraw_tiff_tag>(),
+        ::core::mem::align_of::<libraw_tiff_tag>(),
         4usize,
         concat!("Alignment of ", stringify!(libraw_tiff_tag))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_tiff_tag>())).tag as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_tiff_tag>())).tag as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14216,7 +15116,7 @@ fn bindgen_test_layout_libraw_tiff_tag() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_tiff_tag>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_tiff_tag>())).type_ as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -14226,7 +15126,7 @@ fn bindgen_test_layout_libraw_tiff_tag() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_tiff_tag>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_tiff_tag>())).count as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -14236,7 +15136,7 @@ fn bindgen_test_layout_libraw_tiff_tag() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<libraw_tiff_tag>())).val as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<libraw_tiff_tag>())).val as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14275,17 +15175,17 @@ pub struct tiff_hdr {
 #[test]
 fn bindgen_test_layout_tiff_hdr() {
     assert_eq!(
-        ::std::mem::size_of::<tiff_hdr>(),
+        ::core::mem::size_of::<tiff_hdr>(),
         1376usize,
         concat!("Size of: ", stringify!(tiff_hdr))
     );
     assert_eq!(
-        ::std::mem::align_of::<tiff_hdr>(),
+        ::core::mem::align_of::<tiff_hdr>(),
         4usize,
         concat!("Alignment of ", stringify!(tiff_hdr))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).t_order as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).t_order as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14295,7 +15195,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).magic as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).magic as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -14305,7 +15205,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).ifd as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).ifd as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -14315,7 +15215,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).pad as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14325,7 +15225,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).ntag as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).ntag as *const _ as usize },
         10usize,
         concat!(
             "Offset of field: ",
@@ -14335,7 +15235,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).tag as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).tag as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -14345,7 +15245,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).nextifd as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).nextifd as *const _ as usize },
         288usize,
         concat!(
             "Offset of field: ",
@@ -14355,7 +15255,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).pad2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).pad2 as *const _ as usize },
         292usize,
         concat!(
             "Offset of field: ",
@@ -14365,7 +15265,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).nexif as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).nexif as *const _ as usize },
         294usize,
         concat!(
             "Offset of field: ",
@@ -14375,7 +15275,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).exif as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).exif as *const _ as usize },
         296usize,
         concat!(
             "Offset of field: ",
@@ -14385,7 +15285,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).pad3 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).pad3 as *const _ as usize },
         344usize,
         concat!(
             "Offset of field: ",
@@ -14395,7 +15295,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).ngps as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).ngps as *const _ as usize },
         346usize,
         concat!(
             "Offset of field: ",
@@ -14405,7 +15305,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).gpst as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).gpst as *const _ as usize },
         348usize,
         concat!(
             "Offset of field: ",
@@ -14415,7 +15315,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).bps as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).bps as *const _ as usize },
         468usize,
         concat!(
             "Offset of field: ",
@@ -14425,7 +15325,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).rat as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).rat as *const _ as usize },
         476usize,
         concat!(
             "Offset of field: ",
@@ -14435,7 +15335,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).gps as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).gps as *const _ as usize },
         516usize,
         concat!(
             "Offset of field: ",
@@ -14445,7 +15345,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).t_desc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).t_desc as *const _ as usize },
         620usize,
         concat!(
             "Offset of field: ",
@@ -14455,7 +15355,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).t_make as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).t_make as *const _ as usize },
         1132usize,
         concat!(
             "Offset of field: ",
@@ -14465,7 +15365,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).t_model as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).t_model as *const _ as usize },
         1196usize,
         concat!(
             "Offset of field: ",
@@ -14475,7 +15375,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).soft as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).soft as *const _ as usize },
         1260usize,
         concat!(
             "Offset of field: ",
@@ -14485,7 +15385,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).date as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).date as *const _ as usize },
         1292usize,
         concat!(
             "Offset of field: ",
@@ -14495,7 +15395,7 @@ fn bindgen_test_layout_tiff_hdr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<tiff_hdr>())).t_artist as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<tiff_hdr>())).t_artist as *const _ as usize },
         1312usize,
         concat!(
             "Offset of field: ",
@@ -14552,6 +15452,9 @@ extern "C" {
     pub fn libraw_unpack_thumb(arg1: *mut libraw_data_t) -> libc::c_int;
 }
 extern "C" {
+    pub fn libraw_unpack_thumb_ex(arg1: *mut libraw_data_t, arg2: libc::c_int) -> libc::c_int;
+}
+extern "C" {
     pub fn libraw_recycle_datastream(arg1: *mut libraw_data_t);
 }
 extern "C" {
@@ -14580,13 +15483,6 @@ extern "C" {
 }
 extern "C" {
     pub fn libraw_cameraCount() -> libc::c_int;
-}
-extern "C" {
-    pub fn libraw_set_memerror_handler(
-        arg1: *mut libraw_data_t,
-        cb: memory_callback,
-        datap: *mut libc::c_void,
-    );
 }
 extern "C" {
     pub fn libraw_set_exifparser_handler(
@@ -14732,6 +15628,11 @@ extern "C" {
     pub fn libraw_get_imgother(lr: *mut libraw_data_t) -> *mut libraw_imgother_t;
 }
 pub type __builtin_va_list = *mut libc::c_char;
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub struct lconv {
+    pub _address: u8,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct LibRaw_abstract_datastream {
