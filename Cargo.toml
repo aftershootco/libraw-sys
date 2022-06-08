@@ -18,3 +18,4 @@ cc = { version = "1.0.73", optional = true }
 clone = []
 bindgen = ["dep:bindgen", "clone"]
 build = ["dep:cc", "clone"]
+copy = []

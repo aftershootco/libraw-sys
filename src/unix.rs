@@ -18900,6 +18900,179 @@ fn bindgen_test_layout_crx_data_header_t() {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub struct pana8_tags_t {
+    pub tag39: [u32; 6usize],
+    pub tag3A: [u16; 6usize],
+    pub tag3B: u16,
+    pub initial: [u16; 4usize],
+    pub tag40a: [u16; 17usize],
+    pub tag40b: [u16; 17usize],
+    pub tag41: [u16; 17usize],
+    pub stripe_count: u16,
+    pub tag43: u16,
+    pub stripe_offsets: [INT64; 5usize],
+    pub stripe_left: [u16; 5usize],
+    pub stripe_compressed_size: [u32; 5usize],
+    pub stripe_width: [u16; 5usize],
+    pub stripe_height: [u16; 5usize],
+}
+#[test]
+fn bindgen_test_layout_pana8_tags_t() {
+    assert_eq!(
+        ::core::mem::size_of::<pana8_tags_t>(),
+        248usize,
+        concat!("Size of: ", stringify!(pana8_tags_t))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<pana8_tags_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(pana8_tags_t))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag39 as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag39)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag3A as *const _ as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag3A)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag3B as *const _ as usize },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag3B)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).initial as *const _ as usize },
+        38usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(initial)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag40a as *const _ as usize },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag40a)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag40b as *const _ as usize },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag40b)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag41 as *const _ as usize },
+        114usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag41)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_count as *const _ as usize },
+        148usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_count)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).tag43 as *const _ as usize },
+        150usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(tag43)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_offsets as *const _ as usize },
+        152usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_offsets)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_left as *const _ as usize },
+        192usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_left)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<pana8_tags_t>())).stripe_compressed_size as *const _ as usize
+        },
+        204usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_compressed_size)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_width as *const _ as usize },
+        224usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_width)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<pana8_tags_t>())).stripe_height as *const _ as usize },
+        234usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pana8_tags_t),
+            "::",
+            stringify!(stripe_height)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct unpacker_data_t {
     pub order: libc::c_short,
     pub sraw_mul: [ushort; 4usize],
@@ -18938,6 +19111,7 @@ pub struct unpacker_data_t {
     pub fuji_lossless: libc::c_int,
     pub pana_encoding: libc::c_int,
     pub pana_bpp: libc::c_int,
+    pub pana8: pana8_tags_t,
     pub crx_header: [crx_data_header_t; 16usize],
     pub crx_track_selected: libc::c_int,
     pub crx_track_count: libc::c_int,
@@ -18957,7 +19131,7 @@ pub struct unpacker_data_t {
 fn bindgen_test_layout_unpacker_data_t() {
     assert_eq!(
         ::core::mem::size_of::<unpacker_data_t>(),
-        2368usize,
+        2616usize,
         concat!("Size of: ", stringify!(unpacker_data_t))
     );
     assert_eq!(
@@ -19352,8 +19526,18 @@ fn bindgen_test_layout_unpacker_data_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).crx_header as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).pana8 as *const _ as usize },
         192usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(unpacker_data_t),
+            "::",
+            stringify!(pana8)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).crx_header as *const _ as usize },
+        440usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19365,7 +19549,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         unsafe {
             &(*(::core::ptr::null::<unpacker_data_t>())).crx_track_selected as *const _ as usize
         },
-        2240usize,
+        2488usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19377,7 +19561,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         unsafe {
             &(*(::core::ptr::null::<unpacker_data_t>())).crx_track_count as *const _ as usize
         },
-        2244usize,
+        2492usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19387,7 +19571,7 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).CR3_CTMDtag as *const _ as usize },
-        2248usize,
+        2496usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19397,7 +19581,7 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).CR3_Version as *const _ as usize },
-        2250usize,
+        2498usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19407,7 +19591,7 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).CM_found as *const _ as usize },
-        2252usize,
+        2500usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19419,7 +19603,7 @@ fn bindgen_test_layout_unpacker_data_t() {
         unsafe {
             &(*(::core::ptr::null::<unpacker_data_t>())).is_NikonTransfer as *const _ as usize
         },
-        2256usize,
+        2504usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19429,7 +19613,7 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).is_Olympus as *const _ as usize },
-        2260usize,
+        2508usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19442,7 +19626,7 @@ fn bindgen_test_layout_unpacker_data_t() {
             &(*(::core::ptr::null::<unpacker_data_t>())).OlympusDNG_SubDirOffsetValid as *const _
                 as usize
         },
-        2264usize,
+        2512usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19452,7 +19636,7 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).is_Sony as *const _ as usize },
-        2268usize,
+        2516usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19462,7 +19646,7 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).is_pana_raw as *const _ as usize },
-        2272usize,
+        2520usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19475,7 +19659,7 @@ fn bindgen_test_layout_unpacker_data_t() {
             &(*(::core::ptr::null::<unpacker_data_t>())).is_PentaxRicohMakernotes as *const _
                 as usize
         },
-        2276usize,
+        2524usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19485,7 +19669,7 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).dng_frames as *const _ as usize },
-        2280usize,
+        2528usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19495,7 +19679,7 @@ fn bindgen_test_layout_unpacker_data_t() {
     );
     assert_eq!(
         unsafe { &(*(::core::ptr::null::<unpacker_data_t>())).raw_stride as *const _ as usize },
-        2360usize,
+        2608usize,
         concat!(
             "Offset of field: ",
             stringify!(unpacker_data_t),
@@ -19517,7 +19701,7 @@ pub struct libraw_internal_data_t {
 fn bindgen_test_layout_libraw_internal_data_t() {
     assert_eq!(
         ::core::mem::size_of::<libraw_internal_data_t>(),
-        2504usize,
+        2752usize,
         concat!("Size of: ", stringify!(libraw_internal_data_t))
     );
     assert_eq!(

@@ -163,7 +163,7 @@ fn bindings(out_dir: &Path) {
 
     let bindings = bindgen::Builder::default()
         .header("libraw/libraw/libraw.h")
-        // .use_core()
+        .use_core()
         .ctypes_prefix("libc")
         .generate_comments(true)
         .parse_callbacks(Box::new(bindgen::CargoCallbacks))
@@ -270,6 +270,20 @@ fn bindings(out_dir: &Path) {
     bindings
         .write_to_file(out_dir.join("bindings.rs"))
         .expect("Couldn't write bindings!");
+
+    #[cfg(feature = "copy")]
+    bindings
+        .write_to_file(
+            #[cfg(target_family = "unix")]
+            Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("src")
+                .join("unix.rs"),
+            #[cfg(target_family = "windows")]
+            Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("src")
+                .join("windows.rs"),
+        )
+        .expect("Failed to write bindings");
 }
 
 #[cfg(feature = "clone")]
