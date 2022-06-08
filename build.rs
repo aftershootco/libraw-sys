@@ -7,6 +7,8 @@ use std::{env, path::Path};
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     __check();
 
+    println!("cargo:rerun-if-changed=build.rs");
+
     #[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
     let out_dir_ = &env::var_os("OUT_DIR").unwrap();
     #[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
