@@ -80,7 +80,7 @@ where
         }
     }
 }
-pub const __MINGW64_VERSION_MAJOR: u32 = 10;
+pub const __MINGW64_VERSION_MAJOR: u32 = 11;
 pub const __MINGW64_VERSION_MINOR: u32 = 0;
 pub const __MINGW64_VERSION_BUGFIX: u32 = 0;
 pub const __MINGW64_VERSION_RC: u32 = 0;
