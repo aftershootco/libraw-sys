@@ -37,13 +37,13 @@ fn build(out_dir: &Path) {
         .unwrap();
 
     pkg_config::Config::new()
-        .atleast_version("3.0.3")
+        // .atleast_version("3.0.3")
         .statik(true)
         .probe("jasper")
         .unwrap();
 
     pkg_config::Config::new()
-        .atleast_version("1.2")
+        // .atleast_version("1.2")
         .statik(true)
         .probe("zlib")
         .unwrap();
