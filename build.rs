@@ -31,7 +31,7 @@ fn build(out_dir: &Path) {
     std::env::set_current_dir(out_dir).expect("Unable to set current dir");
 
     pkg_config::Config::new()
-        .atleast_version("8")
+        // .atleast_version("8")
         .statik(true)
         .probe("libjpeg")
         .unwrap();
