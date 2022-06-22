@@ -13,6 +13,8 @@ libc = "0.2.123"
 bindgen = { version = "0.59.2", optional = true }
 pkg-config = "0.3.25"
 cc = { version = "1.0.73", optional = true }
+vergen = "7.2.1"
+git2 = "0.14.4"
 
 [features]
 clone = []

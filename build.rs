@@ -4,7 +4,9 @@ use std::process::{Command, Stdio};
 #[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
 use std::{env, path::Path};
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+
+fn main() -> Result<()> {
     __check();
 
     println!("cargo:rerun-if-changed=build.rs");
@@ -18,6 +20,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     #[cfg(feature = "clone")]
     clone(out_dir);
+    #[cfg(feature = "clone")]
+    let __head = commit(out_dir.join("libraw"))?;
 
     #[cfg(feature = "bindgen")]
     bindings(out_dir);
@@ -341,4 +345,19 @@ fn __check() {
     compile_error!("You need to have clone or tarball enabled to use build");
     #[cfg(all(feature = "clone", feature = "tarball"))]
     compile_error!("Cannot have both clone and tarball enabled");
+}
+
+fn commit(out_dir: impl AsRef<Path>) -> Result<git2::Oid> {
+    let repo = git2::Repository::open(out_dir)?;
+    let head = repo
+        .head()?
+        .target()
+        .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::NotFound, "HEAD not found"))?;
+
+    std::fs::write(
+        std::path::Path::new(&std::env::var_os("OUT_DIR").unwrap()).join("commit.rs"),
+        format!("const LIBRAW_COMMIT: &str = {head}").as_bytes(),
+    )?;
+
+    Ok(head)
 }
