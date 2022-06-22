@@ -78,7 +78,9 @@ fn build(out_dir: &Path) {
     libraw.file("libraw/src/decoders/generic.cpp");
     libraw.file("libraw/src/decoders/kodak_decoders.cpp");
     libraw.file("libraw/src/decoders/load_mfbacks.cpp");
-    libraw.file("libraw/src/decoders/pana8.cpp");
+    if Path::new("libraw/src/decoders/pana8.cpp").exists() {
+        libraw.file("libraw/src/decoders/pana8.cpp");
+    }
     libraw.file("libraw/src/decoders/smal.cpp");
     libraw.file("libraw/src/decoders/unpack.cpp");
     libraw.file("libraw/src/decoders/unpack_thumb.cpp");
@@ -154,14 +156,14 @@ fn build(out_dir: &Path) {
     libraw.flag_if_supported("-Wno-format-truncation");
     libraw.flag_if_supported("-Wno-unused-result");
     libraw.flag_if_supported("-Wno-format-overflow");
-    // libraw.flag_if_supported("-fopenmp");
-    // thread safety
+    libraw.flag_if_supported("-fopenmp");
 
+    // thread safety
     libraw.flag("-pthread");
+
+    /// Add libraries
     libraw.flag("-DUSE_JPEG8");
     libraw.flag("-DUSE_ZLIB");
-    // FIXME: This doesn't compile for some reason even with pkg_config enabled
-    // - Maybe a macos / homebrew issue ?
     libraw.flag("-DUSE_JASPER");
 
     libraw.static_flag(true);
