@@ -148,7 +148,7 @@ fn build(out_dir: &Path) {
     libraw.flag("-DUSE_ZLIB");
     // FIXME: This doesn't compile for some reason even with pkg_config enabled
     // - Maybe a macos / homebrew issue ?
-    // libraw.flag("-DUSE_JASPER");
+    libraw.flag("-DUSE_JASPER");
 
     libraw.static_flag(true);
     libraw.compile("raw_r");
