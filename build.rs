@@ -139,7 +139,7 @@ fn build(out_dir: &Path) {
     libraw.flag_if_supported("-Wno-format-truncation");
     libraw.flag_if_supported("-Wno-unused-result");
     libraw.flag_if_supported("-Wno-format-overflow");
-    libraw.flag_if_supported("-fopenmp");
+    // libraw.flag_if_supported("-fopenmp");
     // thread safety
 
     libraw.flag("-pthread");
