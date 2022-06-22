@@ -30,28 +30,42 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 fn build(out_dir: &Path) {
     std::env::set_current_dir(out_dir).expect("Unable to set current dir");
 
+    let mut libraw = cc::Build::new();
+    libraw.cpp(true);
+    libraw.include("libraw/");
+
     pkg_config::Config::new()
         // .atleast_version("8")
         .statik(true)
         .probe("libjpeg")
-        .unwrap();
+        .unwrap()
+        .include_paths
+        .iter()
+        .for_each(|path| {
+            libraw.include(path);
+        });
 
     pkg_config::Config::new()
         // .atleast_version("3.0.3")
         .statik(true)
         .probe("jasper")
-        .unwrap();
+        .unwrap()
+        .include_paths
+        .iter()
+        .for_each(|path| {
+            libraw.include(path);
+        });
 
     pkg_config::Config::new()
         // .atleast_version("1.2")
         .statik(true)
         .probe("zlib")
-        .unwrap();
-
-    let mut libraw = cc::Build::new();
-    libraw.cpp(true);
-
-    libraw.include("libraw/");
+        .unwrap()
+        .include_paths
+        .iter()
+        .for_each(|path| {
+            libraw.include(path);
+        });
 
     libraw.file("libraw/src/decoders/canon_600.cpp");
     libraw.file("libraw/src/decoders/crx.cpp");
@@ -292,18 +306,30 @@ fn bindings(out_dir: &Path) {
 #[cfg(feature = "clone")]
 fn clone(our_dir: &Path) {
     eprintln!("\x1b[31mCloning libraw");
-    let libraw_repo_url = std::env::var("LIBRAW_REPO")
-        .unwrap_or_else(|_| String::from("https://github.com/libraw/libraw"));
+    let libraw_dir = std::env::var("LIBRAW_DIR");
 
-    let _git_out = Command::new("git")
-        .arg("clone")
-        .arg("--depth")
-        .arg("1")
-        .arg(&libraw_repo_url)
-        .arg(our_dir.join("libraw"))
-        .stdout(Stdio::inherit())
-        .output()
-        .unwrap_or_else(|_| panic!("Failed to clone libraw from {}", libraw_repo_url));
+    if let Ok(libraw_dir) = libraw_dir {
+        Command::new("cp")
+            .arg("-r")
+            .arg(&libraw_dir)
+            .arg(our_dir.join("libraw"))
+            .stdout(Stdio::inherit())
+            .output()
+            .unwrap_or_else(|_| panic!("Failed to copy {}", libraw_dir));
+    } else {
+        let libraw_repo_url = std::env::var("LIBRAW_REPO")
+            .unwrap_or_else(|_| String::from("https://github.com/libraw/libraw"));
+
+        let _git_out = Command::new("git")
+            .arg("clone")
+            .arg("--depth")
+            .arg("1")
+            .arg(&libraw_repo_url)
+            .arg(our_dir.join("libraw"))
+            .stdout(Stdio::inherit())
+            .output()
+            .unwrap_or_else(|_| panic!("Failed to clone libraw from {}", libraw_repo_url));
+    }
 }
 
 fn __check() {
