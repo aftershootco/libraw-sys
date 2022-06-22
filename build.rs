@@ -8,6 +8,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     __check();
 
     println!("cargo:rerun-if-changed=build.rs");
+    println!("cargo:rerun-if-env-changed=LIBRAW_DIR");
+    println!("cargo:rerun-if-env-changed=LIBRAW_REPO");
 
     #[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
     let out_dir_ = &env::var_os("OUT_DIR").unwrap();
