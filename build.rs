@@ -64,6 +64,7 @@ fn build(out_dir: &Path) {
     libraw.file("libraw/src/decoders/generic.cpp");
     libraw.file("libraw/src/decoders/kodak_decoders.cpp");
     libraw.file("libraw/src/decoders/load_mfbacks.cpp");
+    libraw.file("libraw/src/decoders/pana8.cpp");
     libraw.file("libraw/src/decoders/smal.cpp");
     libraw.file("libraw/src/decoders/unpack.cpp");
     libraw.file("libraw/src/decoders/unpack_thumb.cpp");
