@@ -1,6 +1,6 @@
 [package]
 name = "libraw-sys"
-version = "0.5.6"
+version = "0.5.7"
 edition = "2021"
 license = "MIT"
 
@@ -8,16 +8,21 @@ build = "build.rs"
 
 [dependencies]
 libc = "0.2.123"
+libjpeg-turbo-sys = { path = "../libjpeg-turbo-rs", optional = true }
 
 [build-dependencies]
 bindgen = { version = "0.59.2", optional = true }
 pkg-config = "0.3.25"
-cc = { version = "1.0.73", optional = true }
+cc = { version = "1.0.73", optional = true, features = ["parallel"]}
 vergen = "7.2.1"
 git2 = "0.14.4"
 
 [features]
+default = ["zlib", "jpeg"]
 clone = []
 bindgen = ["dep:bindgen", "clone"]
 build = ["dep:cc", "clone"]
 copy = []
+jasper = []
+zlib = []
+jpeg = ["dep:libjpeg-turbo-sys"]

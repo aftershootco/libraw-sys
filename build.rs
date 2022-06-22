@@ -40,20 +40,22 @@ fn build(out_dir: &Path) {
     libraw.cpp(true);
     libraw.include("libraw/");
 
-    pkg_config::Config::new()
-        // .atleast_version("8")
-        .statik(true)
-        .probe("libjpeg")
-        .unwrap()
-        .include_paths
-        .iter()
-        .for_each(|path| {
-            libraw.include(path);
-        });
+    // #[cfg(feature = "jpeg")]
+    // pkg_config::Config::new()
+    //     // .atleast_version("8")
+    //     // .statik(true)
+    //     .probe("libjpeg")
+    //     .unwrap()
+    //     .include_paths
+    //     .iter()
+    //     .for_each(|path| {
+    //         libraw.include(path);
+    //     });
 
+    #[cfg(feature = "jasper")]
     pkg_config::Config::new()
         // .atleast_version("3.0.3")
-        .statik(true)
+        // .statik(true)
         .probe("jasper")
         .unwrap()
         .include_paths
@@ -62,9 +64,10 @@ fn build(out_dir: &Path) {
             libraw.include(path);
         });
 
+    #[cfg(feature = "zlib")]
     pkg_config::Config::new()
         // .atleast_version("1.2")
-        .statik(true)
+        // .statik(true)
         .probe("zlib")
         .unwrap()
         .include_paths
@@ -167,9 +170,14 @@ fn build(out_dir: &Path) {
     // thread safety
     libraw.flag("-pthread");
 
-    /// Add libraries
+    // Add libraries
+    #[cfg(feature = "jpeg")]
     libraw.flag("-DUSE_JPEG8");
+
+    #[cfg(feature = "zlib")]
     libraw.flag("-DUSE_ZLIB");
+
+    #[cfg(feature = "jasper")]
     libraw.flag("-DUSE_JASPER");
 
     libraw.static_flag(true);
@@ -347,6 +355,7 @@ fn __check() {
     compile_error!("Cannot have both clone and tarball enabled");
 }
 
+#[cfg(feature = "clone")]
 fn commit(out_dir: impl AsRef<Path>) -> Result<git2::Oid> {
     let repo = git2::Repository::open(out_dir)?;
     let head = repo
