@@ -1,6 +1,6 @@
 [package]
 name = "libraw-sys"
-version = "0.5.7"
+version = "0.6.0"
 edition = "2021"
 license = "MIT"
 
@@ -8,7 +8,7 @@ build = "build.rs"
 
 [dependencies]
 libc = "0.2.123"
-libjpeg-turbo-sys = { path = "../libjpeg-turbo-rs", optional = true }
+libjpeg-sys = { git = "https://github.com/aftershootco/libjpeg-sys", optional = true }
 
 [build-dependencies]
 bindgen = { version = "0.59.2", optional = true }
@@ -18,11 +18,11 @@ vergen = "7.2.1"
 git2 = "0.14.4"
 
 [features]
-default = ["zlib", "jpeg"]
+default = []
 clone = []
 bindgen = ["dep:bindgen", "clone"]
-build = ["dep:cc", "clone"]
+build = ["jpeg", "dep:cc", "clone", "jasper", "zlib"]
 copy = []
 jasper = []
 zlib = []
-jpeg = ["dep:libjpeg-turbo-sys"]
+jpeg = ["dep:libjpeg-sys"]

@@ -40,17 +40,17 @@ fn build(out_dir: &Path) {
     libraw.cpp(true);
     libraw.include("libraw/");
 
-    // #[cfg(feature = "jpeg")]
-    // pkg_config::Config::new()
-    //     // .atleast_version("8")
-    //     // .statik(true)
-    //     .probe("libjpeg")
-    //     .unwrap()
-    //     .include_paths
-    //     .iter()
-    //     .for_each(|path| {
-    //         libraw.include(path);
-    //     });
+    #[cfg(feature = "jpeg")]
+    pkg_config::Config::new()
+        // .atleast_version("8")
+        // .statik(true)
+        .probe("libjpeg")
+        .unwrap()
+        .include_paths
+        .iter()
+        .for_each(|path| {
+            libraw.include(path);
+        });
 
     #[cfg(feature = "jasper")]
     pkg_config::Config::new()
@@ -76,6 +76,10 @@ fn build(out_dir: &Path) {
             libraw.include(path);
         });
 
+    #[cfg(feature = "jpeg")]
+    if let Ok(path) = std::env::var("DEP_LIBJPEG_INCLUDE") {
+        libraw.include(path);
+    }
     libraw.file("libraw/src/decoders/canon_600.cpp");
     libraw.file("libraw/src/decoders/crx.cpp");
     libraw.file("libraw/src/decoders/decoders_dcraw.cpp");
@@ -172,7 +176,7 @@ fn build(out_dir: &Path) {
 
     // Add libraries
     #[cfg(feature = "jpeg")]
-    libraw.flag("-DUSE_JPEG8");
+    libraw.flag("-DUSE_JPEG");
 
     #[cfg(feature = "zlib")]
     libraw.flag("-DUSE_ZLIB");
@@ -188,6 +192,8 @@ fn build(out_dir: &Path) {
         out_dir.join("lib").display()
     );
     println!("cargo:rustc-link-lib=static=raw_r");
+    println!("cargo:rustc-link-lib=c++");
+    // println!("cargo:rustc-link-lib=c++");
 }
 
 #[cfg(feature = "bindgen")]
