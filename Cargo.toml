@@ -15,7 +15,7 @@ bindgen = { version = "0.59.2", optional = true }
 pkg-config = "0.3.25"
 cc = { version = "1.0.73", optional = true, features = ["parallel"]}
 vergen = "7.2.1"
-git2 = "0.14.4"
+# git2 = "0.14.4"
 
 [features]
 default = []

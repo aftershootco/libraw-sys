@@ -20,8 +20,8 @@ fn main() -> Result<()> {
 
     #[cfg(feature = "clone")]
     clone(out_dir);
-    #[cfg(feature = "clone")]
-    let __head = commit(out_dir.join("libraw"))?;
+    // #[cfg(feature = "clone")]
+    // let __head = commit(out_dir.join("libraw"))?;
 
     #[cfg(feature = "bindgen")]
     bindings(out_dir);
@@ -361,18 +361,18 @@ fn __check() {
     compile_error!("Cannot have both clone and tarball enabled");
 }
 
-#[cfg(feature = "clone")]
-fn commit(out_dir: impl AsRef<Path>) -> Result<git2::Oid> {
-    let repo = git2::Repository::open(out_dir)?;
-    let head = repo
-        .head()?
-        .target()
-        .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::NotFound, "HEAD not found"))?;
+// #[cfg(feature = "clone")]
+// fn commit(out_dir: impl AsRef<Path>) -> Result<git2::Oid> {
+//     let repo = git2::Repository::open(out_dir)?;
+//     let head = repo
+//         .head()?
+//         .target()
+//         .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::NotFound, "HEAD not found"))?;
 
-    std::fs::write(
-        std::path::Path::new(&std::env::var_os("OUT_DIR").unwrap()).join("commit.rs"),
-        format!("const LIBRAW_COMMIT: &str = {head}").as_bytes(),
-    )?;
+//     std::fs::write(
+//         std::path::Path::new(&std::env::var_os("OUT_DIR").unwrap()).join("commit.rs"),
+//         format!("const LIBRAW_COMMIT: &str = \"{head}\"").as_bytes(),
+//     )?;
 
-    Ok(head)
-}
+//     Ok(head)
+// }
