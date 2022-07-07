@@ -1,8 +1,4 @@
-#[cfg(feature = "clone")]
-use std::process::{Command, Stdio};
-
-#[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
-use std::{env, path::Path};
+use std::path::Path;
 
 pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
@@ -13,26 +9,26 @@ fn main() -> Result<()> {
     println!("cargo:rerun-if-env-changed=LIBRAW_DIR");
     println!("cargo:rerun-if-env-changed=LIBRAW_REPO");
 
-    #[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
-    let out_dir_ = &env::var_os("OUT_DIR").unwrap();
-    #[cfg(any(feature = "clone", feature = "build", feature = "bindgen"))]
-    let out_dir = Path::new(out_dir_);
+    let _out_dir = &std::env::var_os("OUT_DIR").unwrap();
+    let out_dir = Path::new(_out_dir);
 
-    #[cfg(feature = "clone")]
+    #[cfg(all(feature = "clone", not(feature = "no-build")))]
     clone(out_dir);
     // #[cfg(feature = "clone")]
     // let __head = commit(out_dir.join("libraw"))?;
 
-    #[cfg(feature = "bindgen")]
+    #[cfg(all(feature = "bindgen", not(feature = "no-build")))]
     bindings(out_dir);
 
-    #[cfg(feature = "build")]
+    #[cfg(all(feature = "build", not(feature = "no-build")))]
     build(out_dir);
+
+    let _ = out_dir;
 
     Ok(())
 }
 
-#[cfg(feature = "build")]
+#[cfg(all(feature = "build", not(feature = "no-build")))]
 fn build(out_dir: &Path) {
     std::env::set_current_dir(out_dir).expect("Unable to set current dir");
 
@@ -325,8 +321,9 @@ fn bindings(out_dir: &Path) {
         .expect("Failed to write bindings");
 }
 
-#[cfg(feature = "clone")]
+#[cfg(all(feature = "clone", not(feature = "no-build")))]
 fn clone(our_dir: &Path) {
+    use std::process::{Command, Stdio};
     eprintln!("\x1b[31mCloning libraw");
     let libraw_dir = std::env::var("LIBRAW_DIR");
 
