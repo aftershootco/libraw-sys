@@ -188,8 +188,11 @@ fn build(out_dir: &Path) {
         out_dir.join("lib").display()
     );
     println!("cargo:rustc-link-lib=static=raw_r");
-    println!("cargo:rustc-link-lib=c++");
-    // println!("cargo:rustc-link-lib=c++");
+    if std::env::var("CARGO_CFG_TARGET_FAMILY").unwrap().eq("unix") {
+        println!("cargo:rustc-link-lib=c++");
+    } else {
+        println!("cargo:rustc-link-lib=stdc++");
+    }
 }
 
 #[cfg(feature = "bindgen")]
