@@ -37,6 +37,10 @@ fn build(out_dir: &Path) {
     libraw.include("libraw/");
 
     #[cfg(feature = "jpeg")]
+    if let Ok(path) = std::env::var("DEP_LIBJPEG_INCLUDE") {
+        libraw.include(path);
+    }
+    #[cfg(feature = "jpeg")]
     pkg_config::Config::new()
         // .atleast_version("8")
         // .statik(true)
@@ -72,10 +76,25 @@ fn build(out_dir: &Path) {
             libraw.include(path);
         });
 
-    #[cfg(feature = "jpeg")]
-    if let Ok(path) = std::env::var("DEP_LIBJPEG_INCLUDE") {
-        libraw.include(path);
-    }
+    // #[cfg(feature = "lcms")]
+    // pkg_config::Config::new()
+    //     .probe("lcms2")
+    //     .unwrap()
+    //     .include_paths
+    //     .iter()
+    //     .for_each(|path| {
+    //         libraw.include(path);
+    //     });
+    #[cfg(feature = "lcms")]
+    pkg_config::Config::new()
+        .probe("lcms2")
+        .unwrap()
+        .include_paths
+        .iter()
+        .for_each(|path| {
+            libraw.include(path);
+        });
+
     libraw.file("libraw/src/decoders/canon_600.cpp");
     libraw.file("libraw/src/decoders/crx.cpp");
     libraw.file("libraw/src/decoders/decoders_dcraw.cpp");
@@ -179,6 +198,9 @@ fn build(out_dir: &Path) {
 
     #[cfg(feature = "jasper")]
     libraw.flag("-DUSE_JASPER");
+
+    #[cfg(feature = "lcms")]
+    libraw.flag("-DUSE_LCMS2");
 
     libraw.static_flag(true);
     libraw.compile("raw_r");
