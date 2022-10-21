@@ -36,6 +36,11 @@ fn build(out_dir: &Path) {
     libraw.cpp(true);
     libraw.include("libraw/");
 
+    println!(
+        "cargo:include={}",
+        our_dir.as_ref().join("libraw").join("libraw").display()
+    );
+
     #[cfg(feature = "jpeg")]
     pkg_config::Config::new()
         // .atleast_version("8")
@@ -199,6 +204,11 @@ fn build(out_dir: &Path) {
 fn bindings(out_dir: &Path) {
     std::env::set_current_dir(out_dir).expect("Unable to set current dir");
 
+    println!(
+        "cargo:include={}",
+        our_dir.as_ref().join("libraw").join("libraw").display()
+    );
+
     let bindings = bindgen::Builder::default()
         .header("libraw/libraw/libraw.h")
         .use_core()
@@ -356,9 +366,7 @@ fn clone(our_dir: &Path) {
 
 fn __check() {
     #[cfg(all(feature = "build", not(any(feature = "clone", feature = "tarball"))))]
-    compile_error!("You need to have clone or tarball enabled to use build");
-    #[cfg(all(feature = "clone", feature = "tarball"))]
-    compile_error!("Cannot have both clone and tarball enabled");
+    compile_error!("You need to have clone enabled to use build");
 }
 
 // #[cfg(feature = "clone")]
