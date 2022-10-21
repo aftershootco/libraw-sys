@@ -38,7 +38,7 @@ fn build(out_dir: &Path) {
 
     println!(
         "cargo:include={}",
-        our_dir.as_ref().join("libraw").join("libraw").display()
+        out_dir.as_ref().join("libraw").join("libraw").display()
     );
 
     #[cfg(feature = "jpeg")]
@@ -206,7 +206,7 @@ fn bindings(out_dir: &Path) {
 
     println!(
         "cargo:include={}",
-        our_dir.as_ref().join("libraw").join("libraw").display()
+        out_dir.as_ref().join("libraw").join("libraw").display()
     );
 
     let bindings = bindgen::Builder::default()
@@ -335,7 +335,7 @@ fn bindings(out_dir: &Path) {
 }
 
 #[cfg(all(feature = "clone", not(feature = "no-build")))]
-fn clone(our_dir: &Path) {
+fn clone(out_dir: &Path) {
     use std::process::{Command, Stdio};
     eprintln!("\x1b[31mCloning libraw");
     let libraw_dir = std::env::var("LIBRAW_DIR");
@@ -344,7 +344,7 @@ fn clone(our_dir: &Path) {
         Command::new("cp")
             .arg("-r")
             .arg(&libraw_dir)
-            .arg(our_dir.join("libraw"))
+            .arg(out_dir.join("libraw"))
             .stdout(Stdio::inherit())
             .output()
             .unwrap_or_else(|_| panic!("Failed to copy {}", libraw_dir));
@@ -357,7 +357,7 @@ fn clone(our_dir: &Path) {
             .arg("--depth")
             .arg("1")
             .arg(&libraw_repo_url)
-            .arg(our_dir.join("libraw"))
+            .arg(out_dir.join("libraw"))
             .stdout(Stdio::inherit())
             .output()
             .unwrap_or_else(|_| panic!("Failed to clone libraw from {}", libraw_repo_url));
