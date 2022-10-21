@@ -38,7 +38,7 @@ fn build(out_dir: &Path) {
 
     println!(
         "cargo:include={}",
-        out_dir.as_ref().join("libraw").join("libraw").display()
+        out_dir.join("libraw").join("libraw").display()
     );
 
     #[cfg(feature = "jpeg")]
@@ -206,7 +206,7 @@ fn bindings(out_dir: &Path) {
 
     println!(
         "cargo:include={}",
-        out_dir.as_ref().join("libraw").join("libraw").display()
+        out_dir.join("libraw").join("libraw").display()
     );
 
     let bindings = bindgen::Builder::default()
