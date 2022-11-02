@@ -14266,8 +14266,8 @@ pub struct libraw_fuji_info_t {
     pub DRangePriority: ushort,
     pub DRangePriorityAuto: ushort,
     pub DRangePriorityFixed: ushort,
-    pub FirmwareVersion: [libc::c_char; 33usize],
-    pub FirmwareVersion2: [libc::c_char; 33usize],
+    pub FujiModel: [libc::c_char; 33usize],
+    pub FujiModel2: [libc::c_char; 33usize],
     pub BrightnessCompensation: f32,
     pub FocusMode: ushort,
     pub AFMode: ushort,
@@ -14464,40 +14464,40 @@ fn bindgen_test_layout_libraw_fuji_info_t() {
         );
     }
     test_field_DRangePriorityFixed();
-    fn test_field_FirmwareVersion() {
+    fn test_field_FujiModel() {
         assert_eq!(
             unsafe {
                 let uninit = ::core::mem::MaybeUninit::<libraw_fuji_info_t>::uninit();
                 let ptr = uninit.as_ptr();
-                ::core::ptr::addr_of!((*ptr).FirmwareVersion) as usize - ptr as usize
+                ::core::ptr::addr_of!((*ptr).FujiModel) as usize - ptr as usize
             },
             20usize,
             concat!(
                 "Offset of field: ",
                 stringify!(libraw_fuji_info_t),
                 "::",
-                stringify!(FirmwareVersion)
+                stringify!(FujiModel)
             )
         );
     }
-    test_field_FirmwareVersion();
-    fn test_field_FirmwareVersion2() {
+    test_field_FujiModel();
+    fn test_field_FujiModel2() {
         assert_eq!(
             unsafe {
                 let uninit = ::core::mem::MaybeUninit::<libraw_fuji_info_t>::uninit();
                 let ptr = uninit.as_ptr();
-                ::core::ptr::addr_of!((*ptr).FirmwareVersion2) as usize - ptr as usize
+                ::core::ptr::addr_of!((*ptr).FujiModel2) as usize - ptr as usize
             },
             53usize,
             concat!(
                 "Offset of field: ",
                 stringify!(libraw_fuji_info_t),
                 "::",
-                stringify!(FirmwareVersion2)
+                stringify!(FujiModel2)
             )
         );
     }
-    test_field_FirmwareVersion2();
+    test_field_FujiModel2();
     fn test_field_BrightnessCompensation() {
         assert_eq!(
             unsafe {
