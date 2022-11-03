@@ -187,6 +187,7 @@ fn build(out_dir: &Path) {
     #[cfg(feature = "jasper")]
     libraw.flag("-DUSE_JASPER");
 
+    libraw.cpp_link_stdlib("c++");
     libraw.static_flag(true);
     libraw.compile("raw_r");
 
@@ -195,11 +196,11 @@ fn build(out_dir: &Path) {
         out_dir.join("lib").display()
     );
     println!("cargo:rustc-link-lib=static=raw_r");
-    if std::env::var("CARGO_CFG_TARGET_FAMILY").unwrap().eq("unix") {
-        println!("cargo:rustc-link-lib=c++");
-    } else {
-        println!("cargo:rustc-link-lib=stdc++");
-    }
+    // if std::env::var("CARGO_CFG_TARGET_FAMILY").unwrap().eq("unix") {
+    //     println!("cargo:rustc-link-lib=c++");
+    // } else {
+    //     println!("cargo:rustc-link-lib=stdc++");
+    // }
 }
 
 #[cfg(feature = "bindgen")]
