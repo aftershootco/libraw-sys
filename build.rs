@@ -29,7 +29,7 @@ fn main() -> Result<()> {
 }
 
 #[cfg(all(feature = "build", not(feature = "no-build")))]
-fn build(out_dir: &Path) {
+fn build(out_dir: &Path) -> Result<()> {
     std::env::set_current_dir(out_dir).expect("Unable to set current dir");
 
     let mut libraw = cc::Build::new();
@@ -41,43 +41,26 @@ fn build(out_dir: &Path) {
         out_dir.join("libraw").join("libraw").display()
     );
 
-    #[cfg(feature = "jpeg")]
-    pkg_config::Config::new()
-        // .atleast_version("8")
-        // .statik(true)
-        .probe("libjpeg")
-        .and_then(|libjpeg| {
-            libjpeg.include_paths.iter().for_each(|path| {
-                libraw.include(path);
-            });
-            Ok(())
-        })
-        .ok();
+    // #[cfg(feature = "jpeg")]
+    // if let Ok(jpeg) = pkg_config::Config::new().probe("libjpeg") {
+    //     libraw.includes(jpeg.include_paths);
+    // } else {
+    //     eprintln!("libjpeg not found");
+    // }
 
     #[cfg(feature = "jasper")]
-    pkg_config::Config::new()
-        // .atleast_version("3.0.3")
-        // .statik(true)
-        .probe("jasper")
-        .and_then(|jasper| {
-            jasper.include_paths.iter().for_each(|path| {
-                libraw.include(path);
-            });
-            Ok(())
-        })
-        .ok();
+    if let Ok(jasper) = pkg_config::Config::new().probe("jasper") {
+        libraw.includes(jasper.include_paths);
+    } else {
+        eprintln!("jasper not found");
+    }
 
     #[cfg(feature = "zlib")]
-    pkg_config::Config::new()
-        // .atleast_version("1.2")
-        // .statik(true)
-        .probe("zlib")
-        .unwrap()
-        .include_paths
-        .iter()
-        .for_each(|path| {
-            libraw.include(path);
-        });
+    if let Ok(zlib) = pkg_config::Config::new().probe("zlib") {
+        libraw.includes(zlib.include_paths);
+    } else {
+        eprintln!("zlib not found");
+    }
 
     #[cfg(feature = "jpeg")]
     if let Ok(path) = std::env::var("DEP_LIBJPEG_INCLUDE") {
@@ -196,11 +179,8 @@ fn build(out_dir: &Path) {
         out_dir.join("lib").display()
     );
     println!("cargo:rustc-link-lib=static=raw_r");
-    // if std::env::var("CARGO_CFG_TARGET_FAMILY").unwrap().eq("unix") {
-    //     println!("cargo:rustc-link-lib=c++");
-    // } else {
-    //     println!("cargo:rustc-link-lib=stdc++");
-    // }
+
+    Ok(())
 }
 
 #[cfg(feature = "bindgen")]
