@@ -46,24 +46,26 @@ fn build(out_dir: &Path) {
         // .atleast_version("8")
         // .statik(true)
         .probe("libjpeg")
-        .unwrap()
-        .include_paths
-        .iter()
-        .for_each(|path| {
-            libraw.include(path);
-        });
+        .and_then(|libjpeg| {
+            libjpeg.include_paths.iter().for_each(|path| {
+                libraw.include(path);
+            });
+            Ok(())
+        })
+        .ok();
 
     #[cfg(feature = "jasper")]
     pkg_config::Config::new()
         // .atleast_version("3.0.3")
         // .statik(true)
         .probe("jasper")
-        .unwrap()
-        .include_paths
-        .iter()
-        .for_each(|path| {
-            libraw.include(path);
-        });
+        .and_then(|jasper| {
+            jasper.include_paths.iter().for_each(|path| {
+                libraw.include(path);
+            });
+            Ok(())
+        })
+        .ok();
 
     #[cfg(feature = "zlib")]
     pkg_config::Config::new()

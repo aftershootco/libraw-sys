@@ -18,7 +18,7 @@ cc = { version = "1.0.73", optional = true, features = ["parallel"]}
 # anyhow = "= 1.0.48"
 
 [features]
-default = []
+default = ["build"]
 clone = []
 bindgen = ["dep:bindgen", "clone"]
 build = ["jpeg", "dep:cc", "clone", "jasper", "zlib"]
