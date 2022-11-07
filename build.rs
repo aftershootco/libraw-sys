@@ -21,7 +21,7 @@ fn main() -> Result<()> {
     bindings(out_dir);
 
     #[cfg(all(feature = "build", not(feature = "no-build")))]
-    build(out_dir);
+    build(out_dir)?;
 
     let _ = out_dir;
 
