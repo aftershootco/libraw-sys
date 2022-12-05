@@ -18,7 +18,7 @@ fn main() -> Result<()> {
     // let __head = commit(out_dir.join("libraw"))?;
 
     #[cfg(all(feature = "bindgen", not(feature = "no-build")))]
-    bindings(out_dir);
+    bindings(out_dir)?;
 
     #[cfg(all(feature = "build", not(feature = "no-build")))]
     build(out_dir)?;
@@ -53,6 +53,7 @@ fn build(out_dir: &Path) -> Result<()> {
         libraw.includes(jasper.include_paths);
     } else {
         eprintln!("jasper not found");
+        return Err("jasper not found".into());
     }
 
     #[cfg(feature = "zlib")]
@@ -60,6 +61,7 @@ fn build(out_dir: &Path) -> Result<()> {
         libraw.includes(zlib.include_paths);
     } else {
         eprintln!("zlib not found");
+        return Err("zlib not found".into());
     }
 
     #[cfg(feature = "jpeg")]
@@ -170,7 +172,7 @@ fn build(out_dir: &Path) -> Result<()> {
     #[cfg(feature = "jasper")]
     libraw.flag("-DUSE_JASPER");
 
-    libraw.cpp_link_stdlib("c++");
+    libraw.cpp_link_stdlib("stdc++");
     libraw.static_flag(true);
     libraw.compile("raw_r");
 
@@ -184,7 +186,7 @@ fn build(out_dir: &Path) -> Result<()> {
 }
 
 #[cfg(feature = "bindgen")]
-fn bindings(out_dir: &Path) {
+fn bindings(out_dir: &Path) -> Result<()> {
     std::env::set_current_dir(out_dir).expect("Unable to set current dir");
 
     println!(
@@ -305,16 +307,21 @@ fn bindings(out_dir: &Path) {
     #[cfg(feature = "copy")]
     bindings
         .write_to_file(
-            #[cfg(target_family = "unix")]
+            #[cfg(target_os = "linux")]
             Path::new(env!("CARGO_MANIFEST_DIR"))
                 .join("src")
-                .join("unix.rs"),
+                .join("linux.rs"),
+            #[cfg(target_os = "macos")]
+            Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("src")
+                .join("macos.rs"),
             #[cfg(target_family = "windows")]
             Path::new(env!("CARGO_MANIFEST_DIR"))
                 .join("src")
                 .join("windows.rs"),
         )
         .expect("Failed to write bindings");
+    Ok(())
 }
 
 #[cfg(all(feature = "clone", not(feature = "no-build")))]
