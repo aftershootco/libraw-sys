@@ -41,12 +41,12 @@ fn build(out_dir: &Path) -> Result<()> {
         out_dir.join("libraw").join("libraw").display()
     );
 
-    #[cfg(feature = "jpeg")]
-    if let Ok(jpeg) = pkg_config::Config::new().probe("libjpeg") {
-        libraw.includes(jpeg.include_paths);
-    } else {
-        eprintln!("libjpeg not found");
-    }
+    // #[cfg(feature = "jpeg")]
+    // if let Ok(jpeg) = pkg_config::Config::new().probe("libjpeg") {
+    //     libraw.includes(jpeg.include_paths);
+    // } else {
+    //     eprintln!("libjpeg not found");
+    // }
 
     #[cfg(feature = "jasper")]
     if let Ok(jasper) = pkg_config::Config::new().probe("jasper") {
@@ -65,8 +65,8 @@ fn build(out_dir: &Path) -> Result<()> {
     }
 
     #[cfg(feature = "jpeg")]
-    if let Ok(path) = std::env::var("DEP_LIBJPEG_INCLUDE") {
-        libraw.include(path);
+    if let Ok(path) = std::env::var("DEP_JPEG_INCLUDE") {
+        libraw.includes(std::env::split_paths(&path));
     }
     libraw.file("libraw/src/decoders/canon_600.cpp");
     libraw.file("libraw/src/decoders/crx.cpp");

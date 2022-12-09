@@ -8,11 +8,12 @@ build = "build.rs"
 
 [dependencies]
 libc = "0.2.123"
-libjpeg-sys = { git = "https://github.com/aftershootco/libjpeg-sys", optional = true }
+mozjpeg-sys = { version = "1.0.3", optional = true }
+# libjpeg-sys = { git = "https://github.com/aftershootco/libjpeg-sys", optional = true }
 
 [build-dependencies]
-bindgen = { version = "0.60.1", optional = true }
-pkg-config = "0.3.25"
+bindgen = { version = "0.63.0", optional = true }
+pkg-config = "0.3.26"
 cc = { version = "1.0.73", optional = true, features = ["parallel"]}
 # vergen = "7.3.2"
 # anyhow = "= 1.0.48"
@@ -21,9 +22,9 @@ cc = { version = "1.0.73", optional = true, features = ["parallel"]}
 default = ["build"]
 clone = []
 bindgen = ["dep:bindgen", "clone"]
-build = ["jpeg", "dep:cc", "clone", "jasper", "zlib"]
-no-build = ['libjpeg-sys?/no-build']
+build = ["jpeg", "dep:cc", "clone", "zlib"]
+no-build = []
 copy = []
 jasper = []
 zlib = []
-jpeg = ["dep:libjpeg-sys"]
+jpeg = ["dep:mozjpeg-sys"]
