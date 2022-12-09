@@ -41,13 +41,6 @@ fn build(out_dir: &Path) -> Result<()> {
         out_dir.join("libraw").join("libraw").display()
     );
 
-    // #[cfg(feature = "jpeg")]
-    // if let Ok(jpeg) = pkg_config::Config::new().probe("libjpeg") {
-    //     libraw.includes(jpeg.include_paths);
-    // } else {
-    //     eprintln!("libjpeg not found");
-    // }
-
     #[cfg(feature = "jasper")]
     if let Ok(jasper) = pkg_config::Config::new().probe("jasper") {
         libraw.includes(jasper.include_paths);
