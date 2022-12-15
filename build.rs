@@ -165,6 +165,7 @@ fn build(out_dir: &Path) -> Result<()> {
     #[cfg(feature = "jasper")]
     libraw.flag("-DUSE_JASPER");
 
+    #[cfg(not(target_os = "macos"))]
     libraw.cpp_link_stdlib("stdc++");
     libraw.static_flag(true);
     libraw.compile("raw_r");
@@ -174,6 +175,8 @@ fn build(out_dir: &Path) -> Result<()> {
         out_dir.join("lib").display()
     );
     println!("cargo:rustc-link-lib=static=raw_r");
+    println!("cargo:rustc-link-lib=static=mozjpeg62");
+    // println!("cargo:rustc-link-lib=static=mozjpeg80");
 
     Ok(())
 }
