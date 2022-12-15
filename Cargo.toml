@@ -3,8 +3,9 @@ name = "libraw-sys"
 version = "0.6.4"
 edition = "2021"
 license = "MIT"
-
 build = "build.rs"
+publish = ["ktra"]
+
 
 [dependencies]
 libc = "0.2.123"
