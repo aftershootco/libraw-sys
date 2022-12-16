@@ -176,8 +176,12 @@ fn build(out_dir: &Path) -> Result<()> {
         out_dir.join("lib").display()
     );
     println!("cargo:rustc-link-lib=static=raw_r");
+    #[cfg(feature = "jpeg")]
     println!("cargo:rustc-link-lib=static=mozjpeg62");
+    // #[cfg(feature = "jpeg")]
     // println!("cargo:rustc-link-lib=static=mozjpeg80");
+    #[cfg(feature = "zlib")]
+    println!("cargo:rustc-link-lib=static=z");
 
     Ok(())
 }
