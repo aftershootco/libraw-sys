@@ -57,6 +57,10 @@ fn build(out_dir: &Path) -> Result<()> {
         return Err("zlib not found".into());
     }
 
+    /// Fix builds on msys2
+    #[cfg(windows)]
+    libraw.define("HAVE_BOOLEAN", None);
+
     #[cfg(feature = "jpeg")]
     if let Ok(path) = std::env::var("DEP_JPEG_INCLUDE") {
         libraw.includes(std::env::split_paths(&path));
