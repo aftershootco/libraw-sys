@@ -50,11 +50,8 @@ fn build(out_dir: &Path) -> Result<()> {
     }
 
     #[cfg(feature = "zlib")]
-    if let Ok(zlib) = pkg_config::Config::new().probe("zlib") {
-        libraw.includes(zlib.include_paths);
-    } else {
-        eprintln!("zlib not found");
-        return Err("zlib not found".into());
+    if let Ok(path) = std::env::var("DEP_LIBZ_INCLUDE") {
+        libraw.include(path);
     }
 
     /// Fix builds on msys2

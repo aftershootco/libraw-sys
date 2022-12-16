@@ -1,14 +1,18 @@
 [package]
 name = "libraw-sys"
-version = "0.6.5"
+version = "0.6.6"
 edition = "2021"
 license = "MIT"
 build = "build.rs"
 publish = ["ktra"]
+homepage = "https://github.com/aftershootco/libraw-sys"
+repository = "https://github.com/aftershootco/libraw-sys"
+description = "Bindings to the c api for libraw"
 
 
 [dependencies]
 libc = "0.2.123"
+libz-sys = { version = "1.1.8", optional = true }
 mozjpeg-sys = { version = "1.0.3", optional = true }
 # libjpeg-sys = { git = "https://github.com/aftershootco/libjpeg-sys", optional = true }
 
@@ -27,5 +31,6 @@ build = ["jpeg", "dep:cc", "clone", "zlib"]
 no-build = []
 copy = []
 jasper = []
-zlib = []
+zlib = ["dep:libz-sys"]
 jpeg = ["dep:mozjpeg-sys"]
+
