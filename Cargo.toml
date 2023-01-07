@@ -1,6 +1,6 @@
 [package]
 name = "libraw-sys"
-version = "0.7.7"
+version = "0.7.8"
 edition = "2021"
 license = "MIT"
 build = "build.rs"
@@ -13,7 +13,7 @@ description = "Bindings to the c api for libraw"
 [dependencies]
 libc = "0.2.123"
 libz-sys = { version = "1.1.8", optional = true, features = ["static"], default-features = false }
-mozjpeg-sys = { version = "1.0.3", optional = true }
+mozjpeg-sys = { version = "1.0.3", optional = true, features = ["jpeg80_abi"] }
 # libjpeg-sys = { git = "https://github.com/aftershootco/libjpeg-sys", optional = true }
 
 [build-dependencies]
