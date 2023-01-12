@@ -66,7 +66,7 @@ fn build(out_dir: &Path) -> Result<()> {
         libraw.include(path);
     }
 
-    /// Fix builds on msys2
+    // Fix builds on msys2
     #[cfg(windows)]
     libraw.define("HAVE_BOOLEAN", None);
 
