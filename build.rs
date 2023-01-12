@@ -42,12 +42,24 @@ fn build(out_dir: &Path) -> Result<()> {
     );
 
     #[cfg(feature = "jasper")]
-    if let Ok(jasper) = pkg_config::Config::new().probe("jasper") {
-        libraw.includes(jasper.include_paths);
-    } else {
-        eprintln!("jasper not found");
-        return Err("jasper not found".into());
+    if let Ok(jasper) = std::env::var("DEP_JASPER_INCLUDE") {
+        let paths = std::env::split_paths(&jasper).collect::<Vec<_>>();
+        for path in paths {
+            if !path.exists() {
+                panic!("{:?}", path);
+            }
+            libraw.include(&path);
+        }
+        // // panic!("{:?}", std::env::split_paths(&jasper).collect::<Vec<_>>());
+        // panic!();
+        libraw.includes(std::env::split_paths(&jasper));
     }
+    // if let Ok(jasper) = pkg_config::Config::new().probe("jasper") {
+    //     libraw.includes(jasper.include_paths);
+    // } else {
+    //     eprintln!("jasper not found");
+    //     return Err("jasper not found".into());
+    // }
 
     #[cfg(feature = "zlib")]
     if let Ok(path) = std::env::var("DEP_LIBZ_INCLUDE") {
