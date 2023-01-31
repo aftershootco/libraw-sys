@@ -58,10 +58,6 @@ fn build(out_dir: &Path) -> Result<()> {
     #[cfg(windows)]
     libraw.define("HAVE_BOOLEAN", None);
 
-    #[cfg(feature = "jpeg")]
-    if let Ok(path) = std::env::var("DEP_JPEG_INCLUDE") {
-        libraw.includes(std::env::split_paths(&path));
-    }
     libraw.file("libraw/src/decoders/canon_600.cpp");
     libraw.file("libraw/src/decoders/crx.cpp");
     libraw.file("libraw/src/decoders/decoders_dcraw.cpp");
@@ -157,8 +153,6 @@ fn build(out_dir: &Path) -> Result<()> {
     libraw.flag("-pthread");
 
     // Add libraries
-    #[cfg(feature = "jpeg")]
-    libraw.flag("-DUSE_JPEG");
 
     #[cfg(feature = "zlib")]
     libraw.flag("-DUSE_ZLIB");
@@ -178,8 +172,6 @@ fn build(out_dir: &Path) -> Result<()> {
     println!("cargo:rustc-link-lib=static=raw_r");
     // #[cfg(feature = "jpeg")]
     // println!("cargo:rustc-link-lib=static=mozjpeg80");
-    #[cfg(feature = "jpeg")]
-    println!("cargo:rustc-link-lib=static=mozjpeg80");
     #[cfg(feature = "zlib")]
     println!("cargo:rustc-link-lib=static=z");
 

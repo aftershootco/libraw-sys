@@ -13,7 +13,6 @@ description = "Bindings to the c api for libraw"
 [dependencies]
 libc = "0.2.123"
 libz-sys = { version = "1.1.8", optional = true, features = ["static"], default-features = false }
-mozjpeg-sys = { version = "1.0.3", optional = true, features = ["jpeg80_abi"] }
 # libjpeg-sys = { git = "https://github.com/aftershootco/libjpeg-sys", optional = true }
 
 [build-dependencies]
@@ -27,10 +26,9 @@ cc = { version = "1.0.73", optional = true, features = ["parallel"]}
 default = ["build"]
 clone = []
 bindgen = ["dep:bindgen", "clone"]
-build = ["jpeg", "dep:cc", "clone", "zlib"]
+build = ["dep:cc", "clone", "zlib"]
 no-build = []
 copy = []
 jasper = []
 zlib = ["dep:libz-sys"]
-jpeg = ["dep:mozjpeg-sys"]
 
