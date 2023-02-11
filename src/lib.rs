@@ -11,8 +11,12 @@ pub use self::bindings::*;
 #[path = "windows.rs"]
 mod bindings;
 
-#[cfg(all(unix, not(feature = "bindgen")))]
-#[path = "unix.rs"]
+#[cfg(all(target_os = "macos", not(feature = "bindgen")))]
+#[path = "macos.rs"]
+mod bindings;
+
+#[cfg(all(target_os = "linux", not(feature = "bindgen")))]
+#[path = "linux.rs"]
 mod bindings;
 
 #[cfg(feature = "bindgen")]
