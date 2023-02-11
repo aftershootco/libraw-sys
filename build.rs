@@ -88,6 +88,12 @@ fn build(out_dir: &Path) -> Result<()> {
     if Path::new("libraw/src/decoders/pana8.cpp").exists() {
         libraw.file("libraw/src/decoders/pana8.cpp");
     }
+    if Path::new("libraw/src/decoders/sonycc.cpp").exists() {
+        libraw.file("libraw/src/decoders/sonycc.cpp");
+    }
+    if Path::new("libraw/src/decompressors/losslessjpeg.cpp").exists() {
+        libraw.file("libraw/src/decompressors/losslessjpeg.cpp");
+    }
     libraw.file("libraw/src/decoders/smal.cpp");
     libraw.file("libraw/src/decoders/unpack.cpp");
     libraw.file("libraw/src/decoders/unpack_thumb.cpp");
