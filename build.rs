@@ -41,19 +41,19 @@ fn build(out_dir: &Path) -> Result<()> {
         out_dir.join("libraw").join("libraw").display()
     );
 
-    #[cfg(feature = "jasper")]
-    if let Ok(jasper) = std::env::var("DEP_JASPER_INCLUDE") {
-        let paths = std::env::split_paths(&jasper).collect::<Vec<_>>();
-        for path in paths {
-            if !path.exists() {
-                panic!("{:?}", path);
-            }
-            libraw.include(&path);
-        }
-        // // panic!("{:?}", std::env::split_paths(&jasper).collect::<Vec<_>>());
-        // panic!();
-        libraw.includes(std::env::split_paths(&jasper));
-    }
+    // #[cfg(feature = "jasper")]
+    // if let Ok(jasper) = std::env::var("DEP_JASPER_INCLUDE") {
+    //     let paths = std::env::split_paths(&jasper).collect::<Vec<_>>();
+    //     for path in paths {
+    //         if !path.exists() {
+    //             panic!("{:?}", path);
+    //         }
+    //         libraw.include(&path);
+    //     }
+    //     // // panic!("{:?}", std::env::split_paths(&jasper).collect::<Vec<_>>());
+    //     // panic!();
+    //     libraw.includes(std::env::split_paths(&jasper));
+    // }
     // if let Ok(jasper) = pkg_config::Config::new().probe("jasper") {
     //     libraw.includes(jasper.include_paths);
     // } else {
@@ -62,13 +62,21 @@ fn build(out_dir: &Path) -> Result<()> {
     // }
 
     #[cfg(feature = "zlib")]
-    if let Ok(path) = std::env::var("DEP_LIBZ_INCLUDE") {
+    if let Ok(path) = dbg!(std::env::var("DEP_Z_INCLUDE")) {
         libraw.include(path);
     }
+    // for (key, value) in std::env::vars() {
+    //     dbg!(key, value);
+    // }
+    // panic!();
 
     // Fix builds on msys2
     #[cfg(windows)]
     libraw.define("HAVE_BOOLEAN", None);
+    #[cfg(windows)]
+    libraw.define("LIBRAW_WIN32_DLLDEFS", None);
+    #[cfg(windows)]
+    libraw.define("LIBRAW_BUILDLIB", None);
 
     #[cfg(feature = "jpeg")]
     if let Ok(path) = std::env::var("DEP_JPEG_INCLUDE") {
@@ -172,7 +180,7 @@ fn build(out_dir: &Path) -> Result<()> {
     // libraw.flag_if_supported("-fopenmp");
 
     // thread safety
-    libraw.flag("-pthread");
+    libraw.flag_if_supported("-pthread");
 
     // Add libraries
     #[cfg(feature = "jpeg")]
@@ -181,12 +189,19 @@ fn build(out_dir: &Path) -> Result<()> {
     #[cfg(feature = "zlib")]
     libraw.flag("-DUSE_ZLIB");
 
-    #[cfg(feature = "jasper")]
-    libraw.flag("-DUSE_JASPER");
+    // #[cfg(feature = "jasper")]
+    // libraw.flag("-DUSE_JASPER");
 
-    #[cfg(not(target_os = "macos"))]
+    #[cfg(target_os = "linux")]
     libraw.cpp_link_stdlib("stdc++");
+    #[cfg(not(target_os = "linux"))]
+    libraw.cpp_link_stdlib("c++");
+
+    #[cfg(windows)]
+    libraw.static_crt(true);
+    #[cfg(unix)]
     libraw.static_flag(true);
+
     libraw.compile("raw_r");
 
     println!(
@@ -346,7 +361,7 @@ fn bindings(out_dir: &Path) -> Result<()> {
 #[cfg(all(feature = "clone", not(feature = "no-build")))]
 fn clone(out_dir: &Path) {
     use std::process::{Command, Stdio};
-    eprintln!("\x1b[31mCloning libraw");
+    eprintln!("\x1b[31mCloning libraw\x1b[0m");
     let libraw_dir = std::env::var("LIBRAW_DIR");
 
     if let Ok(libraw_dir) = libraw_dir {
