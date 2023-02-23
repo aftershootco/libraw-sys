@@ -194,7 +194,7 @@ fn build(out_dir: &Path) -> Result<()> {
 
     #[cfg(target_os = "linux")]
     libraw.cpp_link_stdlib("stdc++");
-    #[cfg(not(target_os = "linux"))]
+    #[cfg(target_os = "macos")]
     libraw.cpp_link_stdlib("c++");
 
     #[cfg(windows)]
