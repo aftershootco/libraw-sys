@@ -8,7 +8,7 @@ publish = ["ktra"]
 homepage = "https://github.com/aftershootco/libraw-sys"
 repository = "https://github.com/aftershootco/libraw-sys"
 description = "Bindings to the c api for libraw"
-
+links = "raw_r"
 
 [dependencies]
 libc = "0.2.123"
